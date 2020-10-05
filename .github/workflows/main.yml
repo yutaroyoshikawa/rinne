@@ -29,6 +29,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - run: yarn install
-      - run: yarn lint
-      - run: yarn test
+      - run: npm run install
+      - run: npm run lint
+
+      - name: Vercel Action
+        uses: amondnet/vercel-action@v19.0.1+3
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-args: '--prod'
+          vercel-project-id: ${{ secrets.PROJECT_ID}}
