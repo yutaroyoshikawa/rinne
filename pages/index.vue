@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
+  <div :class="$style.container">
     <div>
       <Logo />
-      <h1 class="title">TOP</h1>
-      <div class="links">
+      <h1 :class="$style.title">TOP</h1>
+      <div :class="$style.links">
         <a
           href="https://nuxtjs.org/"
           target="_blank"
@@ -31,7 +31,7 @@ import Vue from 'vue'
 export default Vue.extend({})
 </script>
 
-<style>
+<style lang="scss" module>
 .container {
   margin: 0 auto;
   min-height: 100vh;
