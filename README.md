@@ -20,3 +20,27 @@ mainリポジトリにマージされると自動的に本番環境にデプロ�
 6. 修正箇所あれば都度修正
 7. Pull Request でレビュワーからapprove をもらえたらmargeボタンを押して main リポジトリにマージ
 8. タスク完了
+
+## コンポーネント設計
+
+RINNE for webではコンポーネント設計にatomic designを採用しています。
+
+
+## スタイリング
+
+RINNE for webではCSSでクラス名が他コンポーネントと被らないようにCSS Modulesを採用しています。
+スタイルを割り当てる時には、
+
+```vue
+<template>
+  <div :class="$style.exampleClass">hoge</div>
+</template>
+
+<style module lang="scss">
+  .exampleClass {
+    color: #FFF;
+  }
+</style>
+```
+
+のように記述してください。
