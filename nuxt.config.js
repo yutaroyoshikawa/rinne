@@ -46,7 +46,7 @@ export default {
     loaders: {
       cssModules: {
         modules: {
-          localIdentName: '[local]--[Frida]_[hash:base64:4]',
+          localIdentName: '[path][name]---[local]---[hash:base64:5]',
         },
       },
     },
