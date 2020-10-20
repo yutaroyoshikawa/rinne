@@ -1,20 +1,22 @@
-# rinne
+# RINNE
 
-## Build Setup
+## 起動方法
 
-```bash
-# install dependencies
-$ npm install
-
-# serve with hot reload at localhost:3000
+```sh
+$ npm i
 $ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
 ```
+コマンドを実行して `http://localhost:3000` にアクセスしてください。
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## 開発手順
+
+mainリポジトリにマージされると自動的に本番環境にデプロイされます。
+
+1. 作業内容ごとで新しくブランチを作成（ブランチ名は `feature/**` ）
+2. 作成したリポジトリで作業
+3. 実装が完了したらリモートリポジトリにpush
+4. 作業したブランチからPull Requestを作成
+5. レビュー開始
+6. 修正箇所あれば都度修正
+7. Pull Request でレビュワーからapprove をもらえたらmargeボタンを押して main リポジトリにマージ
+8. タスク完了
