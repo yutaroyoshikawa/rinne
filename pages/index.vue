@@ -4,21 +4,15 @@
       <Logo />
       <h1 :class="$style.title">TOP</h1>
       <div :class="$style.links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
+        <a href="https://nuxtjs.org/" target="_blank" rel="noopener noreferrer">
+          <Button color="green">Documentation</Button>
         </a>
         <a
           href="https://github.com/nuxt/nuxt.js"
           target="_blank"
           rel="noopener noreferrer"
-          class="button--grey"
         >
-          GitHub
+          <Button>GitHub</Button>
         </a>
       </div>
     </div>
@@ -27,8 +21,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import Button from '../components/atoms/button.vue'
 
-export default Vue.extend({})
+export default Vue.extend({
+  components: {
+    Button,
+  },
+})
 </script>
 
 <style lang="scss" module>
