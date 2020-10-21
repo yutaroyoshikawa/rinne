@@ -2,7 +2,7 @@
   <div :class="$style.container">
     <div>
       <Logo />
-      <h1 :class="$style.title">HOME</h1>
+      <h1 :class="$style.title">HOME2</h1>
       <div :class="$style.links">
         <a href="https://nuxtjs.org/" target="_blank" rel="noopener noreferrer">
           <Button color="green">Documentation</Button>
