@@ -22,10 +22,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import Button from '../components/atoms/button.vue'
+import ListButton from '../components/atoms/listButton.vue'
 
 export default Vue.extend({
   components: {
     Button,
+    ListButton,
   },
 })
 </script>
