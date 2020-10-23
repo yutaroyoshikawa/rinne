@@ -15,8 +15,8 @@
           <Button>GitHub</Button>
         </a>
       </div>
-      <ListButton></ListButton>
     </div>
+    <ListButton></ListButton>
   </div>
 </template>
 
