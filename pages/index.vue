@@ -16,7 +16,7 @@
         </a>
       </div>
     </div>
-    <ListButton></ListButton>
+    <ListButton />
   </div>
 </template>
 
