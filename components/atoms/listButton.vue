@@ -16,7 +16,7 @@ export default Vue.extend({
 </script>
 
 <style module lang="scss">
-.listButton{
+.listButton {
   width: 100px;
   height: 100px;
   border-radius: 50%;
