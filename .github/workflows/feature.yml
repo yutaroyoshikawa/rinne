@@ -31,5 +31,8 @@ jobs:
       - run: npm run lint
 
       - name: build
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
       - run: npm run generate
 
