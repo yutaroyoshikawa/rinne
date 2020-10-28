@@ -3,9 +3,10 @@
 ## 起動方法
 
 ```sh
-$ npm i
-$ npm run dev
+npm i
+npm run dev
 ```
+
 コマンドを実行して `http://localhost:3000` にアクセスしてください。
 
 ## 開発手順
@@ -25,7 +26,6 @@ mainリポジトリにマージされると自動的に本番環境にデプロ�
 
 RINNE for webではコンポーネント設計にatomic designを採用しています。
 
-
 ## スタイリング
 
 RINNE for webではCSSでクラス名が他コンポーネントと被らないようにCSS Modulesを採用しています。
@@ -38,7 +38,7 @@ RINNE for webではCSSでクラス名が他コンポーネントと被らない�
 
 <style module lang="scss">
   .exampleClass {
-    color: #FFF;
+    color: #fff;
   }
 </style>
 ```
