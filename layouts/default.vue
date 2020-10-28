@@ -4,6 +4,14 @@
   </div>
 </template>
 
+<script>
+import 'destyle.css'
+
+export default {
+  name: 'App',
+}
+</script>
+
 <style>
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
