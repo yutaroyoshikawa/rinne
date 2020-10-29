@@ -23,7 +23,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: run lint and test
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_EIGHTHWALL_APP_KEY: ${{ secrets.EIGHTHWALL_APP_KEY }}
+
+      - name: lint
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
