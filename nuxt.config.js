@@ -38,6 +38,10 @@ export default {
     '@nuxtjs/pwa',
   ],
 
+  privateRuntimeConfig: {
+    eighthwallAppKey: process.env.EIGHTHWALL_APP_KEY,
+  },
+
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
 
