@@ -4,12 +4,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import 'destyle.css'
 
-export default {
+export default Vue.extend({
   name: 'App',
-}
+})
 </script>
 
 <style>
