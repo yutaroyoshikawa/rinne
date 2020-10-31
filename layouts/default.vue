@@ -4,6 +4,15 @@
   </div>
 </template>
 
+<script lang="ts">
+import Vue from 'vue'
+import 'destyle.css'
+
+export default Vue.extend({
+  name: 'App',
+})
+</script>
+
 <style>
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
