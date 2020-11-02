@@ -17,11 +17,14 @@
       </div>
     </div>
     <ListButton />
+    <NuxtLink to="presentation">プレゼン</NuxtLink>
+    <NuxtLink to="cleanliness">たいちょう</NuxtLink>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { CHANGE_HEADER_TITLE } from '@/store/index'
 import Button from '../components/atoms/button.vue'
 import ListButton from '../components/atoms/listButton.vue'
 
@@ -29,6 +32,14 @@ export default Vue.extend({
   components: {
     Button,
     ListButton,
+  },
+  beforeRouteLeave(_to, _from, next) {
+    setTimeout(() => {
+      next()
+    }, 100)
+  },
+  beforeCreate() {
+    this.$store.dispatch(CHANGE_HEADER_TITLE, undefined)
   },
 })
 </script>
