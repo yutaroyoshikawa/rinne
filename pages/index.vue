@@ -14,6 +14,7 @@
         >
           <Button>GitHub</Button>
         </a>
+        <a href="./cameraRool">camera roll</a>
       </div>
     </div>
     <ListButton />
