@@ -17,7 +17,11 @@ export default {
   css: ['@fortawesome/fontawesome-svg-core/styles.css'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ['@/plugins/pageTransitionTimeout.ts', '@/plugins/fontawesome.ts'],
+  plugins: [
+    '@/plugins/pageTransitionTimeout.ts',
+    '@/plugins/fontawesome.ts',
+    { src: '@/plugins/localStorage.ts', ssr: false },
+  ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,

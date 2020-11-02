@@ -1,12 +1,14 @@
 <template>
   <div :class="[$style.wrap]">
+    <button @click="storeClear">localstorage clear</button>
+    {{ $store.state.photoStore.imageSrcs }}
     <div :class="$style.imageWraps">
       <div
-        v-for="(imageDatum, index) in imageData"
+        v-for="(imageSrc, index) in $store.state.photoStore.imageSrcs"
         :key="index"
         :class="[$style.imageWrap]"
       >
-        <img :src="imageDatum.url" alt="image" />
+        <img :src="imageSrc" alt="image" />
       </div>
     </div>
     <AddButton :class="$style.addButton" />
@@ -18,37 +20,20 @@ import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
 import AddButton from '../components/atoms/addButton.vue'
 
-type Data = {
-  imageData: {
-    url: string
-  }[]
-}
-
 export default Vue.extend({
   name: 'PhotoList',
   components: {
     AddButton,
   },
-  data(): Data {
-    return {
-      imageData: [
-        { url: '/img/sample1.jpg' },
-        { url: '/img/sample2.jpg' },
-        { url: '/img/sample3.jpg' },
-        { url: '/img/sample1.jpg' },
-        { url: '/img/sample2.jpg' },
-        { url: '/img/sample3.jpg' },
-        { url: '/img/sample1.jpg' },
-        { url: '/img/sample2.jpg' },
-        { url: '/img/sample3.jpg' },
-        { url: '/img/sample1.jpg' },
-        { url: '/img/sample2.jpg' },
-        { url: '/img/sample3.jpg' },
-      ],
-    }
-  },
   beforeCreate() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, 'いちらん')
+  },
+  methods: {
+    storeClear() {
+      localStorage.clear()
+      // eslint-disable-next-line no-console
+      console.log('clear')
+    },
   },
 })
 </script>
@@ -86,5 +71,10 @@ export default Vue.extend({
   position: fixed;
   bottom: 30px;
   right: 30px;
+}
+button {
+  width: 100%;
+  height: 50px;
+  background-color: pink;
 }
 </style>

@@ -25,7 +25,7 @@
     <div v-if="selectedIndexes.length" :class="$style.functions">
       <div :class="$style.innerFunctions">
         <button :class="$style.clearButton" @click="clear">クリア</button>
-        <button :class="$style.addButton">ついか</button>
+        <button :class="$style.addButton" @click="addImages">ついか</button>
       </div>
     </div>
   </div>
@@ -47,18 +47,9 @@ export default Vue.extend({
   data(): Data {
     return {
       imageData: [
-        { url: '/img/sample1.jpg' },
-        { url: '/img/sample2.jpg' },
-        { url: '/img/sample3.jpg' },
-        { url: '/img/sample1.jpg' },
-        { url: '/img/sample2.jpg' },
-        { url: '/img/sample3.jpg' },
-        { url: '/img/sample1.jpg' },
-        { url: '/img/sample2.jpg' },
-        { url: '/img/sample3.jpg' },
-        { url: '/img/sample1.jpg' },
-        { url: '/img/sample2.jpg' },
-        { url: '/img/sample3.jpg' },
+        { url: '/img/0.jpg' },
+        { url: '/img/1.jpg' },
+        { url: '/img/2.jpg' },
       ],
       selectedIndexes: [],
     }
@@ -88,6 +79,10 @@ export default Vue.extend({
     },
     clear() {
       this.selectedIndexes = []
+    },
+    addImages() {
+      this.$store.commit('photoStore/ADD_IMAGES', this.selectedIndexes)
+      this.$router.push('/photolist')
     },
   },
 })
