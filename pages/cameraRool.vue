@@ -33,6 +33,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { CHANGE_HEADER_TITLE } from '@/store/index'
 
 type Data = {
   imageData: {
@@ -61,6 +62,9 @@ export default Vue.extend({
       ],
       selectedIndexes: [],
     }
+  },
+  beforeCreate() {
+    this.$store.dispatch(CHANGE_HEADER_TITLE, 'カメラロール')
   },
   methods: {
     isSelected(index: number) {
