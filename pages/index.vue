@@ -1,37 +1,24 @@
 <template>
   <div :class="$style.container">
-    <div>
-      <Logo />
-      <h1 :class="$style.title">HOME</h1>
-      <div :class="$style.links">
-        <a href="https://nuxtjs.org/" target="_blank" rel="noopener noreferrer">
-          <Button color="green">Documentation</Button>
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Button>GitHub</Button>
-        </a>
-        <a href="./cameraRool">camera roll</a>
-      </div>
+    <div :class="$style.links">
+      <h2>page</h2>
+      <NuxtLink to="presentation" :class="$style.pageLink">プレゼン</NuxtLink>
+      <NuxtLink to="cleanliness" :class="$style.pageLink">たいちょう</NuxtLink>
+      <NuxtLink to="camerarool" :class="$style.pageLink">カメラロール</NuxtLink>
     </div>
+    <hr />
+    <h2>component</h2>
     <ListButton />
-    <NuxtLink to="presentation">プレゼン</NuxtLink>
-    <NuxtLink to="cleanliness">たいちょう</NuxtLink>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
-import Button from '../components/atoms/button.vue'
 import ListButton from '../components/atoms/listButton.vue'
 
 export default Vue.extend({
   components: {
-    Button,
     ListButton,
   },
   beforeCreate() {
@@ -44,31 +31,29 @@ export default Vue.extend({
 .container {
   margin: 0 auto;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
   text-align: center;
 }
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+h2 {
+  font-size: 1.5em;
+  color: #3c230d;
+  margin-bottom: 20px;
 }
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
 .links {
-  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+.pageLink {
+  width: 200px;
+  padding: 10px 0;
+  border-radius: 30px;
+  margin: 0 auto 10px auto;
+  background-color: #f6c521;
+  color: #fff;
+}
+hr {
+  margin: 50px 0;
 }
 </style>
