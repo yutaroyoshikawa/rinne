@@ -1,13 +1,13 @@
 <template>
   <div :class="$style.container">
     <div :class="$style.links">
-      <h2>page</h2>
+      <p :class="$style.contentsTitle">page</p>
       <NuxtLink to="presentation" :class="$style.pageLink">プレゼン</NuxtLink>
       <NuxtLink to="cleanliness" :class="$style.pageLink">たいちょう</NuxtLink>
       <NuxtLink to="camerarool" :class="$style.pageLink">カメラロール</NuxtLink>
     </div>
     <hr />
-    <h2>component</h2>
+    <p :class="$style.contentsTitle">component</p>
     <ListButton />
   </div>
 </template>
@@ -36,7 +36,7 @@ export default Vue.extend({
   // align-items: center;
   text-align: center;
 }
-h2 {
+.contentsTitle {
   font-size: 1.5em;
   color: #3c230d;
   margin-bottom: 20px;
