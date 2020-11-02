@@ -1,5 +1,10 @@
 <template>
-  <div :class="$style.wrap">
+  <div
+    :class="{
+      [$style.wrap]: true,
+      [$style.wrapPadding]: selectedIndexes.length,
+    }"
+  >
     <div
       v-for="(imageDatum, index) in imageData"
       :key="index"
@@ -12,7 +17,7 @@
       />
       <img :src="imageDatum.url" alt="image" @click="onImageSelect(index)" />
     </div>
-    <div v-if="true" :class="$style.functions">
+    <div v-if="selectedIndexes.length" :class="$style.functions">
       <div :class="$style.innerFunctions">
         <button :class="$style.clearButton" @click="clear">クリア</button>
         <button :class="$style.addButton">ついか</button>
@@ -85,6 +90,9 @@ export default Vue.extend({
   flex-wrap: wrap;
   justify-content: space-around;
   background-color: #f3ebd8;
+  padding-bottom: 20px;
+}
+.wrapPadding {
   padding-bottom: 70px;
 }
 .imageWrap {
