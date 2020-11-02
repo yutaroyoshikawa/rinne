@@ -24,12 +24,13 @@
             {{ firstTitle }}
           </h2>
           <h2
-            v-if="currentPosition === 'second'"
+            v-else-if="currentPosition === 'second'"
             key="second"
             :class="$style.header"
           >
             {{ secondTitle }}
           </h2>
+          <h2 v-else key="default" :class="$style.header"></h2>
         </transition>
       </div>
     </transition>

@@ -34,11 +34,6 @@ export default Vue.extend({
     Button,
     ListButton,
   },
-  beforeRouteLeave(_to, _from, next) {
-    setTimeout(() => {
-      next()
-    }, 100)
-  },
   beforeCreate() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, undefined)
   },
