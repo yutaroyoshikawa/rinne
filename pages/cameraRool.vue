@@ -5,17 +5,22 @@
       [$style.wrapPadding]: selectedIndexes.length,
     }"
   >
-    <div
-      v-for="(imageDatum, index) in imageData"
-      :key="index"
-      :class="{ [$style.imageWrap]: true, [$style.active]: isSelected(index) }"
-    >
-      <fa
-        v-if="isSelected(index)"
-        :icon="['fa', 'check-circle']"
-        :class="$style.selectedIcon"
-      />
-      <img :src="imageDatum.url" alt="image" @click="onImageSelect(index)" />
+    <div :class="$style.imageWraps">
+      <div
+        v-for="(imageDatum, index) in imageData"
+        :key="index"
+        :class="{
+          [$style.imageWrap]: true,
+          [$style.active]: isSelected(index),
+        }"
+      >
+        <fa
+          v-if="isSelected(index)"
+          :icon="['fa', 'check-circle']"
+          :class="$style.selectedIcon"
+        />
+        <img :src="imageDatum.url" alt="image" @click="onImageSelect(index)" />
+      </div>
     </div>
     <div v-if="selectedIndexes.length" :class="$style.functions">
       <div :class="$style.innerFunctions">
@@ -28,6 +33,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { CHANGE_HEADER_TITLE } from '@/store/index'
 
 type Data = {
   imageData: {
@@ -56,6 +62,9 @@ export default Vue.extend({
       ],
       selectedIndexes: [],
     }
+  },
+  beforeCreate() {
+    this.$store.dispatch(CHANGE_HEADER_TITLE, 'カメラロール')
   },
   methods: {
     isSelected(index: number) {
@@ -86,14 +95,18 @@ export default Vue.extend({
 
 <style module lang="scss">
 .wrap {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
   background-color: #f3ebd8;
   padding-bottom: 20px;
 }
 .wrapPadding {
   padding-bottom: 70px;
+}
+.imageWraps {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 .imageWrap {
   float: left;
@@ -142,6 +155,7 @@ export default Vue.extend({
   width: 100px;
   height: 30px;
   border-radius: 30px;
+  text-align: center;
   color: #3c230d;
   border: 1px solid #3c230d;
   background-color: rgba(255, 255, 255, 0.7);
@@ -150,6 +164,7 @@ export default Vue.extend({
   width: 100px;
   height: 30px;
   border-radius: 30px;
+  text-align: center;
   color: #f3ebd8;
   background-color: #929d49;
   border: none;
