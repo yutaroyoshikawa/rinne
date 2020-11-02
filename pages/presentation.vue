@@ -1,5 +1,6 @@
 <template>
-  <a-scene>
+  <a-scene xrweb>
+    <a-camera></a-camera>
     <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
     <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
     <a-cylinder
@@ -21,8 +22,12 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { CHANGE_HEADER_TITLE } from '@/store/index'
 
 export default Vue.extend({
+  created() {
+    this.$store.dispatch(CHANGE_HEADER_TITLE, 'AR')
+  },
   head() {
     return {
       script: [
@@ -30,7 +35,7 @@ export default Vue.extend({
           src: `https://apps.8thwall.com/xrweb?appKey=${this.$config.eighthwallAppKey}`,
         },
         {
-          src: 'https://aframe.io/releases/1.0.4/aframe.min.js',
+          src: 'https://cdn.8thwall.com/web/aframe/8frame-0.9.2.min.js',
         },
       ],
     }
