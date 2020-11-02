@@ -130,7 +130,6 @@ export default Vue.extend({
   bottom: 0;
   left: 0;
   background-color: rgba(255, 255, 255, 0.9);
-  // background-color: rgba(246, 197, 33, 0.5);
 }
 .innerFunctions {
   width: 90%;
