@@ -12,6 +12,12 @@
       />
       <img :src="imageDatum.url" alt="image" @click="onImageSelect(index)" />
     </div>
+    <div v-if="true" :class="$style.functions">
+      <div :class="$style.innerFunctions">
+        <button :class="$style.clearButton" @click="clear">クリア</button>
+        <button :class="$style.addButton">ついか</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -34,6 +40,14 @@ export default Vue.extend({
         { url: '/img/sample2.jpg' },
         { url: '/img/sample3.jpg' },
         { url: '/img/sample1.jpg' },
+        { url: '/img/sample2.jpg' },
+        { url: '/img/sample3.jpg' },
+        { url: '/img/sample1.jpg' },
+        { url: '/img/sample2.jpg' },
+        { url: '/img/sample3.jpg' },
+        { url: '/img/sample1.jpg' },
+        { url: '/img/sample2.jpg' },
+        { url: '/img/sample3.jpg' },
       ],
       selectedIndexes: [],
     }
@@ -58,6 +72,9 @@ export default Vue.extend({
       }
       return classes
     },
+    clear() {
+      this.selectedIndexes = []
+    },
   },
 })
 </script>
@@ -68,6 +85,7 @@ export default Vue.extend({
   flex-wrap: wrap;
   justify-content: space-around;
   background-color: #f3ebd8;
+  padding-bottom: 70px;
 }
 .imageWrap {
   float: left;
@@ -96,5 +114,37 @@ export default Vue.extend({
   color: #f6c521;
   background-color: #fff;
   border-radius: 50%;
+}
+.functions {
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  // background-color: rgba(246, 197, 33, 0.5);
+}
+.innerFunctions {
+  width: 90%;
+  margin: 10px auto 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.clearButton {
+  width: 100px;
+  height: 30px;
+  border-radius: 30px;
+  color: #3c230d;
+  border: 1px solid #3c230d;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+.addButton {
+  width: 100px;
+  height: 30px;
+  border-radius: 30px;
+  color: #f3ebd8;
+  background-color: #929d49;
+  border: none;
 }
 </style>
