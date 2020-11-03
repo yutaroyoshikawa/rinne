@@ -9,7 +9,7 @@
       xrweb="disableWorldTracking: true"
     >
       <a-assets>
-        <img id="renny" src="static/img/logo.jpg" />
+        <img id="renny" src="/img/logo.jpg" />
       </a-assets>
       <a-camera
         position="0 4 10"
