@@ -1,16 +1,20 @@
 <template>
-  <NuxtLink to="camerarool" :class="$style.pageLink">
+  <ScaleTransition>
     <button :class="$style.addButton">
       <fa :icon="['fa', 'plus']" :class="$style.plus" />
     </button>
-  </NuxtLink>
+  </ScaleTransition>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import ScaleTransition from '@/components/atoms/transitions/ScaleTransition.vue'
 
 export default Vue.extend({
   name: 'AddButton',
+  components: {
+    ScaleTransition,
+  },
   data() {
     return {}
   },
