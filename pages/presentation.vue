@@ -5,9 +5,12 @@
       xrextras-almost-there
       xrextras-loading
       xrextras-runtime-error
-      renderer="colorManagement:true"
+      renderer="colorManagement:true "
       xrweb="disableWorldTracking: true"
     >
+      <a-assets>
+        <img id="renny" src="static/img/logo.jpg" />
+      </a-assets>
       <a-camera
         position="0 4 10"
         raycaster="objects: .cantap"
@@ -18,6 +21,10 @@
       <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
 
       <a-light type="ambient" intensity="0.7"></a-light>
+
+      <xrextras-named-image-target name="renny">
+        <a-box material="color: #00EDAF;" shadow> </a-box>
+      </xrextras-named-image-target>
     </a-scene>
   </client-only>
 </template>
@@ -43,6 +50,22 @@ export default Vue.extend({
   name: 'Presentation',
   created() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, 'AR')
+  },
+  beforeDestroy() {
+    const XR8 = window.XR8
+    if (XR8) {
+      if (XR8.isPaused()) {
+        XR8.resume()
+      }
+    }
+  },
+  mounted() {
+    const XR8 = window.XR8
+    if (XR8) {
+      if (!XR8.isPaused()) {
+        XR8.pouse()
+      }
+    }
   },
   head() {
     return {
