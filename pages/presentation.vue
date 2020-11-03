@@ -5,7 +5,7 @@
       xrextras-almost-there
       xrextras-loading
       xrextras-runtime-error
-      renderer="colorManagement:true "
+      renderer="colorManagement: true"
       xrweb="disableWorldTracking: true"
     >
       <a-assets>
@@ -22,9 +22,9 @@
 
       <a-light type="ambient" intensity="0.7"></a-light>
 
-      <xrextras-named-image-target name="renny">
+      <a-entity xrextras-named-image-target="name: renny">
         <a-box material="color: #00EDAF;" shadow> </a-box>
-      </xrextras-named-image-target>
+      </a-entity>
     </a-scene>
   </client-only>
 </template>
