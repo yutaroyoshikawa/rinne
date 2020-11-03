@@ -55,6 +55,10 @@ body,
 #__layout {
   height: 100%;
 }
+
+body {
+  background-color: #f3ebd8;
+}
 </style>
 
 <style lang="scss" module>
@@ -77,9 +81,8 @@ html {
 }
 
 .mainContainer {
+  min-height: 100%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  height: 100%;
-  overflow: hidden;
   background-color: #f3ebd8;
   transition: filter 300ms, transform 300ms;
 }
