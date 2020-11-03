@@ -40,7 +40,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { CHANGE_HEADER_TITLE } from '@/store/index'
+import { SET_IS_OPEN_TAB } from '@/store/index'
 
 type Data = {
   imageData: {
@@ -68,9 +68,6 @@ export default Vue.extend({
       return 5 - this.$store.state.photoStore.count
     },
   },
-  beforeCreate() {
-    this.$store.dispatch(CHANGE_HEADER_TITLE, 'カメラロール')
-  },
   methods: {
     isSelected(index: number) {
       return this.selectedIndexes.includes(index)
@@ -96,7 +93,7 @@ export default Vue.extend({
     },
     addImages() {
       this.$store.commit('photoStore/ADD_IMAGES', this.selectedIndexes)
-      this.$router.push('/photolist')
+      this.$store.commit(SET_IS_OPEN_TAB, false)
     },
   },
 })
@@ -104,6 +101,7 @@ export default Vue.extend({
 
 <style module lang="scss">
 .wrap {
+  height: 100%;
   background-color: #f3ebd8;
   padding-bottom: 20px;
 }
