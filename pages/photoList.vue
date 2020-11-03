@@ -1,7 +1,11 @@
 <template>
-  <div :class="[$style.wrap]">
-    <button @click="storeClear">localstorage clear</button>
-    {{ $store.state.photoStore.imageSrcs }}
+  <div :class="$style.wrap">
+    <button :class="$style.clearButton" @click="storeClear">
+      localstorage clear
+    </button>
+    <div :class="$style.numberWrap">
+      <p>{{ $store.state.photoStore.count }}/５件</p>
+    </div>
     <div :class="$style.imageWraps">
       <div
         v-for="(imageSrc, index) in $store.state.photoStore.imageSrcs"
@@ -11,7 +15,10 @@
         <img :src="imageSrc" alt="image" />
       </div>
     </div>
-    <AddButton :class="$style.addButton" />
+    <AddButton
+      v-if="$store.state.photoStore.count < 5"
+      :class="$style.addButton"
+    />
   </div>
 </template>
 
@@ -31,8 +38,6 @@ export default Vue.extend({
   methods: {
     storeClear() {
       localStorage.clear()
-      // eslint-disable-next-line no-console
-      console.log('clear')
     },
   },
 })
@@ -45,6 +50,9 @@ export default Vue.extend({
 }
 .wrapPadding {
   padding-bottom: 70px;
+}
+.numberWrap {
+  text-align: center;
 }
 .imageWraps {
   width: 90%;
@@ -72,9 +80,13 @@ export default Vue.extend({
   bottom: 30px;
   right: 30px;
 }
-button {
-  width: 100%;
+.clearButton {
+  width: 50%;
   height: 50px;
+  border-radius: 30px;
+  display: block;
+  margin: 0 auto;
   background-color: pink;
+  text-align: center;
 }
 </style>
