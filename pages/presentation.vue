@@ -22,7 +22,7 @@
 
       <a-light type="ambient" intensity="0.7"></a-light>
 
-      <a-entity xrextras-named-image-target="name=renny">
+      <a-entity xrextras-named-image-target="name: renny">
         <a-box material="color: #00EDAF;" shadow> </a-box>
       </a-entity>
     </a-scene>
