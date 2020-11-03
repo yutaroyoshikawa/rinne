@@ -15,29 +15,43 @@
         <img :src="imageSrc" alt="image" />
       </div>
     </div>
-    <AddButton
-      v-if="$store.state.photoStore.count < 5"
-      :class="$style.addButton"
-    />
+    <div @click="openTab">
+      <AddButton
+        v-if="$store.state.photoStore.count < 5"
+        :class="$style.addButton"
+      />
+    </div>
+
+    <portal to="tab">
+      <CameraRool />
+    </portal>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { CHANGE_HEADER_TITLE } from '@/store/index'
-import AddButton from '../components/atoms/addButton.vue'
+import { CHANGE_HEADER_TITLE, SET_IS_OPEN_TAB } from '@/store/index'
+import CameraRool from '@/components/organisms/cameraRool.vue'
+import AddButton from '@/components/atoms/addButton.vue'
 
 export default Vue.extend({
   name: 'PhotoList',
   components: {
     AddButton,
+    CameraRool,
   },
   beforeCreate() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, 'いちらん')
   },
+  beforeDestroy() {
+    this.$store.commit(SET_IS_OPEN_TAB, false)
+  },
   methods: {
     storeClear() {
       localStorage.clear()
+    },
+    openTab() {
+      this.$store.commit(SET_IS_OPEN_TAB, true)
     },
   },
 })
@@ -45,8 +59,8 @@ export default Vue.extend({
 
 <style module lang="scss">
 .wrap {
-  background-color: #f3ebd8;
   padding-bottom: 20px;
+  height: 100%;
 }
 .wrapPadding {
   padding-bottom: 70px;
