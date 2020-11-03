@@ -8,7 +8,6 @@ type PhotoStore = {
 
 // Mutations
 const ADD_IMAGES = 'ADD_IMAGES'
-const IMAGES_COUNT = 'IMAGES_COUNT'
 
 export const state = (): PhotoStore => ({
   imageSrcs: ['/img/0.jpg', '/img/1.jpg', '/img/2.jpg'],
@@ -19,8 +18,6 @@ export const mutations: MutationTree<PhotoStore> = {
   [ADD_IMAGES](state, imageIndexes: number[]) {
     const addIndexes = imageIndexes.map((n) => '/img/' + n + '.jpg')
     state.imageSrcs = state.imageSrcs.concat(addIndexes)
-  },
-  [IMAGES_COUNT](state) {
     state.count = state.imageSrcs.length
   },
 }

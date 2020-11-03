@@ -96,7 +96,6 @@ export default Vue.extend({
     },
     addImages() {
       this.$store.commit('photoStore/ADD_IMAGES', this.selectedIndexes)
-      this.$store.commit('photoStore/IMAGES_COUNT')
       this.$router.push('/photolist')
     },
   },
