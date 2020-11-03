@@ -2,7 +2,9 @@
   <div :class="$style.container">
     <div :class="$style.links">
       <p :class="$style.contentsTitle">page</p>
-      <NuxtLink to="presentation" :class="$style.pageLink">プレゼン</NuxtLink>
+      <ScaleTransition>
+        <NuxtLink to="presentation" :class="$style.pageLink">プレゼン</NuxtLink>
+      </ScaleTransition>
       <NuxtLink to="cleanliness" :class="$style.pageLink">たいちょう</NuxtLink>
       <NuxtLink to="camerarool" :class="$style.pageLink">カメラロール</NuxtLink>
       <NuxtLink to="photolist" :class="$style.pageLink">いちらん</NuxtLink>
@@ -19,7 +21,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { PageTransitionState } from '@/extentions/pageTransitionState'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
+import ScaleTransition from '@/components/atoms/transitions/ScaleTransition.vue'
 import ListButton from '../components/atoms/listButton.vue'
 import CharacterCircle from '../components/atoms/characterCircle.vue'
 
@@ -27,11 +31,19 @@ export default Vue.extend({
   components: {
     ListButton,
     CharacterCircle,
+    ScaleTransition,
   },
   data() {
     return {
       characterName: 'せいかく',
     }
+  },
+  computed: {
+    isExiting() {
+      return (
+        this.$store.state.pageTransitionState === PageTransitionState.EXITING
+      )
+    },
   },
   beforeCreate() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, undefined)
@@ -71,5 +83,15 @@ hr {
 .componentWrap {
   display: flex;
   justify-content: center;
+}
+.scaleEnterActive {
+  transition: transform 0.6s cubic-bezier(0.89, -0.11, 0.07, 1.4);
+}
+.scaleLeaveActive {
+  transition: transform 0.6s cubic-bezier(0.77, -0.595, 0.6, 1.025);
+}
+.scaleEnter,
+.scaleLeaveTo {
+  transform: scale(0);
 }
 </style>
