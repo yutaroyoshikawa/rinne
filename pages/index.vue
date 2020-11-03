@@ -5,6 +5,7 @@
       <NuxtLink to="presentation" :class="$style.pageLink">プレゼン</NuxtLink>
       <NuxtLink to="cleanliness" :class="$style.pageLink">たいちょう</NuxtLink>
       <NuxtLink to="camerarool" :class="$style.pageLink">カメラロール</NuxtLink>
+      <NuxtLink to="photolist" :class="$style.pageLink">いちらん</NuxtLink>
     </div>
     <hr />
     <p :class="$style.contentsTitle">component</p>

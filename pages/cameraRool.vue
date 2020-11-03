@@ -5,6 +5,7 @@
       [$style.wrapPadding]: selectedIndexes.length,
     }"
   >
+    <p><span v-text="selectedIndexes.length"></span>/{{ selectableNumber }}</p>
     <div :class="$style.imageWraps">
       <div
         v-for="(imageDatum, index) in imageData"
@@ -25,7 +26,13 @@
     <div v-if="selectedIndexes.length" :class="$style.functions">
       <div :class="$style.innerFunctions">
         <button :class="$style.clearButton" @click="clear">クリア</button>
-        <button :class="$style.addButton">ついか</button>
+        <button
+          v-if="selectedIndexes.length <= selectableNumber"
+          :class="$style.addButton"
+          @click="addImages"
+        >
+          ついか
+        </button>
       </div>
     </div>
   </div>
@@ -40,6 +47,7 @@ type Data = {
     url: string
   }[]
   selectedIndexes: number[]
+  count: number
 }
 
 export default Vue.extend({
@@ -47,21 +55,18 @@ export default Vue.extend({
   data(): Data {
     return {
       imageData: [
-        { url: '/img/sample1.jpg' },
-        { url: '/img/sample2.jpg' },
-        { url: '/img/sample3.jpg' },
-        { url: '/img/sample1.jpg' },
-        { url: '/img/sample2.jpg' },
-        { url: '/img/sample3.jpg' },
-        { url: '/img/sample1.jpg' },
-        { url: '/img/sample2.jpg' },
-        { url: '/img/sample3.jpg' },
-        { url: '/img/sample1.jpg' },
-        { url: '/img/sample2.jpg' },
-        { url: '/img/sample3.jpg' },
+        { url: '/img/0.jpg' },
+        { url: '/img/1.jpg' },
+        { url: '/img/2.jpg' },
       ],
       selectedIndexes: [],
+      count: 0,
     }
+  },
+  computed: {
+    selectableNumber() {
+      return 5 - this.$store.state.photoStore.count
+    },
   },
   beforeCreate() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, 'カメラロール')
@@ -88,6 +93,10 @@ export default Vue.extend({
     },
     clear() {
       this.selectedIndexes = []
+    },
+    addImages() {
+      this.$store.commit('photoStore/ADD_IMAGES', this.selectedIndexes)
+      this.$router.push('/photolist')
     },
   },
 })
