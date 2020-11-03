@@ -9,12 +9,6 @@
 <script lang="ts">
 import Vue from 'vue'
 
-type Data = {
-  firstTitle: string
-  secondTitle: string
-  currentPosition: 'first' | 'second' | null
-}
-
 export default Vue.extend({
   props: {
     title: {
