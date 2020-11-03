@@ -6,6 +6,7 @@
       <NuxtLink to="cleanliness" :class="$style.pageLink">たいちょう</NuxtLink>
       <NuxtLink to="camerarool" :class="$style.pageLink">カメラロール</NuxtLink>
       <NuxtLink to="photolist" :class="$style.pageLink">いちらん</NuxtLink>
+      <NuxtLink to="profile" :class="$style.pageLink">プロフィール</NuxtLink>
     </div>
     <hr />
     <p :class="$style.contentsTitle">component</p>
@@ -29,7 +30,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      characterName: 'sample',
+      characterName: 'せいかく',
     }
   },
   beforeCreate() {
