@@ -8,10 +8,14 @@
       <NuxtLink to="cleanliness" :class="$style.pageLink">たいちょう</NuxtLink>
       <NuxtLink to="camerarool" :class="$style.pageLink">カメラロール</NuxtLink>
       <NuxtLink to="photolist" :class="$style.pageLink">いちらん</NuxtLink>
+      <NuxtLink to="profile" :class="$style.pageLink">プロフィール</NuxtLink>
     </div>
     <hr />
     <p :class="$style.contentsTitle">component</p>
-    <ListButton />
+    <div :class="$style.componentWrap">
+      <ListButton />
+      <CharacterCircle :character-name="characterName" />
+    </div>
   </div>
 </template>
 
@@ -21,11 +25,18 @@ import { PageTransitionState } from '@/extentions/pageTransitionState'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
 import ScaleTransition from '@/components/atoms/transitions/ScaleTransition.vue'
 import ListButton from '../components/atoms/listButton.vue'
+import CharacterCircle from '../components/atoms/characterCircle.vue'
 
 export default Vue.extend({
   components: {
     ListButton,
+    CharacterCircle,
     ScaleTransition,
+  },
+  data() {
+    return {
+      characterName: 'せいかく',
+    }
   },
   computed: {
     isExiting() {
@@ -69,14 +80,16 @@ export default Vue.extend({
 hr {
   margin: 50px 0;
 }
+.componentWrap {
+  display: flex;
+  justify-content: center;
+}
 .scaleEnterActive {
   transition: transform 0.6s cubic-bezier(0.89, -0.11, 0.07, 1.4);
 }
-
 .scaleLeaveActive {
   transition: transform 0.6s cubic-bezier(0.77, -0.595, 0.6, 1.025);
 }
-
 .scaleEnter,
 .scaleLeaveTo {
   transform: scale(0);
