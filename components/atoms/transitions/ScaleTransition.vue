@@ -5,7 +5,6 @@
     :enter-active-class="$style.scaleEnterActive"
     :leave-active-class="$style.scaleLeaveActive"
     appear=""
-    :style="styles"
     :duration="duration"
     @before-enter="beforeEnter"
   >
