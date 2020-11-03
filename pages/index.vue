@@ -9,7 +9,10 @@
     </div>
     <hr />
     <p :class="$style.contentsTitle">component</p>
-    <ListButton />
+    <div :class="$style.componentWrap">
+      <ListButton />
+      <CharacterCircle :character-name="characterName" />
+    </div>
   </div>
 </template>
 
@@ -17,10 +20,17 @@
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
 import ListButton from '../components/atoms/listButton.vue'
+import CharacterCircle from '../components/atoms/characterCircle.vue'
 
 export default Vue.extend({
   components: {
     ListButton,
+    CharacterCircle,
+  },
+  data() {
+    return {
+      characterName: 'sample',
+    }
   },
   beforeCreate() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, undefined)
@@ -56,5 +66,9 @@ export default Vue.extend({
 }
 hr {
   margin: 50px 0;
+}
+.componentWrap {
+  display: flex;
+  justify-content: center;
 }
 </style>
