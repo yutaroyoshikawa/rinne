@@ -76,6 +76,9 @@ export default Vue.extend({
         {
           src: 'https://cdn.8thwall.com/web/aframe/8frame-0.9.2.min.js',
         },
+        {
+          src: 'https://cdn.8thwall.com/web/xrextras/xrextras.js',
+        },
       ],
     }
   },
