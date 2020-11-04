@@ -54,32 +54,17 @@ export default Vue.extend({
   beforeDestroy() {
     const XR8 = window.XR8
     if (XR8) {
-      if (XR8.isPaused()) {
-        XR8.resume()
+      if (!XR8.isPaused()) {
+        XR8.pause()
       }
     }
   },
   mounted() {
     const XR8 = window.XR8
     if (XR8) {
-      if (!XR8.isPaused()) {
-        XR8.pouse()
+      if (XR8.isPaused()) {
+        XR8.resume()
       }
-    }
-  },
-  head() {
-    return {
-      script: [
-        {
-          src: `https://apps.8thwall.com/xrweb?appKey=fUrl6WdhBUffUtk8YD5m6ABkVqzJYFjJXV1WSG3npsGoVBiTvo0hIAX824SS5qs3KU45gF`,
-        },
-        {
-          src: 'https://cdn.8thwall.com/web/aframe/8frame-0.9.2.min.js',
-        },
-        {
-          src: 'https://cdn.8thwall.com/web/xrextras/xrextras.js',
-        },
-      ],
     }
   },
 })
