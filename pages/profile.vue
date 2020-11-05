@@ -2,7 +2,7 @@
   <div>
     <div>プロフィールページ</div>
     <NuxtLink to="cleanliness">清潔度ページ</NuxtLink>
-    <ProfileText :userName="user_name" :dollName="doll_name" />
+    <ProfileText :user-name="userName" :doll-name="dollName" />
   </div>
 </template>
 
@@ -17,8 +17,8 @@ export default Vue.extend({
   },
   data() {
     return {
-      user_name: 'さくらちゃん',
-      doll_name: 'レニー',
+      userName: 'さくらちゃん',
+      dollName: 'レニー',
     }
   },
   beforeCreate() {

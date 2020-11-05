@@ -13,11 +13,11 @@ export default Vue.extend({
   props: {
     userName: {
       type: String,
-      default: 'さくらちゃん'
+      default: 'さくらちゃん',
     },
     dollName: {
       type: String,
-      default: 'レニー'
+      default: 'レニー',
     },
   },
 })
