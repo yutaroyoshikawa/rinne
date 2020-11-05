@@ -10,11 +10,15 @@ import Vue from 'vue'
 
 export default Vue.extend({
   name: 'ProfileText',
-  data() {
-    return {
-      userName: 'さくらちゃん',
-      dollName: 'レニー',
-    }
+  props: {
+    userName: {
+      type: String,
+      default: 'さくらちゃん'
+    },
+    dollName: {
+      type: String,
+      default: 'レニー'
+    },
   },
 })
 </script>
