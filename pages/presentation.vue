@@ -93,7 +93,6 @@ export default Vue.extend({
     if (AFRAME) {
       const onFoundXrimage = () => {
         this.isFoundXrimage = true
-        alert('hello')
       }
       AFRAME.registerComponent('presenar', {
         init() {
