@@ -4,8 +4,8 @@
     :leave-to-class="$style.scaleLeaveTo"
     :enter-active-class="$style.scaleEnterActive"
     :leave-active-class="$style.scaleLeaveActive"
-    appear=""
     :duration="duration"
+    :appear="true"
     @before-enter="beforeEnter"
   >
     <slot v-if="!isExiting" />
