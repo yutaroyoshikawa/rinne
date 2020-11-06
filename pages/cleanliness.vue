@@ -13,7 +13,6 @@
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
 import ConditionCircle from '@/components/atoms/conditionCircle.vue'
-import CharacterImageCircle from '@/components/atoms/characterImageCircle.vue'
 
 export default Vue.extend({
   beforeCreate() {
