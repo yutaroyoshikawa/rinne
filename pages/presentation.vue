@@ -37,6 +37,13 @@
             dur: 3000,
             delay: 200,
           }"
+          :animation__2="{
+            property: 'scale',
+            to: '1 0 1',
+            easing: 'easeOutElastic',
+            dur: 3000,
+            delay: 200,
+          }"
         />
       </a-entity>
     </a-scene>
@@ -95,13 +102,20 @@ export default Vue.extend({
       const onFoundXrimage = () => {
         this.isFoundXrimage = true
       }
+      const onLostXrimage = () => {
+        this.isFoundXrimage = false
+      }
       AFRAME.registerComponent('presenar', {
         init() {
           const onXrimagefound: (ctx: any) => void = () => {
             onFoundXrimage()
           }
+          const onXrimagelost: (ctx: any) => void = () => {
+            onLostXrimage()
+          }
 
           this.el.sceneEl.addEventListener('xrimagefound', onXrimagefound)
+          this.el.sceneEl.addEventListener('xrimagelost', onXrimagelost)
         },
         remove() {
           const onXrimagefound: (ctx: any) => void = () => {
