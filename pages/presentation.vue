@@ -30,6 +30,7 @@
           <a-image
             v-for="(image, index) in images"
             :key="image"
+            class="cantap"
             name="rennyImage"
             :src="`#${image}`"
             scale="0.0001 0.0001 0.0001"
@@ -47,6 +48,7 @@
               dur: 3000,
               delay: 300 * index - 1,
             }"
+            @click="onClickImage(image)"
           />
         </template>
       </a-entity>
@@ -133,6 +135,11 @@ export default Vue.extend({
         },
       })
     }
+  },
+  methods: {
+    onClickImage(imageName: string) {
+      alert(imageName)
+    },
   },
 })
 </script>
