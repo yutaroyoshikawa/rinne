@@ -38,14 +38,14 @@
               to: '0.9 0.9 0.9',
               easing: 'easeOutElastic',
               dur: 3000,
-              delay: 200,
+              delay: 300 * index - 1,
             }"
             :animation__2="{
               property: 'position',
               to: `${index - 1} 0 0.3`,
               easing: 'easeOutElastic',
               dur: 3000,
-              delay: 200,
+              delay: 300 * index - 1,
             }"
           />
         </template>
