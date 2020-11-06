@@ -34,7 +34,8 @@
             property: 'scale',
             to: '0.9 0.9 0.9',
             easing: 'easeOutElastic',
-            dur: 800,
+            dur: 3000,
+            delay: 200,
           }"
         />
       </a-entity>
