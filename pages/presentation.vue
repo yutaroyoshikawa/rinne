@@ -9,7 +9,7 @@
       xrweb="disableWorldTracking: true"
     >
       <a-assets>
-        <img id="renny" src="/img/logo.jpg" />
+        <img id="renny" src="/img/0.jpg" />
       </a-assets>
       <a-camera
         position="0 4 10"
@@ -23,7 +23,7 @@
       <a-light type="ambient" intensity="0.7"></a-light>
 
       <a-entity xrextras-named-image-target="name: renny">
-        <a-box material="color: #00EDAF;" shadow> </a-box>
+        <a-image src="#renny" />
       </a-entity>
     </a-scene>
   </client-only>
