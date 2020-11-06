@@ -59,10 +59,10 @@ export default Vue.extend({
 .button {
   width: 200px; /* 横 */
   height: 40px; /* 高さ */
-  border: solid 1px #929d49;
+  border: none;
   border-radius: 30px; /* 丸み */
   background-color: #929d49;
-  font-size: 12px;
+  font-size: 14px;
   color: #f3ebd8;
   text-align: center;
   margin: 0 auto;
