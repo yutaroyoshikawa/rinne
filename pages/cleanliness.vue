@@ -15,6 +15,10 @@ import { CHANGE_HEADER_TITLE } from '@/store/index'
 import ConditionCircle from '@/components/atoms/conditionCircle.vue'
 
 export default Vue.extend({
+  name: 'cleanliness',
+  components: {
+    ConditionCircle,
+  },
   beforeCreate() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, 'たいちょう')
   },
