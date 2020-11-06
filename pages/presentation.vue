@@ -11,6 +11,8 @@
     >
       <a-assets>
         <img id="renny" src="/img/0.jpg" />
+        <img id="renny2" src="/img/1.jpg" />
+        <img id="renny3" src="/img/2.jpg" />
       </a-assets>
       <a-camera
         position="0 4 10"
@@ -24,27 +26,29 @@
       <a-light type="ambient" intensity="0.7"></a-light>
 
       <a-entity xrextras-named-image-target="name: renny">
-        <a-image
-          v-if="isFoundXrimage"
-          name="rennyImage"
-          src="#renny"
-          visible="true"
-          scale="0.0001 0.0001 0.0001"
-          :animation="{
-            property: 'scale',
-            to: '0.9 0.9 0.9',
-            easing: 'easeOutElastic',
-            dur: 3000,
-            delay: 200,
-          }"
-          :animation__2="{
-            property: 'position',
-            to: '1 0 1',
-            easing: 'easeOutElastic',
-            dur: 3000,
-            delay: 200,
-          }"
-        />
+        <template v-if="isFoundXrimage">
+          <a-image
+            v-for="(image, index) in images"
+            :key="image"
+            name="rennyImage"
+            :src="`#${image}`"
+            scale="0.0001 0.0001 0.0001"
+            :animation="{
+              property: 'scale',
+              to: '0.9 0.9 0.9',
+              easing: 'easeOutElastic',
+              dur: 3000,
+              delay: 200,
+            }"
+            :animation__2="{
+              property: 'position',
+              to: `1 ${0.15 * index} 1`,
+              easing: 'easeOutElastic',
+              dur: 3000,
+              delay: 200,
+            }"
+          />
+        </template>
       </a-entity>
     </a-scene>
   </client-only>
@@ -70,6 +74,7 @@ Vue.config.ignoredElements = [
 
 type Data = {
   isFoundXrimage: boolean
+  images: string[]
 }
 
 export default Vue.extend({
@@ -77,6 +82,7 @@ export default Vue.extend({
   data(): Data {
     return {
       isFoundXrimage: false,
+      images: ['renny', 'renny2', 'renny3'],
     }
   },
   created() {
