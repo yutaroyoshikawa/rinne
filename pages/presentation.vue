@@ -28,7 +28,12 @@
           src="#renny"
           visible="true"
           scale="0.0001 0.0001 0.0001"
-          animation="{property: 'scale',to: '0.01 0.01 0.01',easing: 'easeOutElastic',dur: 800,}"
+          :animation="{
+            property: 'scale',
+            to: '0.1 0.1 0.1',
+            easing: 'easeOutElastic',
+            dur: 800,
+          }"
         />
       </a-entity>
     </a-scene>
