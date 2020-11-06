@@ -28,7 +28,7 @@
           src="#renny"
           visible="true"
           scale="0.0001 0.0001 0.0001"
-          :animation="{
+          animation="{
             property: 'scale',
             to: '0.01 0.01 0.01',
             easing: 'easeOutElastic',
