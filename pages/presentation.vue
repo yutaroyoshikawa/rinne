@@ -38,7 +38,7 @@
             delay: 200,
           }"
           :animation__2="{
-            property: 'scale',
+            property: 'position',
             to: '1 0 1',
             easing: 'easeOutElastic',
             dur: 3000,
