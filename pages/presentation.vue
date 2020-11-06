@@ -1,6 +1,7 @@
 <template>
   <client-only>
     <a-scene
+      presenar
       xrextras-gesture-detector
       xrextras-almost-there
       xrextras-loading
@@ -92,13 +93,14 @@ export default Vue.extend({
     if (AFRAME) {
       const onFoundXrimage = () => {
         this.isFoundXrimage = true
+        alert('hello')
       }
-      AFRAME.registerComponent('rennyImage', {
+      AFRAME.registerComponent('presenar', {
         init() {
           const onXrimagefound: (ctx: any) => void = () => {
             onFoundXrimage()
           }
-          alert('hello')
+
           this.el.sceneEl.addEventListener('xrimagefound', onXrimagefound)
         },
         remove() {
