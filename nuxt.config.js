@@ -32,6 +32,7 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
+    '@nuxtjs/dotenv',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -45,6 +46,7 @@ export default {
 
   privateRuntimeConfig: {
     eighthwallAppKey: process.env.EIGHTHWALL_APP_KEY,
+    mapboxAccessToken: process.env.MAPBOX_ACCESS_TOKEN,
   },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
