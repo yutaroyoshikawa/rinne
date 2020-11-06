@@ -24,10 +24,17 @@
 
       <a-entity xrextras-named-image-target="name: renny">
         <a-image
+          v-if="isFoundXrimage"
           name="rennyImage"
           src="#renny"
           visible="true"
           scale="0.0001 0.0001 0.0001"
+          :animation="{
+            property: 'scale',
+            to: '0.9 0.9 0.9',
+            easing: 'easeOutElastic',
+            dur: 800,
+          }"
         />
       </a-entity>
     </a-scene>
@@ -52,8 +59,17 @@ Vue.config.ignoredElements = [
   'a-image',
 ]
 
+type Data = {
+  isFoundXrimage: boolean
+}
+
 export default Vue.extend({
   name: 'Presentation',
+  data(): Data {
+    return {
+      isFoundXrimage: false,
+    }
+  },
   created() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, 'AR')
   },
@@ -74,19 +90,15 @@ export default Vue.extend({
       }
     }
     if (AFRAME) {
+      const onFoundXrimage = () => {
+        this.isFoundXrimage = true
+      }
       AFRAME.registerComponent('rennyImage', {
         init() {
           const onXrimagefound: (ctx: any) => void = () => {
-            const object3D = this.el.object3D
-            object3D.visible = true
-            object3D.animation = {
-              property: 'scale',
-              to: '1 1 1',
-              easing: 'easeOutElastic',
-              dur: 800,
-            }
+            onFoundXrimage()
           }
-          console.log('hello')
+          alert('hello')
           this.el.sceneEl.addEventListener('xrimagefound', onXrimagefound)
         },
         remove() {
@@ -94,7 +106,7 @@ export default Vue.extend({
             const object3D = this.el.object3D
             object3D.visible = true
           }
-          console.log('remove')
+          alert('remove')
           this.el.sceneEl.removeEventListener('xrimagefound', onXrimagefound)
         },
       })
