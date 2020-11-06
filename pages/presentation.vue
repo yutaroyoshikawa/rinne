@@ -23,7 +23,18 @@
       <a-light type="ambient" intensity="0.7"></a-light>
 
       <a-entity xrextras-named-image-target="name: renny">
-        <a-image src="#renny" />
+        <a-image
+          name="rennyImage"
+          src="#renny"
+          visible="true"
+          scale="0.0001 0.0001 0.0001"
+          :animation="{
+            property: 'scale',
+            to: '0.01 0.01 0.01',
+            easing: 'easeOutElastic',
+            dur: 800,
+          }"
+        />
       </a-entity>
     </a-scene>
   </client-only>
@@ -44,6 +55,7 @@ Vue.config.ignoredElements = [
   'a-cursor',
   'a-text',
   'a-light',
+  'a-image',
 ]
 
 export default Vue.extend({
@@ -61,10 +73,31 @@ export default Vue.extend({
   },
   mounted() {
     const XR8 = window.XR8
+    const AFRAME = window.AFRAME
     if (XR8) {
       if (XR8.isPaused()) {
         XR8.resume()
       }
+    }
+    if (AFRAME) {
+      AFRAME.registerComponent('rennyImage', {
+        init() {
+          const onXrimagefound: (ctx: any) => void = () => {
+            const object3D = this.el.object3D
+            object3D.visible = true
+          }
+          console.log('hello')
+          this.el.sceneEl.addEventListener('xrimagefound', onXrimagefound)
+        },
+        remove() {
+          const onXrimagefound: (ctx: any) => void = () => {
+            const object3D = this.el.object3D
+            object3D.visible = true
+          }
+          console.log('remove')
+          this.el.sceneEl.removeEventListener('xrimagefound', onXrimagefound)
+        },
+      })
     }
   },
 })
