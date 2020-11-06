@@ -28,12 +28,6 @@
           src="#renny"
           visible="true"
           scale="0.0001 0.0001 0.0001"
-          :animation="{
-            property: 'scale',
-            to: '0.1 0.1 0.1',
-            easing: 'easeOutElastic',
-            dur: 800,
-          }"
         />
       </a-entity>
     </a-scene>
@@ -85,6 +79,12 @@ export default Vue.extend({
           const onXrimagefound: (ctx: any) => void = () => {
             const object3D = this.el.object3D
             object3D.visible = true
+            object3D.animation = {
+              property: 'scale',
+              to: '1 1 1',
+              easing: 'easeOutElastic',
+              dur: 800,
+            }
           }
           console.log('hello')
           this.el.sceneEl.addEventListener('xrimagefound', onXrimagefound)
