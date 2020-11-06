@@ -43,7 +43,7 @@
             }"
             :animation__2="{
               property: 'position',
-              to: `${index - 1} 0 0.3`,
+              to: `${index - 1} ${isTapImage ? 0.3 : 0} 0.3`,
               easing: 'easeOutElastic',
               dur: 3000,
               delay: 300 * index - 1,
@@ -76,6 +76,7 @@ Vue.config.ignoredElements = [
 
 type Data = {
   isFoundXrimage: boolean
+  isTapImage: boolean
   images: string[]
 }
 
@@ -84,6 +85,7 @@ export default Vue.extend({
   data(): Data {
     return {
       isFoundXrimage: false,
+      isTapImage: false,
       images: ['renny', 'renny2', 'renny3'],
     }
   },
@@ -139,6 +141,7 @@ export default Vue.extend({
   methods: {
     onClickImage(imageName: string) {
       alert(imageName)
+      this.isTapImage = true
     },
   },
 })
