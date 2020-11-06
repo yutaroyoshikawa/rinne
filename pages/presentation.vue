@@ -42,7 +42,7 @@
             }"
             :animation__2="{
               property: 'position',
-              to: `1 ${0.15 * index} 1`,
+              to: `${index - 1} 0 0.3`,
               easing: 'easeOutElastic',
               dur: 3000,
               delay: 200,
