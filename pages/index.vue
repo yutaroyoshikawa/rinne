@@ -89,12 +89,12 @@ export default Vue.extend({
     },
     initRecorder() {
       import('audio-recorder-polyfill').then((module) => {
-        navigator.getUserMedia(
-          {
+        navigator.mediaDevices
+          .getUserMedia({
             audio: true,
             video: false,
-          },
-          (stream) => {
+          })
+          .then((stream) => {
             const AudioRecorder = module.default
             const recorder = new AudioRecorder(stream, {
               audioBitsPerSecond: AUDIO_SAMPLE_RATE,
@@ -113,11 +113,10 @@ export default Vue.extend({
               chunks = undefined
             })
             this.recorder = recorder
-          },
-          (error) => {
+          })
+          .catch((error) => {
             throw error
-          }
-        )
+          })
       })
     },
     encodeBase64(blobData: Blob): Promise<string> {
