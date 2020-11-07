@@ -8,6 +8,7 @@
       <NuxtLink to="cleanliness" :class="$style.pageLink">たいちょう</NuxtLink>
       <NuxtLink to="photolist" :class="$style.pageLink">いちらん</NuxtLink>
       <NuxtLink to="profile" :class="$style.pageLink">プロフィール</NuxtLink>
+      <NuxtLink to="loading" :class="$style.pageLink">ローディング</NuxtLink>
     </div>
     <hr />
     <p :class="$style.contentsTitle">component</p>
@@ -17,6 +18,7 @@
       <button @click="onClickRecButton">{{ recButtonText }}</button>
       {{ speechTextResult }}
     </div>
+    <Loading />
   </div>
 </template>
 
@@ -69,6 +71,7 @@ export default Vue.extend({
   },
   mounted() {
     if (typeof window !== 'undefined') {
+      chunks = []
       this.initRecorder()
     }
   },
@@ -110,7 +113,7 @@ export default Vue.extend({
               const base64 = await this.encodeBase64(new Blob(chunks))
               const speechText = await this.getSpeechText(base64)
               this.speechTextResult = speechText
-              chunks = undefined
+              chunks = []
             })
             this.recorder = recorder
           })
