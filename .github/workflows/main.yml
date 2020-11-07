@@ -27,6 +27,7 @@ jobs:
         uses: SpicyPizza/create-envfile@v1
         with:
           envkey_EIGHTHWALL_APP_KEY: ${{ secrets.EIGHTHWALL_APP_KEY }}
+          envkey_GCP_API_KEY: ${{ secrets.GCP_API_KEY }}
 
       - name: lint
         uses: actions/setup-node@v1
