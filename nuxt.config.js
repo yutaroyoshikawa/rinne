@@ -30,6 +30,7 @@ export default {
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
     '@fortawesome/fontawesome-svg-core/styles.css',
+    '@/assets/scss/mapbox.scss',
     '@/assets/scss/8thwall.scss',
   ],
 
@@ -60,6 +61,11 @@ export default {
     '@nuxtjs/pwa',
     'portal-vue/nuxt',
   ],
+
+  privateRuntimeConfig: {
+    eighthwallAppKey: process.env.EIGHTHWALL_APP_KEY,
+    mapboxAccessToken: process.env.MAPBOX_ACCESS_TOKEN,
+  },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
