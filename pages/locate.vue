@@ -10,12 +10,59 @@ import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
 import mapboxgl from 'mapbox-gl'
 
+type Data = {
+  map?: mapboxgl.Map
+  lat: number
+  lng: number
+  dollMarker: {
+    type: string
+    features: {
+      type: string
+      geometry: {
+        type: string
+        coordinates: [number, number]
+      }
+      properties: {
+        title: string
+        description: string
+      }
+    }[]
+  }
+}
+
 export default Vue.extend({
-  data() {
+  data(): Data {
     return {
-      map: {},
-      lat: 35.689607,
-      lng: 139.700571,
+      map: undefined,
+      lng: 139.6605246,
+      lat: 35.579322999999995,
+      dollMarker: {
+        type: 'FeatureCollection',
+        features: [
+          {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [139.6605246, 35.579322999999995],
+            },
+            properties: {
+              title: 'Mapbox',
+              description: 'Washington, D.C.',
+            },
+          },
+          {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [-122.414, 37.776],
+            },
+            properties: {
+              title: 'Mapbox',
+              description: 'San Francisco, California',
+            },
+          },
+        ],
+      },
     }
   },
   mounted() {
@@ -43,12 +90,24 @@ export default Vue.extend({
         mapboxgl.accessToken = mapboxAccessToken
       }
       if (mapRef) {
-        this.map = new mapboxgl.Map({
+        const map = new mapboxgl.Map({
           container: mapRef,
           style: 'mapbox://styles/chi24601/ckh5sf0y600l419pdxff45jj8',
           center: [this.lng, this.lat],
-          zoom: 15,
+          zoom: 5,
         })
+        // add markers to map
+        this.dollMarker.features.forEach(function (marker) {
+          // create a HTML element for each feature
+          const el = document.createElement('div')
+          el.className = 'marker'
+
+          // make a marker for each feature and add to the map
+          new mapboxgl.Marker(el)
+            .setLngLat(marker.geometry.coordinates)
+            .addTo(map)
+        })
+        this.map = map
       }
     },
   },
