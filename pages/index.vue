@@ -115,6 +115,7 @@ export default Vue.extend({
             this.recorder = recorder
           })
           .catch((error) => {
+            alert(error)
             throw error
           })
       })

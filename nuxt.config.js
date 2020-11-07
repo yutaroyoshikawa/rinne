@@ -61,6 +61,10 @@ export default {
     'portal-vue/nuxt',
   ],
 
+  privateRuntimeConfig: {
+    gcpApiKey: process.env.GCP_API_KEY,
+  },
+
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
 
