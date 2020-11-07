@@ -178,7 +178,10 @@ export default Vue.extend({
             console.log(resultJson.results[0])
             resolve(resultJson.results[0].alternatives[0].transcript)
           })
-          .catch((error) => reject(error))
+          .catch((error) => {
+            alert(error)
+            reject(error)
+          })
       })
     },
   },
