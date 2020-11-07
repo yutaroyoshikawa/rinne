@@ -115,6 +115,7 @@ export default Vue.extend({
             this.recorder = recorder
           })
           .catch((error) => {
+            alert(error)
             throw error
           })
       })
@@ -157,7 +158,7 @@ export default Vue.extend({
           },
         }
         fetch(
-          `https://speech.googleapis.com/v1/speech:recognize?key=${process.env.GCP_API_KEY}`,
+          `https://speech.googleapis.com/v1/speech:recognize?key=${`AIzaSyBAVhicElpqDXFi0kSOeyZqYKuDL6AVx0Q`}`,
           {
             method: 'POST',
             headers: {
