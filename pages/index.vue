@@ -98,6 +98,8 @@ export default Vue.extend({
           })
           .then((stream) => {
             const AudioRecorder = module.default
+            const audioTracks = stream.getAudioTracks()
+            alert(audioTracks[0].label)
             const recorder = new AudioRecorder(stream, {
               audioBitsPerSecond: AUDIO_SAMPLE_RATE,
               mimeType: 'video/webm;codecs=vp9',
