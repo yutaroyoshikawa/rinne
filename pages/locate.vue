@@ -9,6 +9,7 @@
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
 import mapboxgl from 'mapbox-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 type Data = {
   map?: mapboxgl.Map
@@ -34,8 +35,8 @@ export default Vue.extend({
   data(): Data {
     return {
       map: undefined,
-      lng: 139.6605246,
-      lat: 35.579322999999995,
+      lng: 139.65031059999998,
+      lat: 35.6761919,
       dollMarker: {
         type: 'FeatureCollection',
         features: [
@@ -54,7 +55,7 @@ export default Vue.extend({
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: [-122.414, 37.776],
+              coordinates: [139.65031059999998, 35.6761919],
             },
             properties: {
               title: 'Mapbox',
@@ -94,7 +95,7 @@ export default Vue.extend({
           container: mapRef,
           style: 'mapbox://styles/chi24601/ckh5sf0y600l419pdxff45jj8',
           center: [this.lng, this.lat],
-          zoom: 5,
+          zoom: 13,
         })
         // add markers to map
         this.dollMarker.features.forEach(function (marker) {
