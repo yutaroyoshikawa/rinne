@@ -100,7 +100,7 @@ export default Vue.extend({
           .then((stream) => {
             const AudioRecorder = module.default
             const audioTracks = stream.getAudioTracks()
-            alert(audioTracks[0].label)
+            console.log(audioTracks[0].label)
             const recorder = new AudioRecorder(stream, {
               audioBitsPerSecond: AUDIO_SAMPLE_RATE,
               mimeType: 'video/webm;codecs=vp9',
@@ -163,7 +163,7 @@ export default Vue.extend({
           },
         }
         fetch(
-          `https://speech.googleapis.com/v1/speech:recognize?key=${`AIzaSyBAVhicElpqDXFi0kSOeyZqYKuDL6AVx0Q`}`,
+          `https://speech.googleapis.com/v1/speech:recognize?key=${process.env.GCP_API_KEY}`,
           {
             method: 'POST',
             headers: {
