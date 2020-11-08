@@ -32,6 +32,7 @@ export default {
     '@fortawesome/fontawesome-svg-core/styles.css',
     '@/assets/scss/mapbox.scss',
     '@/assets/scss/8thwall.scss',
+    '@/assets/scss/global.scss',
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
