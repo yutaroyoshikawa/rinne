@@ -67,6 +67,11 @@ export default {
     mapboxAccessToken: process.env.MAPBOX_ACCESS_TOKEN,
   },
 
+  env: {
+    EIGHTHWALL_APP_KEY: process.env.EIGHTHWALL_APP_KEY,
+    MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN,
+  },
+
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
 
