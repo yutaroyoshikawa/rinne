@@ -72,6 +72,8 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" module>
+@import '@/assets/scss/variables.scss';
+
 .loader {
   width: 100%;
   height: 100vh;
@@ -87,13 +89,13 @@ export default Vue.extend({
 
 .pathLine {
   fill: none;
-  stroke: #3c230d;
+  stroke: $dark-base-color;
   stroke-miterlimit: 10;
   stroke-width: 4.86px;
 }
 
 .fillShape {
-  fill: #3c230d;
+  fill: $dark-base-color;
 }
 
 .useWrap {

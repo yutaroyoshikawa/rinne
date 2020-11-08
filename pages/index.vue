@@ -194,6 +194,8 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" module>
+@import '@/assets/scss/variables.scss';
+
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -204,7 +206,7 @@ export default Vue.extend({
 }
 .contentsTitle {
   font-size: 1.5em;
-  color: #3c230d;
+  color: $dark-base-color;
   margin-bottom: 20px;
 }
 .links {
@@ -216,7 +218,7 @@ export default Vue.extend({
   padding: 10px 0;
   border-radius: 30px;
   margin: 0 auto 10px auto;
-  background-color: #f6c521;
+  background-color: $secondary-color;
   color: #fff;
 }
 hr {
