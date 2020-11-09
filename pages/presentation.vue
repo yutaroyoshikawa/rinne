@@ -1,6 +1,7 @@
 <template>
   <client-only>
     <a-scene
+      presenar
       xrextras-gesture-detector
       xrextras-almost-there
       xrextras-loading
@@ -9,7 +10,9 @@
       xrweb="disableWorldTracking: true"
     >
       <a-assets>
-        <img id="renny" src="/img/logo.jpg" />
+        <img id="renny" src="/img/0.jpg" />
+        <img id="renny2" src="/img/1.jpg" />
+        <img id="renny3" src="/img/2.jpg" />
       </a-assets>
       <a-camera
         position="0 4 10"
@@ -23,7 +26,31 @@
       <a-light type="ambient" intensity="0.7"></a-light>
 
       <a-entity xrextras-named-image-target="name: renny">
-        <a-box material="color: #00EDAF;" shadow> </a-box>
+        <template v-if="isFoundXrimage">
+          <a-image
+            v-for="(image, index) in images"
+            :key="image"
+            class="cantap"
+            name="rennyImage"
+            :src="`#${image}`"
+            scale="0.0001 0.0001 0.0001"
+            :animation="{
+              property: 'scale',
+              to: '0.9 0.9 0.9',
+              easing: 'easeOutElastic',
+              dur: 3000,
+              delay: 300 * index - 1,
+            }"
+            :animation__2="{
+              property: 'position',
+              to: `${index - 1} ${isTapImage ? 0.3 : 0} 0.3`,
+              easing: 'easeOutElastic',
+              dur: 3000,
+              delay: 300 * index - 1,
+            }"
+            @click="onClickImage(image)"
+          />
+        </template>
       </a-entity>
     </a-scene>
   </client-only>
@@ -44,40 +71,78 @@ Vue.config.ignoredElements = [
   'a-cursor',
   'a-text',
   'a-light',
+  'a-image',
 ]
+
+type Data = {
+  isFoundXrimage: boolean
+  isTapImage: boolean
+  images: string[]
+}
 
 export default Vue.extend({
   name: 'Presentation',
+  data(): Data {
+    return {
+      isFoundXrimage: false,
+      isTapImage: false,
+      images: ['renny', 'renny2', 'renny3'],
+    }
+  },
   created() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, 'AR')
   },
   beforeDestroy() {
     const XR8 = window.XR8
     if (XR8) {
-      if (XR8.isPaused()) {
-        XR8.resume()
+      if (!XR8.isPaused()) {
+        XR8.pause()
       }
     }
   },
   mounted() {
     const XR8 = window.XR8
+    const AFRAME = window.AFRAME
     if (XR8) {
-      if (!XR8.isPaused()) {
-        XR8.pouse()
+      if (XR8.isPaused()) {
+        XR8.resume()
       }
     }
-  },
-  head() {
-    return {
-      script: [
-        {
-          src: `https://apps.8thwall.com/xrweb?appKey=fUrl6WdhBUffUtk8YD5m6ABkVqzJYFjJXV1WSG3npsGoVBiTvo0hIAX824SS5qs3KU45gF`,
+    if (AFRAME) {
+      const onFoundXrimage = () => {
+        this.isFoundXrimage = true
+      }
+      const onLostXrimage = () => {
+        this.isFoundXrimage = false
+      }
+      AFRAME.registerComponent('presenar', {
+        init() {
+          const onXrimagefound: (ctx: any) => void = () => {
+            onFoundXrimage()
+          }
+          const onXrimagelost: (ctx: any) => void = () => {
+            onLostXrimage()
+          }
+
+          this.el.sceneEl.addEventListener('xrimagefound', onXrimagefound)
+          this.el.sceneEl.addEventListener('xrimagelost', onXrimagelost)
         },
-        {
-          src: 'https://cdn.8thwall.com/web/aframe/8frame-0.9.2.min.js',
+        remove() {
+          const onXrimagefound: (ctx: any) => void = () => {
+            const object3D = this.el.object3D
+            object3D.visible = true
+          }
+          alert('remove')
+          this.el.sceneEl.removeEventListener('xrimagefound', onXrimagefound)
         },
-      ],
+      })
     }
+  },
+  methods: {
+    onClickImage(imageName: string) {
+      alert(imageName)
+      this.isTapImage = true
+    },
   },
 })
 </script>

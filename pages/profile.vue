@@ -11,17 +11,20 @@
         <CharacterCircle :character-name="characterName" />
       </div>
     </div>
+    <ProfileText :user-name="userName" :doll-name="dollName" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
+import ProfileText from '@/components/atoms/profileText.vue'
 import CharacterCircle from '../components/atoms/characterCircle.vue'
 
 export default Vue.extend({
   components: {
     CharacterCircle,
+    ProfileText,
   },
   data() {
     return {
@@ -33,6 +36,8 @@ export default Vue.extend({
         'やんちゃ',
         'なつっこい',
       ],
+      userName: 'さくらちゃん',
+      dollName: 'レニー',
     }
   },
   beforeCreate() {

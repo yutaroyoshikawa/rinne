@@ -1,5 +1,9 @@
 # RINNE
 
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/38146004/98456230-6233d900-21be-11eb-9dec-c04f4784ac15.jpg" alt="RINNE Logo" width="300px">
+</p>
+
 ## 起動方法
 
 ```sh
@@ -80,5 +84,5 @@ APIキーなど外部に漏らせない値もあるので、各自で値を入�
 必要な値については `.env.example` ファイルに記述してあるので下記のコマンドを実行してコピーして名前を変えて使用してください。
 
 ```shell
-cp path/to/.env.example path/to/.env`
+cp path/to/.env.example path/to/.env
 ```
