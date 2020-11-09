@@ -48,31 +48,8 @@ export default Vue.extend({
 })
 </script>
 
-<style>
-html,
-body,
-#__nuxt,
-#__layout {
-  height: 100%;
-}
-
-body {
-  background-color: #f3ebd8;
-}
-</style>
-
 <style lang="scss" module>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
+@import '@/assets/scss/variables.scss';
 
 .app {
   perspective: 2000px;
@@ -83,7 +60,7 @@ html {
 .mainContainer {
   min-height: 100%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  background-color: #f3ebd8;
+  background-color: $base-color;
   transition: filter 300ms, transform 300ms;
 }
 
@@ -96,7 +73,7 @@ html {
   bottom: 0;
   border-radius: 10px 10px 0 0;
   overflow: hidden;
-  z-index: 102;
+  z-index: $header-zindex + 2;
 }
 
 .openTab {
@@ -112,7 +89,7 @@ html {
 .header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: $header-zindex;
 }
 
 .tabOveray {
@@ -120,7 +97,7 @@ html {
   height: 100%;
   position: fixed;
   top: 0;
-  z-index: 101;
+  z-index: $header-zindex + 1;
 }
 
 .slideEnterActive,
