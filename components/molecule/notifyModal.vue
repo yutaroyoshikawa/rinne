@@ -36,9 +36,10 @@ export default {
 }
 </script>
 <style lang="scss" module>
+@import '@/assets/scss/variables.scss';
 .modalMask {
   position: fixed;
-  z-index: 9998;
+  z-index: $modal-zindex;
   top: 0;
   left: 0;
   width: 100%;
@@ -60,11 +61,11 @@ export default {
 .modalTitle {
   width: 100%;
   height: 30px;
-  background-color: #929d49;
+  background-color: $primary-color;
   display: table;
   text-align: center;
   & > p {
-    color: #f3ebd8;
+    color: $base-color;
     display: table-cell;
     vertical-align: middle;
     line-height: normal;
@@ -81,7 +82,7 @@ export default {
   padding: 10px 0;
   border-radius: 30px;
   margin: 0 auto 20px auto;
-  background-color: #f6c521;
+  background-color: $secondary-color;
   text-align: center;
   color: #fff;
 }
