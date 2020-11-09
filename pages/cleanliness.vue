@@ -15,7 +15,7 @@ import { CHANGE_HEADER_TITLE } from '@/store/index'
 import ConditionCircle from '@/components/atoms/conditionCircle.vue'
 
 export default Vue.extend({
-  name: 'cleanliness',
+  name: 'Cleanliness',
   components: {
     ConditionCircle,
   },
@@ -26,7 +26,6 @@ export default Vue.extend({
 </script>
 
 <style module lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
 .wrap {
   padding-bottom: 20px;
   width: 100%;
