@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.modalMask" @click="$emit('close')">
+  <div v-if="showNotifyModal" :class="$style.modalMask" @click="$emit('close')">
     <div :class="$style.modalWrapper">
       <div :class="$style.modalContainer">
         <div :class="$style.modalTitle">
@@ -9,7 +9,7 @@
           <slot />
         </div>
         <div :class="$style.buttonCenter">
-          <button :class="$style.modalButton" @click="$emit('close')">
+          <button :class="$style.modalButton" @click="$emit('action')">
             OK
           </button>
         </div>
@@ -19,17 +19,16 @@
 </template>
 <script lang="ts">
 type Data = {
-  showNotifyModal: boolean
   title: String
 }
 export default {
   name: 'NotifyModal',
   props: {
     modalTitle: { type: String, default: 'modalTitle' },
+    showNotifyModal: { type: Boolean, default: false },
   },
   data(): Data {
     return {
-      showNotifyModal: false,
       title: 'modalTitle',
     }
   },
