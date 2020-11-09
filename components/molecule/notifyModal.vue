@@ -1,20 +1,35 @@
 <template>
-  <transition name="modal">
-    <div :class="$style.modalMask" @click="$emit('close')">
-      <div :class="$style.modalWrapper">
-        <div :class="$style.modalContainer">
-          <p>modal sample</p>
+  <div :class="$style.modalMask" @click="$emit('close')">
+    <div :class="$style.modalWrapper">
+      <div :class="$style.modalContainer">
+        <div :class="$style.modalTitle">
+          <p>title</p>
+        </div>
+        <div :class="$style.textWrap">
+          <p>{{ contents }}</p>
+        </div>
+        <div :class="$style.buttonCenter">
           <button :class="$style.modalButton" @click="$emit('close')">
             OK
           </button>
         </div>
       </div>
     </div>
-  </transition>
+  </div>
 </template>
 <script lang="ts">
+type Data = {
+  showNotifyModal: boolean
+  contents: String
+}
 export default {
   name: 'Modal',
+  data(): Data {
+    return {
+      showNotifyModal: false,
+      contents: 'keroppi',
+    }
+  },
 }
 </script>
 <style lang="scss" module>
@@ -27,7 +42,6 @@ export default {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity 0.3s ease;
 }
 .modalWrapper {
   display: table-cell;
@@ -36,19 +50,43 @@ export default {
 .modalContainer {
   width: 70%;
   margin: 0 auto;
-  padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
+}
+.modalTitle {
+  width: 100%;
+  height: 30px;
+  background-color: #929d49;
+  display: table;
+  text-align: center;
+  & > p {
+    color: #f3ebd8;
+    display: table-cell;
+    vertical-align: middle;
+    line-height: normal;
+  }
+}
+.textWrap {
+  width: 80%;
+  margin: 0 auto;
+  padding: 30px 0;
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   align-items: baseline;
+  //   word-break: break-all;
+  overflow-wrap: break-word;
 }
 .modalButton {
-  width: 200px;
+  width: 100px;
   padding: 10px 0;
   border-radius: 30px;
-  margin: 20px auto 10px auto;
+  margin: 0 auto 20px auto;
   background-color: #f6c521;
   text-align: center;
   color: #fff;
+}
+.buttonCenter {
+  text-align: center;
 }
 </style>

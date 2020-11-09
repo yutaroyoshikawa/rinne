@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="$style.wrap">
     <button :class="$style.modalButton" @click="openNotifyModal()">
       モーダル１
     </button>
@@ -39,11 +39,14 @@ export default Vue.extend({
 })
 </script>
 <style lang="scss" module>
+.wrap {
+  text-align: center;
+}
 .modalButton {
   width: 200px;
   padding: 10px 0;
   border-radius: 30px;
-  margin: 0 auto 10px auto;
+  margin: 20px 0;
   background-color: #f6c521;
   text-align: center;
   color: #fff;
