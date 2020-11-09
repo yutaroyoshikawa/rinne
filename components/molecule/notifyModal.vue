@@ -3,7 +3,7 @@
     <div :class="$style.modalWrapper">
       <div :class="$style.modalContainer">
         <div :class="$style.modalTitle">
-          <p>title</p>
+          <p>{{ title }}</p>
         </div>
         <div :class="$style.textWrap">
           <p>{{ contents }}</p>
@@ -20,6 +20,7 @@
 <script lang="ts">
 type Data = {
   showNotifyModal: boolean
+  title: String
   contents: String
 }
 export default {
@@ -27,7 +28,8 @@ export default {
   data(): Data {
     return {
       showNotifyModal: false,
-      contents: 'keroppi',
+      title: 'modalTitle',
+      contents: 'text',
     }
   },
 }
@@ -71,10 +73,6 @@ export default {
   width: 80%;
   margin: 0 auto;
   padding: 30px 0;
-  //   display: flex;
-  //   flex-wrap: wrap;
-  //   align-items: baseline;
-  //   word-break: break-all;
   overflow-wrap: break-word;
 }
 .modalButton {
