@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.wrap">
+  <div>
     <div :class="$style.resultCircle">
       <p>
         <span :class="$style.resultNumber">{{ resultNumber }}</span>
