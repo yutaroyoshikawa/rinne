@@ -9,13 +9,19 @@
       <NuxtLink to="photolist" :class="$style.pageLink">いちらん</NuxtLink>
       <NuxtLink to="profile" :class="$style.pageLink">プロフィール</NuxtLink>
       <NuxtLink to="locate" :class="$style.pageLink">いばしょ</NuxtLink>
+      <NuxtLink to="testpage" :class="$style.pageLink">テストページ</NuxtLink>
     </div>
     <hr />
     <p :class="$style.contentsTitle">component</p>
     <div :class="$style.componentWrap">
       <ListButton />
-      <CharacterCircle :character-name="characterName" />
-      <button @click="onClickRecButton">{{ recButtonText }}</button>
+      <CharacterCircle
+        :character-name="characterName"
+        :class="$style.characterCircle"
+      />
+      <button :class="$style.componentButton" @click="onClickRecButton">
+        {{ recButtonText }}
+      </button>
       {{ speechTextResult }}
     </div>
     <Loading />
@@ -180,6 +186,7 @@ export default Vue.extend({
             if (!resultJson.results || resultJson.results.length === 0) {
               reject(Error('No speech result'))
             }
+            // eslint-disable-next-line no-console
             console.log(resultJson.results[0])
             resolve(resultJson.results[0].alternatives[0].transcript)
           })
@@ -226,7 +233,10 @@ hr {
 }
 .componentWrap {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+}
+.characterCircle {
+  margin: 0 auto;
 }
 .scaleEnterActive {
   transition: transform 0.6s cubic-bezier(0.89, -0.11, 0.07, 1.4);
