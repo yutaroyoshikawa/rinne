@@ -1,18 +1,20 @@
 <template>
   <a>
-    <button :class="$style.profilebutton">おともだち</button>
+    <button :class="$style.profileButton">おともだち</button>
   </a>
 </template>
 <script lang="ts">
-export default {
+import Vue from 'vue'
+
+export default Vue.extend({
   name: 'ProfileButton',
   data() {
     return {}
   },
-}
+})
 </script>
-<style>
-.profilebutton {
+<style module lang="scss">
+.profileButton {
   width: 200px; /* 横 */
   height: 40px; /* 高さ */
   border: none;

@@ -11,18 +11,20 @@
         <CharacterCircle :character-name="characterName" />
       </div>
     </div>
-    <button :class="$style.button">{{ button }}</button>
+    <ProfileButton />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
+import ProfileButton from '../components/atoms/ProfileButton.vue'
 import CharacterCircle from '../components/atoms/characterCircle.vue'
 
 export default Vue.extend({
   components: {
     CharacterCircle,
+    ProfileButton,
   },
   data() {
     return {
@@ -34,7 +36,6 @@ export default Vue.extend({
         'やんちゃ',
         'なつっこい',
       ],
-      button: 'おともだち',
     }
   },
   beforeCreate() {
@@ -55,17 +56,5 @@ export default Vue.extend({
   width: 80px;
   height: 80px;
   margin-bottom: 10px;
-}
-.button {
-  width: 200px; /* 横 */
-  height: 40px; /* 高さ */
-  border: none;
-  border-radius: 30px; /* 丸み */
-  background-color: #929d49;
-  font-size: 14px;
-  color: #f3ebd8;
-  text-align: center;
-  margin: 0 auto;
-  display: block;
 }
 </style>
