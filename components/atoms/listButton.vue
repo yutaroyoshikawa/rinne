@@ -16,12 +16,14 @@ export default Vue.extend({
 </script>
 
 <style module lang="scss">
+@import '@/assets/scss/variables.scss';
+
 .listButton {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-color: #929d49;
-  color: #f3ebd8;
+  background-color: $primary-color;
+  color: $base-color;
   font-size: 18px;
   border: none;
 }

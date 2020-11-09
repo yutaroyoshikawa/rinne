@@ -24,12 +24,13 @@
             {{ firstTitle }}
           </h2>
           <h2
-            v-if="currentPosition === 'second'"
+            v-else-if="currentPosition === 'second'"
             key="second"
             :class="$style.header"
           >
             {{ secondTitle }}
           </h2>
+          <h2 v-else key="default" :class="$style.header"></h2>
         </transition>
       </div>
     </transition>
@@ -77,6 +78,8 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" module>
+@import '@/assets/scss/variables.scss';
+
 .transitionWrapper {
   width: 100%;
   height: 50px;
@@ -85,7 +88,7 @@ export default Vue.extend({
   width: 100%;
   height: 100%;
   padding: 0 20px;
-  background-color: #3c230d;
+  background-color: $dark-base-color;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -96,7 +99,7 @@ export default Vue.extend({
   max-width: calc(100vw - 40px);
   text-align: center;
   font-size: 24px;
-  color: #f3ebd8;
+  color: $base-color;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
