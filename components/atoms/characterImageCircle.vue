@@ -15,13 +15,10 @@ export default Vue.extend({
 .wrap {
   width: 225px;
   height: 225px;
+  border-radius: 225px;
   display: flex;
   justify-content: center;
   align-items: center;
-  & > p {
-    font-size: 14px;
-    color: #3c230d;
-  }
 }
 .img {
   width: 100%;
