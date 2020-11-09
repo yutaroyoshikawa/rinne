@@ -3,7 +3,7 @@
     <div :class="$style.modalWrapper">
       <div :class="$style.modalContainer">
         <div :class="$style.modalTitle">
-          <p>{{ title }}</p>
+          <p>{{ modalTitle }}</p>
         </div>
         <div :class="$style.textWrap">
           <slot />
@@ -24,6 +24,9 @@ type Data = {
 }
 export default {
   name: 'NotifyModal',
+  props: {
+    modalTitle: { type: String, default: 'modalTitle' },
+  },
   data(): Data {
     return {
       showNotifyModal: false,
