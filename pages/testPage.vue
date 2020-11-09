@@ -4,6 +4,7 @@
       モーダル１
     </button>
     <NotifyModal v-if="showNotifyModal" @close="closeNotifyModal()" />
+    <SplitLine />
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
 import NotifyModal from '~/components/molecule/notifyModal.vue'
+import SplitLine from '@/components/atoms/splitLine.vue'
 
 type Data = {
   showNotifyModal: boolean
@@ -19,6 +21,7 @@ type Data = {
 export default Vue.extend({
   components: {
     NotifyModal,
+    SplitLine,
   },
   data(): Data {
     return {
