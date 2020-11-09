@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showNotifyModal" :class="$style.modalMask" @click="$emit('close')">
+  <div v-if="showActionModal" :class="$style.modalMask" @click="$emit('close')">
     <div :class="$style.modalWrapper">
       <div :class="$style.modalContainer">
         <div :class="$style.modalTitle">
@@ -9,6 +9,9 @@
           <slot />
         </div>
         <div :class="$style.buttonCenter">
+          <button :class="$style.modalCancelButton" @click="$emit('close')">
+            Cancel
+          </button>
           <button :class="$style.modalButton" @click="$emit('action')">
             OK
           </button>
@@ -22,10 +25,10 @@ type Data = {
   title: String
 }
 export default {
-  name: 'NotifyModal',
+  name: 'ActionModal',
   props: {
     modalTitle: { type: String, default: 'modalTitle' },
-    showNotifyModal: { type: Boolean, default: false },
+    showActionModal: { type: Boolean, default: false },
   },
 }
 </script>
@@ -79,6 +82,16 @@ export default {
   background-color: $secondary-color;
   text-align: center;
   color: #fff;
+}
+.modalCancelButton {
+  width: 98px;
+  padding: 10px 0;
+  border: solid 1px $dark-base-color;
+  border-radius: 30px;
+  margin: 0 auto 20px auto;
+  background-color: #fff;
+  text-align: center;
+  color: $dark-base-color;
 }
 .buttonCenter {
   text-align: center;
