@@ -106,7 +106,7 @@ export default Vue.extend({
           .then((stream) => {
             const AudioRecorder = module.default
             const audioTracks = stream.getAudioTracks()
-            alert(audioTracks[0].label)
+            console.log(audioTracks[0].label)
             const recorder = new AudioRecorder(stream, {
               audioBitsPerSecond: AUDIO_SAMPLE_RATE,
               mimeType: 'video/webm;codecs=vp9',
@@ -169,7 +169,7 @@ export default Vue.extend({
           },
         }
         fetch(
-          `https://speech.googleapis.com/v1/speech:recognize?key=${`AIzaSyBAVhicElpqDXFi0kSOeyZqYKuDL6AVx0Q`}`,
+          `https://speech.googleapis.com/v1/speech:recognize?key=${process.env.GCP_API_KEY}`,
           {
             method: 'POST',
             headers: {
@@ -201,6 +201,8 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" module>
+@import '@/assets/scss/variables.scss';
+
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -211,7 +213,7 @@ export default Vue.extend({
 }
 .contentsTitle {
   font-size: 1.5em;
-  color: #3c230d;
+  color: $dark-base-color;
   margin-bottom: 20px;
 }
 .links {
@@ -223,7 +225,7 @@ export default Vue.extend({
   padding: 10px 0;
   border-radius: 30px;
   margin: 0 auto 10px auto;
-  background-color: #f6c521;
+  background-color: $secondary-color;
   color: #fff;
 }
 hr {

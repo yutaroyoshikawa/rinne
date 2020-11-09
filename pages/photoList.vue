@@ -58,6 +58,8 @@ export default Vue.extend({
 </script>
 
 <style module lang="scss">
+@import '@/assets/scss/variables.scss';
+
 .wrap {
   padding-bottom: 20px;
   height: 100%;
@@ -79,7 +81,7 @@ export default Vue.extend({
   float: left;
   width: 140px;
   height: 140px;
-  background: #f6c521;
+  background: $secondary-color;
   margin-top: 20px;
   position: relative;
 

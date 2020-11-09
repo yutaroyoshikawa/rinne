@@ -22,17 +22,19 @@ export default Vue.extend({
 </script>
 
 <style module lang="scss">
+@import '@/assets/scss/variables.scss';
+
 .addButton {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-color: #929d49;
-  color: #f3ebd8;
+  background-color: $primary-color;
+  color: $base-color;
   border: none;
   text-align: center;
 }
 .plus {
-  color: #f3ebd8;
+  color: $base-color;
   font-size: 30px;
 }
 </style>

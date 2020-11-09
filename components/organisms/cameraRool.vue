@@ -100,9 +100,11 @@ export default Vue.extend({
 </script>
 
 <style module lang="scss">
+@import '@/assets/scss/variables.scss';
+
 .wrap {
   height: 100%;
-  background-color: #f3ebd8;
+  background-color: $base-color;
   padding-bottom: 20px;
 }
 .wrapPadding {
@@ -119,7 +121,7 @@ export default Vue.extend({
   float: left;
   width: 140px;
   height: 140px;
-  background: #f6c521;
+  background: $secondary-color;
   margin-top: 20px;
   position: relative;
 
@@ -139,7 +141,7 @@ export default Vue.extend({
   top: 10px;
   left: 10px;
   font-size: 25px;
-  color: #f6c521;
+  color: $secondary-color;
   background-color: #fff;
   border-radius: 50%;
 }
@@ -163,8 +165,8 @@ export default Vue.extend({
   height: 30px;
   border-radius: 30px;
   text-align: center;
-  color: #3c230d;
-  border: 1px solid #3c230d;
+  color: $dark-base-color;
+  border: 1px solid $dark-base-color;
   background-color: rgba(255, 255, 255, 0.7);
 }
 .addButton {
@@ -172,8 +174,8 @@ export default Vue.extend({
   height: 30px;
   border-radius: 30px;
   text-align: center;
-  color: #f3ebd8;
-  background-color: #929d49;
+  color: $base-color;
+  background-color: $primary-color;
   border: none;
 }
 </style>

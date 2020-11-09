@@ -15,6 +15,8 @@ export default Vue.extend({
 })
 </script>
 <style module lang="scss">
+@import '@/assets/scss/variables.scss';
+
 .wrap {
   width: 80px;
   height: 80px;
@@ -25,7 +27,7 @@ export default Vue.extend({
   align-items: center;
   & > p {
     font-size: 14px;
-    color: #3c230d;
+    color: $dark-base-color;
   }
 }
 </style>

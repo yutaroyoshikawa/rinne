@@ -32,6 +32,7 @@ export default {
     '@fortawesome/fontawesome-svg-core/styles.css',
     '@/assets/scss/mapbox.scss',
     '@/assets/scss/8thwall.scss',
+    '@/assets/scss/global.scss',
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
@@ -62,14 +63,10 @@ export default {
     'portal-vue/nuxt',
   ],
 
-  privateRuntimeConfig: {
-    eighthwallAppKey: process.env.EIGHTHWALL_APP_KEY,
-    mapboxAccessToken: process.env.MAPBOX_ACCESS_TOKEN,
-  },
-
   env: {
     EIGHTHWALL_APP_KEY: process.env.EIGHTHWALL_APP_KEY,
     MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN,
+    GCP_API_KEY: process.env.GCP_API_KEY,
   },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
