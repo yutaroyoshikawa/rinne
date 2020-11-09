@@ -17,7 +17,14 @@ export default {
         content: '繋がるぬいぐるみと思い出',
       },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap',
+      },
+    ],
     script: [
       {
         src: `https://apps.8thwall.com/xrweb?appKey=${process.env.EIGHTHWALL_APP_KEY}`,
