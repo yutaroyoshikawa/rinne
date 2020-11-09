@@ -27,11 +27,6 @@ export default {
     modalTitle: { type: String, default: 'modalTitle' },
     showNotifyModal: { type: Boolean, default: false },
   },
-  data(): Data {
-    return {
-      title: 'modalTitle',
-    }
-  },
 }
 </script>
 <style lang="scss" module>
