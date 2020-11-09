@@ -11,8 +11,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
-import NotifyModal from '~/components/molecule/notifyModal.vue'
 import SplitLine from '@/components/atoms/splitLine.vue'
+import NotifyModal from '~/components/molecule/notifyModal.vue'
 
 type Data = {
   showNotifyModal: boolean

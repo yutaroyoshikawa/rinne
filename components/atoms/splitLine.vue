@@ -1,5 +1,5 @@
 <template>
-  <hr :class="$style.splitLine">
+  <hr :class="$style.splitLine" ./>
 </template>
 
 <script lang="ts">
