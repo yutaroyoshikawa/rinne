@@ -6,7 +6,7 @@
           <p>{{ title }}</p>
         </div>
         <div :class="$style.textWrap">
-          <p>{{ contents }}</p>
+          <slot />
         </div>
         <div :class="$style.buttonCenter">
           <button :class="$style.modalButton" @click="$emit('close')">
@@ -21,15 +21,13 @@
 type Data = {
   showNotifyModal: boolean
   title: String
-  contents: String
 }
 export default {
-  name: 'Modal',
+  name: 'NotifyModal',
   data(): Data {
     return {
       showNotifyModal: false,
       title: 'modalTitle',
-      contents: 'text',
     }
   },
 }
