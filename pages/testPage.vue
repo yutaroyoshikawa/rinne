@@ -3,7 +3,19 @@
     <button :class="$style.modalButton" @click="openNotifyModal()">
       モーダル１
     </button>
-    <NotifyModal v-if="showNotifyModal" @close="closeNotifyModal()" />
+    <NotifyModal
+      :show-notify-modal="showNotifyModal"
+      @close="closeNotifyModal()"
+      @action="onNotifyModalAction"
+    />
+    <button :class="$style.modalButton" @click="openActionModal()">
+      モーダル２
+    </button>
+    <ActionModal
+      :show-action-modal="showActionModal"
+      @close="closeActionModal()"
+      @action="onActionModalAction"
+    />
     <SplitLine />
   </div>
 </template>
@@ -13,19 +25,23 @@ import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
 import SplitLine from '@/components/atoms/splitLine.vue'
 import NotifyModal from '~/components/molecule/notifyModal.vue'
+import ActionModal from '~/components/molecule/actionModal.vue'
 
 type Data = {
   showNotifyModal: boolean
+  showActionModal: boolean
 }
 
 export default Vue.extend({
   components: {
     NotifyModal,
     SplitLine,
+    ActionModal,
   },
   data(): Data {
     return {
       showNotifyModal: false,
+      showActionModal: false,
     }
   },
   beforeCreate() {
@@ -37,6 +53,18 @@ export default Vue.extend({
     },
     closeNotifyModal() {
       this.showNotifyModal = false
+    },
+    onNotifyModalAction() {
+      this.showActionModal = false
+    },
+    openActionModal() {
+      this.showActionModal = true
+    },
+    closeActionModal() {
+      this.showActionModal = false
+    },
+    onActionModalAction() {
+      this.showActionModal = false
     },
   },
 })
