@@ -1,6 +1,6 @@
 <template>
-  <div v-if="showActionModal" :class="$style.modalMask" @click="$emit('close')">
-    <div :class="$style.modalWrapper">
+  <div v-if="showActionModal" :class="$style.modalMask">
+    <div :class="$style.modalWrapper" @click.self="$emit('close')">
       <div :class="$style.modalContainer">
         <div :class="$style.modalTitle">
           <p>{{ modalTitle }}</p>
