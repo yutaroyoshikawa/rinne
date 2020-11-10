@@ -1,147 +1,42 @@
 <template>
-  <client-only>
-    <a-scene
-      presenar
-      xrextras-gesture-detector
-      xrextras-almost-there
-      xrextras-loading
-      xrextras-runtime-error
-      renderer="colorManagement: true"
-      xrweb="disableWorldTracking: true"
-    >
-      <a-assets>
-        <img id="renny" src="/img/0.jpg" />
-        <img id="renny2" src="/img/1.jpg" />
-        <img id="renny3" src="/img/2.jpg" />
-      </a-assets>
-      <a-camera
-        position="0 4 10"
-        raycaster="objects: .cantap"
-        cursor="fuse: false; rayOrigin: mouse;"
-      >
-      </a-camera>
-
-      <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
-
-      <a-light type="ambient" intensity="0.7"></a-light>
-
-      <a-entity xrextras-named-image-target="name: renny">
-        <template v-if="isFoundXrimage">
-          <a-image
-            v-for="(image, index) in images"
-            :key="image"
-            class="cantap"
-            name="rennyImage"
-            :src="`#${image}`"
-            scale="0.0001 0.0001 0.0001"
-            :animation="{
-              property: 'scale',
-              to: '0.9 0.9 0.9',
-              easing: 'easeOutElastic',
-              dur: 3000,
-              delay: 300 * index - 1,
-            }"
-            :animation__2="{
-              property: 'position',
-              to: `${index - 1} ${isTapImage ? 0.3 : 0} 0.3`,
-              easing: 'easeOutElastic',
-              dur: 3000,
-              delay: 300 * index - 1,
-            }"
-            @click="onClickImage(image)"
-          />
-        </template>
-      </a-entity>
-    </a-scene>
-  </client-only>
+  <div>
+    <ArAlbum @reality-ready="onRealityReady" @reality-error="onRealityError" />
+    <template v-if="!isReadyReality">
+      <Loading />
+    </template>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
-
-Vue.config.ignoredElements = [
-  'a-scene',
-  'a-entity',
-  'a-camera',
-  'a-box',
-  'a-ring',
-  'a-asset-items',
-  'a-assets',
-  'a-cursor',
-  'a-text',
-  'a-light',
-  'a-image',
-]
+import ArAlbum from '@/components/organisms/ArAlbum.vue'
+import Loading from '@/components/organisms/loading.vue'
 
 type Data = {
-  isFoundXrimage: boolean
-  isTapImage: boolean
-  images: string[]
+  isReadyReality: boolean
 }
 
 export default Vue.extend({
   name: 'Presentation',
+  components: {
+    ArAlbum,
+    Loading,
+  },
   data(): Data {
     return {
-      isFoundXrimage: false,
-      isTapImage: false,
-      images: ['renny', 'renny2', 'renny3'],
+      isReadyReality: false,
     }
   },
   created() {
-    this.$store.dispatch(CHANGE_HEADER_TITLE, 'AR')
-  },
-  beforeDestroy() {
-    const XR8 = window.XR8
-    if (XR8) {
-      if (!XR8.isPaused()) {
-        XR8.pause()
-      }
-    }
-  },
-  mounted() {
-    const XR8 = window.XR8
-    const AFRAME = window.AFRAME
-    if (XR8) {
-      if (XR8.isPaused()) {
-        XR8.resume()
-      }
-    }
-    if (AFRAME) {
-      const onFoundXrimage = () => {
-        this.isFoundXrimage = true
-      }
-      const onLostXrimage = () => {
-        this.isFoundXrimage = false
-      }
-      AFRAME.registerComponent('presenar', {
-        init() {
-          const onXrimagefound: (ctx: any) => void = () => {
-            onFoundXrimage()
-          }
-          const onXrimagelost: (ctx: any) => void = () => {
-            onLostXrimage()
-          }
-
-          this.el.sceneEl.addEventListener('xrimagefound', onXrimagefound)
-          this.el.sceneEl.addEventListener('xrimagelost', onXrimagelost)
-        },
-        remove() {
-          const onXrimagefound: (ctx: any) => void = () => {
-            const object3D = this.el.object3D
-            object3D.visible = true
-          }
-          alert('remove')
-          this.el.sceneEl.removeEventListener('xrimagefound', onXrimagefound)
-        },
-      })
-    }
+    this.$store.dispatch(CHANGE_HEADER_TITLE, undefined)
   },
   methods: {
-    onClickImage(imageName: string) {
-      alert(imageName)
-      this.isTapImage = true
+    onRealityReady() {
+      this.isReadyReality = true
+    },
+    onRealityError() {
+      this.isReadyReality = true
     },
   },
 })
