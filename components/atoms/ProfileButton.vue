@@ -1,7 +1,7 @@
 <template>
-  <a>
+  <NuxtLink to="friend">
     <button :class="$style.profileButton">おともだち</button>
-  </a>
+  </NuxtLink>
 </template>
 <script lang="ts">
 import Vue from 'vue'
