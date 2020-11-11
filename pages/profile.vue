@@ -20,8 +20,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
-import ProfileButton from '../components/atoms/ProfileButton.vue'
 import ProfileText from '@/components/atoms/profileText.vue'
+import ProfileButton from '../components/atoms/ProfileButton.vue'
 import CharacterCircle from '../components/atoms/characterCircle.vue'
 
 export default Vue.extend({
