@@ -20,11 +20,13 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" module>
+@import '@/assets/scss/variables.scss';
+
 .container {
   width: 100%;
   height: 50px;
   padding: 0 20px;
-  background-color: #f6c521;
+  background-color: $secondary-color;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -34,7 +36,7 @@ export default Vue.extend({
 .header {
   text-align: center;
   font-size: 24px;
-  color: #f3ebd8;
+  color: $base-color;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
