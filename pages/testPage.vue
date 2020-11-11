@@ -6,7 +6,7 @@
     <NotifyModal
       :show-notify-modal="showNotifyModal"
       @close="closeNotifyModal()"
-      @action="onNotifyModalAction"
+      @action="onNotifyModalAction()"
     />
     <button :class="$style.modalButton" @click="openActionModal()">
       モーダル２
@@ -14,7 +14,7 @@
     <ActionModal
       :show-action-modal="showActionModal"
       @close="closeActionModal()"
-      @action="onActionModalAction"
+      @action="onActionModalAction()"
     />
   </div>
 </template>
@@ -52,7 +52,7 @@ export default Vue.extend({
       this.showNotifyModal = false
     },
     onNotifyModalAction() {
-      this.showActionModal = false
+      this.showNotifyModal = false
     },
     openActionModal() {
       this.showActionModal = true
