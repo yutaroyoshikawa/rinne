@@ -82,7 +82,7 @@ export default Vue.extend({
 
 .transitionWrapper {
   width: 100%;
-  height: 50px;
+  height: $header-height;
 }
 .container {
   width: 100%;
