@@ -24,21 +24,19 @@ export default Vue.extend({
 </script>
 
 <style module lang="scss">
+@import '@/assets/scss/variables.scss';
+
 .profileText {
   margin: 0 auto;
 }
-
 .username {
   text-align: center;
-  color: #3c230d;
+  color: $dark-base-color;
   font-size: 14px;
-  font-family: 'Kosugi Maru', sans-serif;
 }
-
 .dollname {
   text-align: center;
-  color: #3c230d;
+  color: $dark-base-color;
   font-size: 20px;
-  font-family: 'Kosugi Maru', sans-serif;
 }
 </style>
