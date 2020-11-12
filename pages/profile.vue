@@ -64,7 +64,7 @@ export default Vue.extend({
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
 }
 .profileText {
   margin-bottom: 30px;
@@ -72,6 +72,6 @@ export default Vue.extend({
 .characterWrap {
   width: 80px;
   height: 80px;
-  margin-bottom: 10px;
+  margin: 0 10px 10px 0;
 }
 </style>
