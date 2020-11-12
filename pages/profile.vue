@@ -1,7 +1,13 @@
 <template>
   <div>
-    <div>プロフィールページ</div>
-    <NuxtLink to="cleanliness">清潔度ページ</NuxtLink>
+    <div :class="$style.imageCircleWrap">
+      <CharacterImageCircle :image-src="imageSrc" />
+    </div>
+    <ProfileText
+      :user-name="userName"
+      :doll-name="dollName"
+      :class="$style.profileText"
+    />
     <div :class="$style.charactersWrap">
       <div
         v-for="(characterName, index) in characterNames"
@@ -14,6 +20,7 @@
     <ProfileButton />
 
     <ProfileText :user-name="userName" :doll-name="dollName" />
+
   </div>
 </template>
 
@@ -23,12 +30,15 @@ import { CHANGE_HEADER_TITLE } from '@/store/index'
 import ProfileText from '@/components/atoms/profileText.vue'
 import ProfileButton from '../components/atoms/ProfileButton.vue'
 import CharacterCircle from '../components/atoms/characterCircle.vue'
+import CharacterCircle from '@/components/atoms/characterCircle.vue'
+import CharacterImageCircle from '@/components/atoms/characterImageCircle.vue'
 
 export default Vue.extend({
   components: {
     CharacterCircle,
     ProfileButton,
     ProfileText,
+    CharacterImageCircle,
   },
   data() {
     return {
@@ -42,6 +52,7 @@ export default Vue.extend({
       ],
       userName: 'さくらちゃん',
       dollName: 'レニー',
+      imageSrc: '/img/1.jpg',
     }
   },
   beforeCreate() {
@@ -51,12 +62,19 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" module>
+.imageCircleWrap {
+  margin: 30px 0;
+  text-align: center;
+}
 .charactersWrap {
   width: 80%;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+.profileText {
+  margin-bottom: 30px;
 }
 .characterWrap {
   width: 80px;
