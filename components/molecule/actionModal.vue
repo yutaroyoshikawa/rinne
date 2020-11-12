@@ -1,6 +1,5 @@
 <template>
   <transition
-    name="modal"
     :enter-class="$style.modalEnter"
     :leave-to-class="$style.modalLeaveTo"
     :enter-active-class="$style.modalEnterActive"
