@@ -17,9 +17,9 @@
         <CharacterCircle :character-name="characterName" />
       </div>
     </div>
-    <ProfileButton />
-
-    <ProfileText :user-name="userName" :doll-name="dollName" />
+    <div :class="$style.profileButtonWrap">
+      <ProfileButton :class="$style.profileButton" />
+    </div>
   </div>
 </template>
 
@@ -78,5 +78,9 @@ export default Vue.extend({
   width: 80px;
   height: 80px;
   margin: 0 10px 10px 0;
+}
+.profileButtonWrap {
+  margin-top: 20px;
+  padding-bottom: 20px;
 }
 </style>
