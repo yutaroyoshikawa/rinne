@@ -1,21 +1,28 @@
 <template>
-  <div v-if="showNotifyModal" :class="$style.modalMask">
-    <div :class="$style.modalWrapper" @click.self="$emit('close')">
-      <div :class="$style.modalContainer">
-        <div :class="$style.modalTitle">
-          <p>{{ modalTitle }}</p>
-        </div>
-        <div :class="$style.textWrap">
-          <slot />
-        </div>
-        <div :class="$style.buttonCenter">
-          <button :class="$style.modalButton" @click="$emit('action')">
-            OK
-          </button>
+  <transition
+    :enter-class="$style.modalEnter"
+    :leave-to-class="$style.modalLeaveTo"
+    :enter-active-class="$style.modalEnterActive"
+    :leave-active-class="$style.modalLeaveActive"
+  >
+    <div v-if="showNotifyModal" :class="$style.modalMask">
+      <div :class="$style.modalWrapper" @click.self="$emit('close')">
+        <div :class="$style.modalContainer">
+          <div :class="$style.modalTitle">
+            <p>{{ modalTitle }}</p>
+          </div>
+          <div :class="$style.textWrap">
+            <slot />
+          </div>
+          <div :class="$style.buttonCenter">
+            <button :class="$style.modalButton" @click="$emit('action')">
+              OK
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 <script lang="ts">
 type Data = {
@@ -82,5 +89,23 @@ export default {
 }
 .buttonCenter {
   text-align: center;
+}
+.modalEnterActive,
+.modalLeaveActive {
+  transition: opacity 0.4s;
+  .modalContainer {
+    transition: opacity 0.4s, transform 0.4s;
+  }
+}
+.modalLeaveActive {
+  transition: opacity 0.6s ease 0.4s;
+}
+.modalEnter,
+.modalLeaveTo {
+  opacity: 0;
+  .modalContainer {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
 }
 </style>
