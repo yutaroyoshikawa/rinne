@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.wrap">
     <button :class="$style.modalButton" @click="openNotifyModal()">
-      モーダル１
+      notify modal
     </button>
     <NotifyModal
       :show-notify-modal="showNotifyModal"
@@ -9,7 +9,7 @@
       @action="onNotifyModalAction()"
     />
     <button :class="$style.modalButton" @click="openActionModal()">
-      モーダル２
+      action modal
     </button>
     <ActionModal
       :show-action-modal="showActionModal"
