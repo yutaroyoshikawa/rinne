@@ -21,6 +21,7 @@
       modal-title="エラー"
       :show-notify-modal="isOpenErrorModal"
       @close="onCloseErrorModal"
+      @action="onCloseErrorModal"
     >
       <p>{{ errorMessage }}</p>
     </NotifyModal>
