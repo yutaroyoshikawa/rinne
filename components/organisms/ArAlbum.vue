@@ -61,6 +61,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
+import { LOADEDND_PRESENTATION_AFRAME } from '@/store/ar'
 
 Vue.config.ignoredElements = [
   'a-scene',
@@ -93,23 +94,16 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('photoStore', ['imageSrcs']),
-  },
-  beforeDestroy() {
-    const XR8 = window.XR8
-    if (XR8) {
-      if (!XR8.isPaused()) {
-        XR8.pause()
-      }
-    }
+    ...mapState('ar', ['isLoadedPresentationAframe']),
   },
   mounted() {
-    const XR8 = window.XR8
-    if (XR8) {
-      if (XR8.isPaused()) {
-        XR8.resume()
-      }
+    setTimeout(() => {
+      this.$emit('reality-ready')
+    }, 3000)
+    if (!this.isLoadedPresentationAframe) {
+      this.initAframe()
+      this.$store.commit(`ar/${LOADEDND_PRESENTATION_AFRAME}`)
     }
-    this.initAframe()
   },
   methods: {
     onClickImage(imageName: string) {
@@ -137,12 +131,6 @@ export default Vue.extend({
             this.el.sceneEl.addEventListener('xrimagelost', onXrimagelost)
             this.el.sceneEl.addEventListener('realityready', onRealityReady)
             this.el.sceneEl.addEventListener('realityerror', onRealityError)
-          },
-          remove() {
-            this.el.sceneEl.removeEventListener('xrimagefound', onXrimagefound)
-            this.el.sceneEl.removeEventListener('xrimagelost', onXrimagelost)
-            this.el.sceneEl.removeEventListener('realityready', onRealityReady)
-            this.el.sceneEL.removeEventListener('realityerror', onRealityError)
           },
         })
       }
