@@ -1,6 +1,5 @@
 <template>
   <div :class="$style.wrap">
-    <p v-if="hasGettedGeoLocation">lng:{{ lng }}/lat:{{ lat }}</p>
     <div ref="map" :class="$style.map"></div>
   </div>
 </template>
@@ -25,16 +24,6 @@ export default Vue.extend({
       lat: undefined,
     }
   },
-  computed: {
-    hasGettedGeoLocation(): boolean {
-      const existLocation =
-        typeof this.lat === 'number' && typeof this.lng === 'number'
-      if (existLocation) {
-        this.createMap()
-      }
-      return existLocation
-    },
-  },
   mounted() {
     this.isAllowedToGeolocation()
   },
@@ -49,6 +38,7 @@ export default Vue.extend({
           this.lat = data.latitude
           this.lng = data.longitude
           // alert(`lat${this.lat}/lng${this.lng}`)
+          this.createMap()
         })
       }
     },
@@ -67,7 +57,7 @@ export default Vue.extend({
           container: mapRef,
           style: 'mapbox://styles/chi24601/ckh5sf0y600l419pdxff45jj8',
           center: [this.lng, this.lat],
-          zoom: 15,
+          zoom: 18,
         })
 
         const el = document.createElement('div')
@@ -82,8 +72,9 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" module>
+@import '@/assets/scss/variables.scss';
 .map {
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - #{$header-height});
 }
 </style>
