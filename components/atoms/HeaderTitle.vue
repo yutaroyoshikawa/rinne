@@ -97,6 +97,7 @@ export default Vue.extend({
 }
 .header {
   max-width: calc(100vw - 40px);
+  width: 100%;
   text-align: center;
   font-size: 24px;
   color: $base-color;
