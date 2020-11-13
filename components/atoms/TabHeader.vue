@@ -35,6 +35,7 @@ export default Vue.extend({
 }
 .header {
   text-align: center;
+  width: 100%;
   font-size: 24px;
   color: $base-color;
   text-overflow: ellipsis;
