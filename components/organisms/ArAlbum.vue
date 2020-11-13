@@ -92,7 +92,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState(['photoStore/imageSrcs']),
+    ...mapState('photoStore', ['imageSrcs']),
   },
   beforeDestroy() {
     const XR8 = window.XR8

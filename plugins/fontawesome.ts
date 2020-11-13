@@ -1,11 +1,16 @@
 import Vue from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { config, library } from '@fortawesome/fontawesome-svg-core'
-import { faCheckCircle, faPlus } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCheckCircle,
+  faPlus,
+  faComment,
+  faMicrophone,
+} from '@fortawesome/free-solid-svg-icons'
 
 config.autoAddCss = false
 
-const icons = [faCheckCircle, faPlus]
+const icons = [faCheckCircle, faPlus, faComment, faMicrophone]
 
 // 利用するアイコンをlibraryに追加
 icons.forEach((icon) => library.add(icon))
