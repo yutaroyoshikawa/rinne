@@ -1,67 +1,80 @@
 <template>
-  <client-only>
-    <a-scene
-      presenar
-      xrextras-gesture-detector
-      xrextras-almost-there
-      xrextras-runtime-error
-      renderer="colorManagement: true"
-      xrweb="disableWorldTracking: true"
-    >
-      <a-assets>
-        <img
-          v-for="(imageSrc, index) in imageSrcs"
-          :id="`renny${index}`"
-          :key="`renny${index}`"
-          :src="imageSrc"
-        />
-      </a-assets>
-      <a-camera
-        position="0 4 10"
-        raycaster="objects: .cantap"
-        cursor="fuse: false; rayOrigin: mouse;"
+  <div>
+    <client-only>
+      <a-scene
+        presenar
+        xrextras-gesture-detector
+        xrextras-almost-there
+        xrextras-runtime-error
+        renderer="colorManagement: true"
+        xrweb="disableWorldTracking: true"
       >
-      </a-camera>
-
-      <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
-
-      <a-light type="ambient" intensity="0.7"></a-light>
-
-      <a-entity xrextras-named-image-target="name: renny">
-        <template v-if="isFoundXrimage">
-          <a-image
+        <a-assets>
+          <img
             v-for="(imageSrc, index) in imageSrcs"
-            :key="imageSrc"
-            class="cantap"
-            name="rennyImage"
-            :src="`#renny${index}`"
-            scale="0.0001 0.0001 0.0001"
-            :animation="{
-              property: 'scale',
-              to: '0.9 0.9 0.9',
-              easing: 'easeOutElastic',
-              dur: 3000,
-              delay: 300 * index - 1,
-            }"
-            :animation__2="{
-              property: 'position',
-              to: `${index - 1} ${isTapImage ? 0.3 : 0} 0.3`,
-              easing: 'easeOutElastic',
-              dur: 3000,
-              delay: 300 * index,
-            }"
-            @click="onClickImage(imageSrc)"
+            :id="`renny${index}`"
+            :key="`renny${index}`"
+            :src="imageSrc"
           />
-        </template>
-      </a-entity>
-    </a-scene>
-  </client-only>
+        </a-assets>
+        <a-camera
+          position="0 4 10"
+          raycaster="objects: .cantap"
+          cursor="fuse: false; rayOrigin: mouse;"
+        >
+        </a-camera>
+
+        <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
+
+        <a-light type="ambient" intensity="0.7"></a-light>
+
+        <a-entity xrextras-named-image-target="name: renny">
+          <template v-if="isFoundXrimage">
+            <a-image
+              v-for="(imageSrc, index) in imageSrcs"
+              :key="imageSrc"
+              class="cantap"
+              name="rennyImage"
+              :src="`#renny${index}`"
+              scale="0.0001 0.0001 0.0001"
+              :animation="{
+                property: 'scale',
+                to: '0.9 0.9 0.9',
+                easing: 'easeOutElastic',
+                dur: 3000,
+                delay: 300 * index - 1,
+              }"
+              :animation__2="{
+                property: 'position',
+                to: `${index - 1} ${isTapImage ? 0.3 : 0} 0.3`,
+                easing: 'easeOutElastic',
+                dur: 3000,
+                delay: 300 * index,
+              }"
+              @click="onClickImage(index)"
+            />
+          </template>
+        </a-entity>
+      </a-scene>
+    </client-only>
+    <ActionModal
+      :show-action-modal="isOpenDetailsModal"
+      modal-title="くわしく"
+      @close="onCloseDetailsModal"
+      @action="onDeleteImage(selectedImageIndex)"
+    >
+      <img :src="imageSrcs[selectedImageIndex]" alt="選択した写真" />
+      <p>この写真を削除しますか？</p>
+    </ActionModal>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
 import { LOADEDND_PRESENTATION_AFRAME } from '@/store/ar'
+import { REMOVE_IMAGE } from '@/store/photoStore'
+import ActionModal from '@/components/molecule/actionModal.vue'
 
 Vue.config.ignoredElements = [
   'a-scene',
@@ -81,15 +94,22 @@ type Data = {
   isFoundXrimage: boolean
   isTapImage: boolean
   images: string[]
+  isOpenDetailsModal: boolean
+  selectedImageIndex?: number
 }
 
 export default Vue.extend({
   name: 'ArAlbum',
+  components: {
+    ActionModal,
+  },
   data(): Data {
     return {
       isFoundXrimage: false,
       isTapImage: false,
       images: ['renny', 'renny2', 'renny3'],
+      isOpenDetailsModal: false,
+      selectedImageIndex: undefined,
     }
   },
   computed: {
@@ -106,9 +126,16 @@ export default Vue.extend({
     }
   },
   methods: {
-    onClickImage(imageName: string) {
-      alert(imageName)
+    onClickImage(imageIndex: number) {
+      this.selectedImageIndex = imageIndex
+      this.isOpenDetailsModal = true
       this.isTapImage = true
+    },
+    onCloseDetailsModal() {
+      this.isOpenDetailsModal = false
+    },
+    onDeleteImage(imageIndex: number) {
+      this.$store.commit(`photoStore/${REMOVE_IMAGE}`, imageIndex)
     },
     initAframe() {
       const AFRAME = window.AFRAME

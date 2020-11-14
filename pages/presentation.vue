@@ -70,8 +70,10 @@ export default Vue.extend({
     onRealityReady() {
       this.isReadyReality = true
     },
-    onRealityError() {
-      this.isReadyReality = true
+    onRealityError(error: any) {
+      const message = this.getErrorMessage(error)
+      this.errorMessage = message
+      this.isOpenErrorModal = true
     },
     onClickTalkButton() {
       this.isTalkMode = true
