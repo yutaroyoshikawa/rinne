@@ -22,7 +22,9 @@ export const mutations: MutationTree<PhotoStore> = {
     state.count = state.imageSrcs.length
   },
   [REMOVE_IMAGE](state, imageIndex: number) {
-    state.imageSrcs = state.imageSrcs.splice(imageIndex, 1)
+    state.imageSrcs = state.imageSrcs.filter(
+      (_imageSrc, index) => index !== imageIndex
+    )
     state.count = state.imageSrcs.length
   },
 }
