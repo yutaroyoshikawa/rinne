@@ -29,6 +29,7 @@ jobs:
           envkey_EIGHTHWALL_APP_KEY: ${{ secrets.EIGHTHWALL_APP_KEY }}
           envkey_GCP_API_KEY: ${{ secrets.GCP_API_KEY }}
           envkey_MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN }}
+          envkey_A3RT_TALK_API_KEY: ${{ secrets.A3RT_TALK_API_KEY }}
 
       - name: lint
         uses: actions/setup-node@v1
