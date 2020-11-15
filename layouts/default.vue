@@ -8,18 +8,7 @@
       </header>
       <Nuxt />
     </div>
-    <div v-if="isOpenTab" :class="$style.tabOveray" @click="closeTab" />
-    <transition
-      :enter-class="$style.slideEnter"
-      :leave-to-class="$style.slideLeaveTo"
-      :enter-active-class="$style.slideEnterActive"
-      :leave-active-class="$style.slideLeaveActive"
-    >
-      <div v-if="isOpenTab" :class="$style.tabContainer">
-        <TabHeader />
-        <portal-target name="tab" :class="$style.portal"> </portal-target>
-      </div>
-    </transition>
+    <OverlayTab />
   </div>
 </template>
 
@@ -28,22 +17,16 @@ import Vue from 'vue'
 import { mapState } from 'vuex'
 import 'destyle.css'
 import HeaderTitle from '@/components/atoms/HeaderTitle.vue'
-import TabHeader from '@/components/atoms/TabHeader.vue'
-import { CLOSE_TAB } from '@/store/index'
+import OverlayTab from '@/components/molecule/OverlayTab.vue'
 
 export default Vue.extend({
   name: 'App',
   components: {
     HeaderTitle,
-    TabHeader,
+    OverlayTab,
   },
   computed: {
     ...mapState(['isOpenTab']),
-  },
-  methods: {
-    closeTab() {
-      this.$store.commit(CLOSE_TAB)
-    },
   },
 })
 </script>
@@ -64,49 +47,14 @@ export default Vue.extend({
   transition: filter 300ms, transform 300ms;
 }
 
-.tabContainer {
-  width: 100%;
-  height: 83vh;
-  background-color: #fff;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  position: fixed;
-  bottom: 0;
-  border-radius: 10px 10px 0 0;
-  overflow: hidden;
-  z-index: $header-zindex + 2;
-}
-
 .openTab {
   filter: blur(4px);
   transform: scale3d(0.9, 0.9, 0.9) rotate3d(1, 0, 0, 0);
-}
-
-.portal {
-  height: 100%;
-  width: 100%;
 }
 
 .header {
   position: sticky;
   top: 0;
   z-index: $header-zindex;
-}
-
-.tabOveray {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  z-index: $header-zindex + 1;
-}
-
-.slideEnterActive,
-.slideLeaveActive {
-  transition: transform 0.5s ease;
-}
-
-.slideEnter,
-.slideLeaveTo {
-  transform: translateY(100%);
 }
 </style>
