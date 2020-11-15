@@ -26,7 +26,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { PageTransitionState } from '@/extentions/pageTransitionState'
-import { CHANGE_HEADER_TITLE, SET_IS_OPEN_TAB } from '@/store/index'
+import { CHANGE_HEADER_TITLE } from '@/store/index'
 import ScaleTransition from '@/components/atoms/transitions/ScaleTransition.vue'
 import ListButton from '../components/atoms/listButton.vue'
 import CharacterCircle from '../components/atoms/characterCircle.vue'
@@ -55,11 +55,6 @@ export default Vue.extend({
   },
   beforeCreate() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, undefined)
-  },
-  methods: {
-    openTab() {
-      this.$store.commit(SET_IS_OPEN_TAB, true)
-    },
   },
 })
 </script>
