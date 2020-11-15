@@ -1,6 +1,6 @@
 import { Plugin } from '@nuxt/types'
 import { PageTransitionState } from '@/extentions/pageTransitionState'
-import { CHANGE_PAGE_TRANSITION_STATE } from '@/store/index'
+import { CHANGE_PAGE_TRANSITION_STATE, CLOSE_TAB } from '@/store/index'
 
 const EXIT_TRANSITION_DURATION = 600
 const ENTER_TRANSITION_DURATION = 600
@@ -11,6 +11,7 @@ const pageTransitionTimeout: Plugin = ({ app, store }) => {
     let timer: ReturnType<typeof setTimeout>
     router.beforeEach((_to, from, next) => {
       clearTimeout(timer)
+      store.commit(CLOSE_TAB)
       if (from.name) {
         store.dispatch(
           CHANGE_PAGE_TRANSITION_STATE,

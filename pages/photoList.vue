@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { CHANGE_HEADER_TITLE, OPEN_TAB, CLOSE_TAB } from '@/store/index'
+import { CHANGE_HEADER_TITLE, OPEN_TAB } from '@/store/index'
 import CameraRool from '@/components/organisms/cameraRool.vue'
 import AddButton from '@/components/atoms/addButton.vue'
 
@@ -42,9 +42,6 @@ export default Vue.extend({
   },
   beforeCreate() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, 'いちらん')
-  },
-  beforeDestroy() {
-    this.$store.commit(CLOSE_TAB)
   },
   methods: {
     storeClear() {
