@@ -11,7 +11,9 @@ const pageTransitionTimeout: Plugin = ({ app, store }) => {
     let timer: ReturnType<typeof setTimeout>
     router.beforeEach((_to, from, next) => {
       clearTimeout(timer)
-      store.commit(CLOSE_TAB)
+      if (store.state.isOpenTab) {
+        store.commit(CLOSE_TAB)
+      }
       if (from.name) {
         store.dispatch(
           CHANGE_PAGE_TRANSITION_STATE,
