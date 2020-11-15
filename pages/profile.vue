@@ -50,7 +50,7 @@ export default Vue.extend({
       ],
       userName: 'さくらちゃん',
       dollName: 'レニー',
-      imageSrc: '/img/1.jpg',
+      imageSrc: '/img/reny.jpg',
     }
   },
   beforeCreate() {

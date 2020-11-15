@@ -8,7 +8,7 @@ import Vue from 'vue'
 export default Vue.extend({
   name: 'CharacterImageCircle',
   props: {
-    imageSrc: { type: String, default: '/img/1.jpg' },
+    imageSrc: { type: String, default: '/img/reny.jpg' },
   },
 })
 </script>
