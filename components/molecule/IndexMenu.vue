@@ -2,7 +2,7 @@
   <div :class="$style.wrap">
     <IndexLink to="/locate">いばしょ</IndexLink>
     <div :class="$style.centerWrap">
-      <IndexLink to="/photoList">アルバム</IndexLink>
+      <IndexLink to="/photoList">いちらん</IndexLink>
     </div>
     <IndexLink to="/cleanliness">たいちょう</IndexLink>
   </div>
