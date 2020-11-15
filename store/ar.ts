@@ -42,17 +42,30 @@ export const mutations: MutationTree<ArStore> = {
 }
 
 export const actions: ActionTree<ArStore, RootState> = {
-  [REQUEST_TALK_TEXT]({ commit }, talkText: ArStore['talkResponseText']) {
+  async [REQUEST_TALK_TEXT]({ commit }, talkText: ArStore['talkResponseText']) {
     if (talkText) {
       commit(SET_IS_LOADING_TALK_RESPONSE_TEXT, true)
-      setTimeout(() => {
-        if (talkText.includes('おはよう')) {
-          commit(SET_TALK_RESPONSE, 'おはよう！！')
-        } else {
-          commit(SET_TALK_RESPONSE, '何言ってるかわからないよ')
-        }
+      const requestData = {
+        apikey: process.env.A3RT_TALK_API_KEY,
+        query: talkText,
+      }
+      try {
+        const res = await fetch(
+          `https://api.a3rt.recruit-tech.co.jp/talk/v1/smalltalk`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8',
+            },
+            body: JSON.stringify(requestData),
+          }
+        )
+        const resJson = await res.json()
+        const resTalkText = resJson.results[0].reply
+        commit(SET_TALK_RESPONSE, resTalkText)
+      } finally {
         commit(SET_IS_LOADING_TALK_RESPONSE_TEXT, false)
-      }, 3000)
+      }
     }
   },
 }
