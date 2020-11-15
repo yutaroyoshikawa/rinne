@@ -13,7 +13,7 @@
         />
       </div>
       <div
-        v-if="key <= 2"
+        v-if="key < 2"
         :class="{
           [$style.separator]: true,
         }"
