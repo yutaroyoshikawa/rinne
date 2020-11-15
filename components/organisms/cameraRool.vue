@@ -40,7 +40,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { SET_IS_OPEN_TAB } from '@/store/index'
+import { CLOSE_TAB } from '@/store/index'
 
 type Data = {
   imageData: {
@@ -93,7 +93,7 @@ export default Vue.extend({
     },
     addImages() {
       this.$store.commit('photoStore/ADD_IMAGES', this.selectedIndexes)
-      this.$store.commit(SET_IS_OPEN_TAB, false)
+      this.$store.commit(CLOSE_TAB)
     },
   },
 })
