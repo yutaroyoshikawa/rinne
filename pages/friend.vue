@@ -13,9 +13,9 @@
         />
       </div>
       <div
+        v-if="key <= 2"
         :class="{
           [$style.separator]: true,
-          [$style.none]: key >= 2,
         }"
       >
         <Separator />
@@ -95,8 +95,5 @@ export default Vue.extend({
 }
 .separator {
   margin-top: 20px;
-}
-.none {
-  display: none;
 }
 </style>
