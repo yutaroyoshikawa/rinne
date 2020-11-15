@@ -16,7 +16,7 @@
       :leave-active-class="$style.slideLeaveActive"
     >
       <div v-if="isOpenTab" :class="$style.tabContainer">
-        <TabHeader></TabHeader>
+        <TabHeader />
         <portal-target name="tab" :class="$style.portal"> </portal-target>
       </div>
     </transition>
@@ -29,7 +29,7 @@ import { mapState } from 'vuex'
 import 'destyle.css'
 import HeaderTitle from '@/components/atoms/HeaderTitle.vue'
 import TabHeader from '@/components/atoms/TabHeader.vue'
-import { SET_IS_OPEN_TAB } from '@/store/index'
+import { CLOSE_TAB } from '@/store/index'
 
 export default Vue.extend({
   name: 'App',
@@ -42,7 +42,7 @@ export default Vue.extend({
   },
   methods: {
     closeTab() {
-      this.$store.commit(SET_IS_OPEN_TAB, false)
+      this.$store.commit(CLOSE_TAB)
     },
   },
 })

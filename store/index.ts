@@ -3,6 +3,7 @@ import { PageTransitionState } from '@/extentions/pageTransitionState'
 
 export type RootState = {
   headerTitle?: string
+  tabTitle: string
   pageTransitionState: PageTransitionState | null
   isOpenTab: boolean
 }
@@ -10,7 +11,8 @@ export type RootState = {
 // Mutations
 const SET_HEADER_TITLE = 'SET_HEADER_TITLE'
 const SET_PAGE_TRANSITION_STATE = 'SET_PAGE_TRANSITION_STATE'
-export const SET_IS_OPEN_TAB = 'SET_IS_OPEN_TAB'
+export const OPEN_TAB = 'OPEN_TAB'
+export const CLOSE_TAB = 'CLOSE_TAB'
 
 // Actions
 export const CHANGE_HEADER_TITLE = 'CHANGE_HEADER_TITLE'
@@ -18,6 +20,7 @@ export const CHANGE_PAGE_TRANSITION_STATE = 'CHANGE_PAGE_TRANSITION_STATE'
 
 export const state = (): RootState => ({
   headerTitle: '',
+  tabTitle: '',
   pageTransitionState: null,
   isOpenTab: false,
 })
@@ -32,8 +35,12 @@ export const mutations: MutationTree<RootState> = {
   ) {
     state.pageTransitionState = payload
   },
-  [SET_IS_OPEN_TAB](state, payload: RootState['isOpenTab']) {
-    state.isOpenTab = payload
+  [OPEN_TAB](state, payload: RootState['tabTitle']) {
+    state.tabTitle = payload
+    state.isOpenTab = true
+  },
+  [CLOSE_TAB](state) {
+    state.isOpenTab = false
   },
 }
 
