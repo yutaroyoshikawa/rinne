@@ -24,6 +24,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import MicButton from '@/components/atoms/MicButton.vue'
+import { REQUEST_TALK_TEXT } from '@/store/ar'
 
 type Data = {
   recorder?: any
@@ -66,6 +67,11 @@ export default Vue.extend({
         return false
       }
       return true
+    },
+  },
+  watch: {
+    speechTextResult() {
+      this.$store.dispatch(`ar/${REQUEST_TALK_TEXT}`, this.speechTextResult)
     },
   },
   beforeMount() {

@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div :class="$style.responseTalkWrap">
+      <ResponseTalk />
+    </div>
     <client-only>
       <a-scene
         presenar
@@ -63,7 +66,11 @@
       @close="onCloseDetailsModal"
       @action="onDeleteImage(selectedImageIndex)"
     >
-      <img :src="imageSrcs[selectedImageIndex]" alt="選択した写真" />
+      <img
+        :class="$style.detailsImage"
+        :src="imageSrcs[selectedImageIndex]"
+        alt="選択した写真"
+      />
       <p>この写真を削除しますか？</p>
     </ActionModal>
   </div>
@@ -75,6 +82,7 @@ import { mapState } from 'vuex'
 import { LOADEDND_PRESENTATION_AFRAME } from '@/store/ar'
 import { REMOVE_IMAGE } from '@/store/photoStore'
 import ActionModal from '@/components/molecule/actionModal.vue'
+import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
 
 Vue.config.ignoredElements = [
   'a-scene',
@@ -102,6 +110,7 @@ export default Vue.extend({
   name: 'ArAlbum',
   components: {
     ActionModal,
+    ResponseTalk,
   },
   data(): Data {
     return {
@@ -136,6 +145,7 @@ export default Vue.extend({
     },
     onDeleteImage(imageIndex: number) {
       this.$store.commit(`photoStore/${REMOVE_IMAGE}`, imageIndex)
+      this.isOpenDetailsModal = true
     },
     initAframe() {
       const AFRAME = window.AFRAME
@@ -165,3 +175,18 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style lang="scss" module>
+.detailsImage {
+  width: 100%;
+}
+
+.responseTalkWrap {
+  position: fixed;
+  top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 50;
+}
+</style>
