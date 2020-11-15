@@ -13,7 +13,7 @@
         />
       </div>
       <div
-        v-if="key < 2"
+        v-if="key < dollData.length - 1"
         :class="{
           [$style.separator]: true,
         }"

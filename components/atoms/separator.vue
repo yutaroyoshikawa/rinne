@@ -16,7 +16,6 @@ export default Vue.extend({
   border: none;
   border-top: dashed 2px $secondary-color;
   height: 1px;
-  //   color: #ffffff;
   width: 260px;
 }
 </style>
