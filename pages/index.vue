@@ -9,6 +9,7 @@
       <NuxtLink to="photolist" :class="$style.pageLink">いちらん</NuxtLink>
       <NuxtLink to="profile" :class="$style.pageLink">プロフィール</NuxtLink>
       <NuxtLink to="locate" :class="$style.pageLink">いばしょ</NuxtLink>
+      <NuxtLink to="friend" :class="$style.pageLink">おともだち</NuxtLink>
       <NuxtLink to="testpage" :class="$style.pageLink">テストページ</NuxtLink>
     </div>
     <hr />
