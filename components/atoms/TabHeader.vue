@@ -1,13 +1,14 @@
 <template>
   <div :class="$style.container">
     <h2 :class="$style.header">
-      {{ title }}
+      {{ tabTitle }}
     </h2>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapState } from 'vuex'
 
 export default Vue.extend({
   props: {
@@ -15,6 +16,9 @@ export default Vue.extend({
       type: String,
       default: 'タブ',
     },
+  },
+  computed: {
+    ...mapState(['tabTitle']),
   },
 })
 </script>
@@ -35,6 +39,7 @@ export default Vue.extend({
 }
 .header {
   text-align: center;
+  width: 100%;
   font-size: 24px;
   color: $base-color;
   text-overflow: ellipsis;

@@ -1,4 +1,5 @@
 @import '@/assets/scss/variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
 
 html,
 body,
@@ -6,14 +7,13 @@ body,
 #__layout {
   height: 100%;
 }
-
 body {
   background-color: $base-color;
 }
 
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Kosugi Maru', 'Source Sans Pro', -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;

@@ -26,11 +26,12 @@ export default Vue.extend({
 </script>
 
 <style module lang="scss">
+@import '@/assets/scss/variables.scss';
+
 .wrap {
   padding-bottom: 20px;
   width: 100%;
   height: 40%;
-  font-family: 'Kosugi Maru', sans-serif;
   display: grid;
   align-items: center;
   justify-content: center;
@@ -40,6 +41,7 @@ export default Vue.extend({
   text-align: center;
   font-size: 24px;
   margin-top: 40%;
+  color: $dark-base-color;
 }
 .conditionCircle {
   margin-top: 40%;

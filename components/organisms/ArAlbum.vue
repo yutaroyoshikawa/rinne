@@ -1,66 +1,88 @@
 <template>
-  <client-only>
-    <a-scene
-      presenar
-      xrextras-gesture-detector
-      xrextras-almost-there
-      xrextras-runtime-error
-      renderer="colorManagement: true"
-      xrweb="disableWorldTracking: true"
-    >
-      <a-assets>
-        <img
-          v-for="(imageSrc, index) in imageSrcs"
-          :id="`renny${index}`"
-          :key="`renny${index}`"
-          :src="imageSrc"
-        />
-      </a-assets>
-      <a-camera
-        position="0 4 10"
-        raycaster="objects: .cantap"
-        cursor="fuse: false; rayOrigin: mouse;"
+  <div>
+    <div :class="$style.responseTalkWrap">
+      <ResponseTalk />
+    </div>
+    <client-only>
+      <a-scene
+        presenar
+        xrextras-gesture-detector
+        xrextras-almost-there
+        xrextras-runtime-error
+        renderer="colorManagement: true"
+        xrweb="disableWorldTracking: true"
       >
-      </a-camera>
-
-      <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
-
-      <a-light type="ambient" intensity="0.7"></a-light>
-
-      <a-entity xrextras-named-image-target="name: renny">
-        <template v-if="isFoundXrimage">
-          <a-image
+        <a-assets>
+          <img
             v-for="(imageSrc, index) in imageSrcs"
-            :key="imageSrc"
-            class="cantap"
-            name="rennyImage"
-            :src="`#renny${index}`"
-            scale="0.0001 0.0001 0.0001"
-            :animation="{
-              property: 'scale',
-              to: '0.9 0.9 0.9',
-              easing: 'easeOutElastic',
-              dur: 3000,
-              delay: 300 * index - 1,
-            }"
-            :animation__2="{
-              property: 'position',
-              to: `${index - 1} ${isTapImage ? 0.3 : 0} 0.3`,
-              easing: 'easeOutElastic',
-              dur: 3000,
-              delay: 300 * index,
-            }"
-            @click="onClickImage(imageSrc)"
+            :id="`renny${index}`"
+            :key="`renny${index}`"
+            :src="imageSrc"
           />
-        </template>
-      </a-entity>
-    </a-scene>
-  </client-only>
+        </a-assets>
+        <a-camera
+          position="0 4 10"
+          raycaster="objects: .cantap"
+          cursor="fuse: false; rayOrigin: mouse;"
+        >
+        </a-camera>
+
+        <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
+
+        <a-light type="ambient" intensity="0.7"></a-light>
+
+        <a-entity xrextras-named-image-target="name: renny">
+          <template v-if="isFoundXrimage">
+            <a-image
+              v-for="(imageSrc, index) in imageSrcs"
+              :key="imageSrc"
+              class="cantap"
+              name="rennyImage"
+              :src="`#renny${index}`"
+              scale="0.0001 0.0001 0.0001"
+              :animation="{
+                property: 'scale',
+                to: '0.9 0.9 0.9',
+                easing: 'easeOutElastic',
+                dur: 3000,
+                delay: 300 * index - 1,
+              }"
+              :animation__2="{
+                property: 'position',
+                to: `${index - 1} ${isTapImage ? 0.3 : 0} 0.3`,
+                easing: 'easeOutElastic',
+                dur: 3000,
+                delay: 300 * index,
+              }"
+              @click.self="onClickImage(index)"
+            />
+          </template>
+        </a-entity>
+      </a-scene>
+    </client-only>
+    <ActionModal
+      :show-action-modal="isOpenDetailsModal"
+      modal-title="くわしく"
+      @close="onCloseDetailsModal"
+      @action="onDeleteImage(selectedImageIndex)"
+    >
+      <img
+        :class="$style.detailsImage"
+        :src="imageSrcs[selectedImageIndex]"
+        alt="選択した写真"
+      />
+      <p>この写真を削除しますか？</p>
+    </ActionModal>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
+import { LOADEDND_PRESENTATION_AFRAME } from '@/store/ar'
+import { REMOVE_IMAGE } from '@/store/photoStore'
+import ActionModal from '@/components/molecule/actionModal.vue'
+import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
 
 Vue.config.ignoredElements = [
   'a-scene',
@@ -80,41 +102,50 @@ type Data = {
   isFoundXrimage: boolean
   isTapImage: boolean
   images: string[]
+  isOpenDetailsModal: boolean
+  selectedImageIndex?: number
 }
 
 export default Vue.extend({
   name: 'ArAlbum',
+  components: {
+    ActionModal,
+    ResponseTalk,
+  },
   data(): Data {
     return {
       isFoundXrimage: false,
       isTapImage: false,
       images: ['renny', 'renny2', 'renny3'],
+      isOpenDetailsModal: false,
+      selectedImageIndex: undefined,
     }
   },
   computed: {
-    ...mapState(['photoStore/imageSrcs']),
-  },
-  beforeDestroy() {
-    const XR8 = window.XR8
-    if (XR8) {
-      if (!XR8.isPaused()) {
-        XR8.pause()
-      }
-    }
+    ...mapState('photoStore', ['imageSrcs']),
+    ...mapState('ar', ['isLoadedPresentationAframe']),
   },
   mounted() {
-    const XR8 = window.XR8
-    if (XR8) {
-      if (XR8.isPaused()) {
-        XR8.resume()
-      }
+    setTimeout(() => {
+      this.$emit('reality-ready')
+    }, 3000)
+    if (!this.isLoadedPresentationAframe) {
+      this.initAframe()
+      this.$store.commit(`ar/${LOADEDND_PRESENTATION_AFRAME}`)
     }
-    this.initAframe()
   },
   methods: {
-    onClickImage(imageName: string) {
-      alert(imageName)
+    onClickImage(imageIndex: number) {
+      this.selectedImageIndex = imageIndex
+      this.isOpenDetailsModal = true
       this.isTapImage = true
+    },
+    onCloseDetailsModal() {
+      this.isOpenDetailsModal = false
+    },
+    onDeleteImage(imageIndex: number) {
+      this.$store.commit(`photoStore/${REMOVE_IMAGE}`, imageIndex)
+      this.isOpenDetailsModal = true
     },
     initAframe() {
       const AFRAME = window.AFRAME
@@ -138,15 +169,24 @@ export default Vue.extend({
             this.el.sceneEl.addEventListener('realityready', onRealityReady)
             this.el.sceneEl.addEventListener('realityerror', onRealityError)
           },
-          remove() {
-            this.el.sceneEl.removeEventListener('xrimagefound', onXrimagefound)
-            this.el.sceneEl.removeEventListener('xrimagelost', onXrimagelost)
-            this.el.sceneEl.removeEventListener('realityready', onRealityReady)
-            this.el.sceneEL.removeEventListener('realityerror', onRealityError)
-          },
         })
       }
     },
   },
 })
 </script>
+
+<style lang="scss" module>
+.detailsImage {
+  width: 100%;
+}
+
+.responseTalkWrap {
+  position: fixed;
+  top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 50;
+}
+</style>

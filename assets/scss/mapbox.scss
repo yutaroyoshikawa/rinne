@@ -1,7 +1,10 @@
+@import '@/assets/scss/variables.scss';
 .marker {
-  background-image:url('/img/0.jpg');
+  background-image:url('/img/reny.jpg');
+  background-size:contain;
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  border: 3px solid $secondary-color;
   cursor: pointer;
 }

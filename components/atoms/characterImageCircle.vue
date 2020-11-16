@@ -1,7 +1,5 @@
 <template>
-  <div :class="$style.wrap">
-    <img :class="$style.img" src="/img/characterImage.png" />
-  </div>
+  <img :class="$style.img" :src="imageSrc" />
 </template>
 
 <script lang="ts">
@@ -9,19 +7,16 @@ import Vue from 'vue'
 
 export default Vue.extend({
   name: 'CharacterImageCircle',
+  props: {
+    imageSrc: { type: String, default: '/img/reny.jpg' },
+  },
 })
 </script>
 <style module lang="scss">
-.wrap {
+.img {
   width: 225px;
   height: 225px;
-  border-radius: 225px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.img {
-  width: 100%;
-  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 </style>

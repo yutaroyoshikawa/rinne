@@ -1,20 +1,20 @@
 <template>
   <div :class="$style.wrap">
     <button :class="$style.modalButton" @click="openNotifyModal()">
-      モーダル１
+      notify modal
     </button>
     <NotifyModal
       :show-notify-modal="showNotifyModal"
       @close="closeNotifyModal()"
-      @action="onNotifyModalAction"
+      @action="onNotifyModalAction()"
     />
     <button :class="$style.modalButton" @click="openActionModal()">
-      モーダル２
+      action modal
     </button>
     <ActionModal
       :show-action-modal="showActionModal"
       @close="closeActionModal()"
-      @action="onActionModalAction"
+      @action="onActionModalAction()"
     />
     <SplitLine />
   </div>
@@ -55,7 +55,7 @@ export default Vue.extend({
       this.showNotifyModal = false
     },
     onNotifyModalAction() {
-      this.showActionModal = false
+      this.showNotifyModal = false
     },
     openActionModal() {
       this.showActionModal = true

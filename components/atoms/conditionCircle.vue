@@ -25,6 +25,8 @@ export default Vue.extend({
 })
 </script>
 <style module lang="scss">
+@import '@/assets/scss/variables.scss';
+
 .resultCircle {
   width: 270px;
   height: 270px;
@@ -42,7 +44,7 @@ export default Vue.extend({
 }
 .numberFormer {
   font-size: 24px;
-  color: #000;
+  color: $dark-base-color;
 }
 .dollWrap {
   width: 270px;
