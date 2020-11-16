@@ -14,6 +14,7 @@ export default Vue.extend({
 @import '@/assets/scss/variables.scss';
 .separator {
   border: none;
+  margin: 0;
   border-top: dashed 2px $secondary-color;
   height: 1px;
   width: 260px;
