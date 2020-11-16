@@ -16,12 +16,14 @@
       @close="closeActionModal()"
       @action="onActionModalAction()"
     />
+    <SplitLine />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
+import SplitLine from '@/components/atoms/splitLine.vue'
 import NotifyModal from '~/components/molecule/notifyModal.vue'
 import ActionModal from '~/components/molecule/actionModal.vue'
 
@@ -33,6 +35,7 @@ type Data = {
 export default Vue.extend({
   components: {
     NotifyModal,
+    SplitLine,
     ActionModal,
   },
   data(): Data {
