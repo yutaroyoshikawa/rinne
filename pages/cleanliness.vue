@@ -1,12 +1,10 @@
 <template>
   <div :class="$style.wrap">
-    <ConditionCircle :class="$style.conditionCircle" />
+    <ConditionCircle :class="$style.conditionCircle" :score="score" />
     <div :class="$style.conditionMessage">
-      <!-- 基準決めたら数字によって表示メッセージ変更導入する -->
-      <p>そろそろ洗って欲しいな</p>
+      <p>{{ resultMessage }}</p>
     </div>
   </div>
-  <!-- <NuxtLink to="profile">プロフィールページ</NuxtLink> -->
 </template>
 
 <script lang="ts">
@@ -18,6 +16,20 @@ export default Vue.extend({
   name: 'Cleanliness',
   components: {
     ConditionCircle,
+  },
+  computed: {
+    score() {
+      return Math.floor(Math.random() * 100) + 1
+    },
+    resultMessage() {
+      if (this.score >= 66) {
+        return 'げんきいっぱい！'
+      } else if (this.score < 66 && this.score > 33) {
+        return 'まだまだげんき'
+      } else {
+        return 'そろそろあらってほしいな'
+      }
+    },
   },
   beforeCreate() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, 'たいちょう')
@@ -37,7 +49,6 @@ export default Vue.extend({
   justify-content: center;
 }
 .conditionMessage {
-  display: flex;
   text-align: center;
   font-size: 24px;
   margin-top: 40%;

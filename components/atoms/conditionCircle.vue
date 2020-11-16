@@ -1,8 +1,15 @@
 <template>
   <div>
-    <div :class="$style.resultCircle">
+    <div
+      :class="{
+        [$style.resultCircle]: true,
+        [$style.highScore]: score >= 66,
+        [$style.nomalScore]: 66 > score && score > 33,
+        [$style.lowScore]: 33 >= score,
+      }"
+    >
       <p>
-        <span :class="$style.resultNumber">{{ resultNumber }}</span>
+        <span :class="$style.resultNumber">{{ score }}</span>
         <span :class="$style.numberFormer">/100</span>
       </p>
     </div>
@@ -17,10 +24,8 @@ import Vue from 'vue'
 
 export default Vue.extend({
   name: 'ConditionCircle',
-  computed: {
-    resultNumber() {
-      return Math.floor(Math.random() * 100) + 1
-    },
+  props: {
+    score: { type: Number, default: 0 },
   },
 })
 </script>
@@ -31,12 +36,20 @@ export default Vue.extend({
   width: 270px;
   height: 270px;
   border-radius: 270px;
-  background-color: rgba(218, 153, 95, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
   z-index: 100;
+}
+.highScore {
+  background-color: rgba(218, 153, 95, 0.2);
+}
+.nomalScore {
+  background-color: rgba(218, 153, 95, 0.5);
+}
+.lowScore {
+  background-color: rgba(218, 153, 95, 0.7);
 }
 .resultNumber {
   font-size: 64px;
