@@ -1,10 +1,10 @@
 <template>
   <div :class="$style.wrap">
     <button
-      :class="$style.micButton"
+      :class="[$style.micButton, { [$style.holding]: isHolding }]"
       :disabled="$props.disabled"
-      @pointerdown="$emit('holdstart')"
-      @pointerup="$emit('holdend')"
+      @pointerdown="onHoldStart"
+      @pointerup="onHoldEnd"
     >
       <fa :icon="['fa', 'microphone']" :class="$style.icon" />
     </button>
@@ -14,12 +14,31 @@
 <script lang="ts">
 import Vue from 'vue'
 
+type Data = {
+  isHolding: boolean
+}
+
 export default Vue.extend({
   name: 'MicButton',
   props: {
     disabled: {
       type: Boolean,
       default: false,
+    },
+  },
+  data(): Data {
+    return {
+      isHolding: false,
+    }
+  },
+  methods: {
+    onHoldStart() {
+      this.isHolding = true
+      this.$emit('holdstart')
+    },
+    onHoldEnd() {
+      this.isHolding = false
+      this.$emit('holdend')
     },
   },
 })
@@ -30,11 +49,11 @@ export default Vue.extend({
 
 .wrap {
   transition: transform 0.1s linear;
+}
 
-  &:active {
-    transition: transform 0.1s linear;
-    transform: scale(1.1);
-  }
+.holding {
+  transition: transform 0.1s linear;
+  transform: scale(1.1);
 }
 
 .micButton {
@@ -45,6 +64,7 @@ export default Vue.extend({
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 
   &:disabled {
     transition: filter 0.5s;
@@ -56,5 +76,6 @@ export default Vue.extend({
   color: #fff;
   font-size: 30px;
   pointer-events: none;
+  user-select: none;
 }
 </style>
