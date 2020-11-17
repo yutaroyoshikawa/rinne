@@ -85,6 +85,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import 'aframe-html-shader'
+import 'html2canvas'
 import { mapState } from 'vuex'
 import { LOADEDND_PRESENTATION_AFRAME } from '@/store/ar'
 import { REMOVE_IMAGE } from '@/store/photoStore'
