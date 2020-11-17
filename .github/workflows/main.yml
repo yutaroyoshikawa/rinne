@@ -39,7 +39,7 @@ jobs:
       - run: npm run lint
 
       - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v19.0.1+3
+        uses: amondnet/vercel-action@v19.0.1+4
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-args: '--prod'
