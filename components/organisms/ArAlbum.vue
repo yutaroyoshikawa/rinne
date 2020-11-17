@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="$style.responseTalkWrap">
+    <div id="htmlElement">
       <ResponseTalk />
     </div>
     <client-only>
@@ -30,6 +30,12 @@
         <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
 
         <a-light type="ambient" intensity="0.7"></a-light>
+
+        <a-entity
+          xrextras-named-image-target="name: renny"
+          geometry="primitive: plane"
+          material="shader: html; target: #htmlElement"
+        />
 
         <a-entity xrextras-named-image-target="name: renny">
           <template v-if="isFoundXrimage">
@@ -78,6 +84,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import 'aframe-html-shader'
 import { mapState } from 'vuex'
 import { LOADEDND_PRESENTATION_AFRAME } from '@/store/ar'
 import { REMOVE_IMAGE } from '@/store/photoStore'
