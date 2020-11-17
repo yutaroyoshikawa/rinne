@@ -8,7 +8,7 @@
     <div v-if="$props.in" :class="$style.wrap">
       <button :class="$style.talkButton" @click="$emit('click')">
         <fa :icon="['fa', 'comment']" :class="$style.icon" />
-        おはなしする
+        <span>おはなしする</span>
       </button>
     </div>
   </transition>
@@ -39,12 +39,13 @@ export default Vue.extend({
 }
 
 .talkButton {
-  width: 150px;
+  width: 180px;
   height: 45px;
   border-radius: 53px;
   text-align: center;
   background-color: $primary-color;
   display: flex;
+  font-size: 15px;
   align-items: center;
   justify-content: center;
   color: $base-color;
@@ -60,6 +61,7 @@ export default Vue.extend({
   color: $base-color;
   font-size: 20px;
   margin-right: 5px;
+  display: inline-block;
 }
 
 @keyframes bounceIn {
