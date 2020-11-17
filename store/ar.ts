@@ -54,6 +54,7 @@ export const actions: ActionTree<ArStore, RootState> = {
           `https://api.a3rt.recruit-tech.co.jp/talk/v1/smalltalk`,
           {
             method: 'POST',
+            mode: 'cors',
             headers: {
               'Content-Type': 'application/json; charset=utf-8',
             },
