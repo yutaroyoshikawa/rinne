@@ -152,7 +152,7 @@ export default Vue.extend({
     },
     onDeleteImage(imageIndex: number) {
       this.$store.commit(`photoStore/${REMOVE_IMAGE}`, imageIndex)
-      this.isOpenDetailsModal = true
+      this.isOpenDetailsModal = false
     },
     initAframe() {
       const AFRAME = window.AFRAME
