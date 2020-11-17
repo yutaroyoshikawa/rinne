@@ -241,6 +241,9 @@ export default Vue.extend({
 
 .resultText {
   font-size: 28px;
+  width: 100%;
+  text-align: center;
   color: $dark-base-color;
+  user-select: none;
 }
 </style>

@@ -1,18 +1,15 @@
 <template>
-  <transition
+  <!-- <transition
     :enter-class="$style.scaleEnter"
     :leave-to-class="$style.scaleLeaveTo"
     :enter-active-class="$style.scaleEnterActive"
     :leave-active-class="$style.scaleLeaveActive"
-  >
-    <div
-      v-if="talkResponseText || isLoadingTalkResponseText"
-      :class="$style.responseTalk"
-    >
-      <div v-if="!isLoadingTalkResponseText">{{ talkResponseText }}</div>
-      <div v-else>かんがえ中...</div>
-    </div>
-  </transition>
+  > -->
+  <div :class="$style.responseTalk">
+    <div v-if="!isLoadingTalkResponseText">{{ talkResponseText }}</div>
+    <div v-else>かんがえ中...</div>
+  </div>
+  <!-- </transition> -->
 </template>
 
 <script lang="ts">
