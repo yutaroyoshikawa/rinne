@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="htmlElement">
+    <div ref="responseTalk">
       <ResponseTalk />
     </div>
     <client-only>
@@ -12,7 +12,7 @@
         renderer="colorManagement: true"
         xrweb="disableWorldTracking: true"
       >
-        <a-assets>
+        <a-assets ref="assets">
           <img
             v-for="(imageSrc, index) in imageSrcs"
             :id="`renny${index}`"
@@ -33,11 +33,7 @@
 
         <a-entity xrextras-named-image-target="name: renny">
           <template v-if="isFoundXrimage">
-            <a-plane
-              width="16"
-              height="10"
-              material="shader:html;target: #htmlElement;"
-            ></a-plane>
+            <a-plane width="1" height="1" material="src:#talkElement"></a-plane>
             <a-image
               v-for="(imageSrc, index) in imageSrcs"
               :key="imageSrc"
@@ -83,8 +79,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import 'aframe-html-shader'
-import 'html2canvas'
+import html2canvas from 'html2canvas'
 import { mapState } from 'vuex'
 import { LOADEDND_PRESENTATION_AFRAME } from '@/store/ar'
 import { REMOVE_IMAGE } from '@/store/photoStore'
@@ -132,7 +127,7 @@ export default Vue.extend({
     ...mapState('photoStore', ['imageSrcs']),
     ...mapState('ar', ['isLoadedPresentationAframe']),
   },
-  mounted() {
+  async mounted() {
     setTimeout(() => {
       this.$emit('reality-ready')
     }, 3000)
@@ -140,6 +135,11 @@ export default Vue.extend({
       this.initAframe()
       this.$store.commit(`ar/${LOADEDND_PRESENTATION_AFRAME}`)
     }
+    const talkEl = this.$refs.responseTalk as HTMLDivElement
+    const canvas = await html2canvas(talkEl)
+    canvas.id = 'talkElement'
+    const assetsEl = this.$refs.assets as HTMLElement
+    assetsEl.appendChild(canvas)
   },
   methods: {
     onClickImage(imageIndex: number) {
