@@ -31,14 +31,13 @@
 
         <a-light type="ambient" intensity="0.7"></a-light>
 
-        <a-entity
-          xrextras-named-image-target="name: renny"
-          geometry="primitive: plane"
-          material="shader: html; target: #htmlElement"
-        />
-
         <a-entity xrextras-named-image-target="name: renny">
           <template v-if="isFoundXrimage">
+            <a-plane
+              width="16"
+              height="10"
+              material="shader:html;target: #htmlElement;"
+            ></a-plane>
             <a-image
               v-for="(imageSrc, index) in imageSrcs"
               :key="imageSrc"
