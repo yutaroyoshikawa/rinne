@@ -38,13 +38,25 @@ export default Vue.extend({
   methods: {
     isAllowedToGeolocation() {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const data = position.coords
-          const lat = data.latitude
-          const lng = data.longitude
-          this.createMap(lat, lng)
-        })
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const data = position.coords
+            const lat = data.latitude
+            const lng = data.longitude
+            this.createMap(lat, lng)
+          },
+          () => {
+            this.createDefaultMap()
+          }
+        )
+      } else {
+        this.createDefaultMap()
       }
+    },
+    createDefaultMap() {
+      const lat = 35.691664
+      const lng = 139.696948
+      this.createMap(lat, lng)
     },
     createMap(lat: number, lng: number) {
       const mapRef = this.$refs.map as HTMLDivElement | undefined
