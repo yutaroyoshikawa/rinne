@@ -49,6 +49,8 @@ export const actions: ActionTree<ArStore, RootState> = {
         if (talkText.includes('おはよう')) {
           const resTalkText = 'おはよう！！'
           commit(SET_TALK_RESPONSE, resTalkText)
+        } else {
+          commit(SET_TALK_RESPONSE, '何を言ってるのかわからないよ')
         }
         commit(SET_IS_LOADING_TALK_RESPONSE_TEXT, false)
       }, 3000)
