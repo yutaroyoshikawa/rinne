@@ -68,7 +68,6 @@ export default Vue.extend({
   justify-content: center;
   align-items: center;
   user-select: none;
-  border-width: 1px;
   transition: border-width 0.4s, transform 0.1s linear, filter 0.3s;
 
   &:disabled {
@@ -89,11 +88,11 @@ export default Vue.extend({
     border: 0.4em solid currentColor;
     border-top-color: rgba(102, 102, 102, 0.3);
     box-sizing: border-box;
-    animation: rotate 0.7s ease-in-out infinite;
+    animation: rotate 0.7s linear infinite;
   }
 
   .icon {
-    animation: rotate 0.7s ease-in-out reverse infinite;
+    animation: rotate 0.7s linear reverse infinite;
   }
 }
 
