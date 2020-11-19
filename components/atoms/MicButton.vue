@@ -1,8 +1,8 @@
 <template>
-  <div :class="$style.wrap">
+  <div :class="[$style.wrap, { [$style.loading]: $props.loading }]">
     <button
       :class="[$style.micButton, { [$style.holding]: isHolding }]"
-      :disabled="$props.disabled"
+      :disabled="$props.disabled || $props.loading"
       @pointerdown="onHoldStart"
       @pointerup="onHoldEnd"
     >
@@ -22,6 +22,10 @@ export default Vue.extend({
   name: 'MicButton',
   props: {
     disabled: {
+      type: Boolean,
+      default: false,
+    },
+    loading: {
       type: Boolean,
       default: false,
     },
@@ -52,7 +56,6 @@ export default Vue.extend({
 }
 
 .holding {
-  transition: transform 0.1s linear;
   transform: scale(1.1);
 }
 
@@ -65,9 +68,11 @@ export default Vue.extend({
   justify-content: center;
   align-items: center;
   user-select: none;
+  border-width: 1px;
+  transition: border-width 0.4s, transform 0.1s linear, filter 0.3s;
 
   &:disabled {
-    transition: filter 0.5s;
+    transition: border-width 0.4s, transform 0.1s linear, filter 0.3s;
     filter: grayscale(100%);
   }
 }
@@ -77,5 +82,27 @@ export default Vue.extend({
   font-size: 30px;
   pointer-events: none;
   user-select: none;
+}
+
+.loading {
+  .micButton {
+    border: 0.4em solid currentColor;
+    border-top-color: rgba(102, 102, 102, 0.3);
+    box-sizing: border-box;
+    animation: rotate 0.7s ease-in-out infinite;
+  }
+
+  .icon {
+    animation: rotate 0.7s ease-in-out reverse infinite;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
