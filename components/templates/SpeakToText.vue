@@ -13,6 +13,7 @@
         <p :class="$style.resultText">{{ speechTextResult }}</p>
         <MicButton
           :disabled="isLoading"
+          :loading="isLoading"
           @holdstart="onHold"
           @holdend="onHoldend"
         />
