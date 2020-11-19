@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div ref="responseTalk">
+    <div ref="responseTalk" :class="$style.responseTalkWrap">
       <ResponseTalk />
     </div>
     <client-only>
@@ -79,7 +79,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import html2canvas from 'html2canvas'
+// import html2canvas from 'html2canvas'
 import { mapState } from 'vuex'
 import { LOADEDND_PRESENTATION_AFRAME } from '@/store/ar'
 import { REMOVE_IMAGE } from '@/store/photoStore'
@@ -127,7 +127,7 @@ export default Vue.extend({
     ...mapState('photoStore', ['imageSrcs']),
     ...mapState('ar', ['isLoadedPresentationAframe']),
   },
-  async mounted() {
+  mounted() {
     setTimeout(() => {
       this.$emit('reality-ready')
     }, 3000)
@@ -135,11 +135,11 @@ export default Vue.extend({
       this.initAframe()
       this.$store.commit(`ar/${LOADEDND_PRESENTATION_AFRAME}`)
     }
-    const talkEl = this.$refs.responseTalk as HTMLDivElement
-    const canvas = await html2canvas(talkEl)
-    canvas.id = 'talkElement'
-    const assetsEl = this.$refs.assets as HTMLElement
-    assetsEl.appendChild(canvas)
+    // const talkEl = this.$refs.responseTalk as HTMLDivElement
+    // const canvas = await html2canvas(talkEl)
+    // canvas.id = 'talkElement'
+    // const assetsEl = this.$refs.assets as HTMLElement
+    // assetsEl.appendChild(canvas)
   },
   methods: {
     onClickImage(imageIndex: number) {

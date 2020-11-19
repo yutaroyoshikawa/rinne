@@ -74,7 +74,6 @@ export default {
     EIGHTHWALL_APP_KEY: process.env.EIGHTHWALL_APP_KEY,
     MAPBOX_ACCESS_TOKEN: process.env.MAPBOX_ACCESS_TOKEN,
     GCP_API_KEY: process.env.GCP_API_KEY,
-    A3RT_TALK_API_KEY: process.env.A3RT_TALK_API_KEY,
   },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
