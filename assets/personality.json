@@ -1,0 +1,90 @@
+{
+  "0": {
+    "wise": 0,
+    "easygoing": 2,
+    "naughty": 5,
+    "energetic": 4,
+    "kindness": 1,
+    "affable": 3
+  },
+  "1": {
+    "wise": 3,
+    "easygoing": 2,
+    "naughty": 0,
+    "energetic": 0,
+    "kindness": 3,
+    "affable": 3
+  },
+  "2": {
+    "wise": 1,
+    "easygoing": 2,
+    "naughty": 0,
+    "energetic": 0,
+    "kindness": 3,
+    "affable": 5
+  },
+  "3": {
+    "wise": 2,
+    "easygoing": 2,
+    "naughty": 0,
+    "energetic": 0,
+    "kindness": 3,
+    "affable": 3
+  },
+  "4": {
+    "wise": 0,
+    "easygoing": 0,
+    "naughty": 5,
+    "energetic": 4,
+    "kindness": 0,
+    "affable": 0
+  },
+  "5": {
+    "wise": 0,
+    "easygoing": 2,
+    "naughty": 0,
+    "energetic": 0,
+    "kindness": 3,
+    "affable": 5
+  },
+  "6": {
+    "wise": 5,
+    "easygoing": 0,
+    "naughty": 0,
+    "energetic": 1,
+    "kindness": 2,
+    "affable": 3
+  },
+  "7": {
+    "wise": 0,
+    "easygoing": 1,
+    "naughty": 0,
+    "energetic": 2,
+    "kindness": 4,
+    "affable": 5
+  },
+  "8": {
+    "wise": 0,
+    "easygoing": 3,
+    "naughty": 0,
+    "energetic": 0,
+    "kindness": 3,
+    "affable": 5
+  },
+  "9": {
+    "wise": 0,
+    "easygoing": 2,
+    "naughty": 0,
+    "energetic": 0,
+    "kindness": 2,
+    "affable": 5
+  },
+  "10": {
+    "wise": 0,
+    "easygoing": 0,
+    "naughty": 2,
+    "energetic": 5,
+    "kindness": 0,
+    "affable": 0
+  }
+}

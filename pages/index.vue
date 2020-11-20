@@ -12,7 +12,9 @@
       <NuxtLink to="friend" :class="$style.pageLink">おともだち</NuxtLink>
       <NuxtLink to="testpage" :class="$style.pageLink">テストページ</NuxtLink>
     </div>
-    <hr />
+    <div :class="$style.borderWrap">
+      <hr />
+    </div>
     <p :class="$style.contentsTitle">component</p>
     <div :class="$style.componentWrap">
       <ListButton />
@@ -88,7 +90,7 @@ export default Vue.extend({
   background-color: $secondary-color;
   color: #fff;
 }
-hr {
+.borderWrap {
   margin: 50px 0;
 }
 .componentWrap {
