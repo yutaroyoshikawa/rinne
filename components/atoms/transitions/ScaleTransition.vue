@@ -1,14 +1,22 @@
 <template>
   <transition
-    :enter-class="$style.scaleEnter"
-    :leave-to-class="$style.scaleLeaveTo"
-    :enter-active-class="$style.scaleEnterActive"
-    :leave-active-class="$style.scaleLeaveActive"
-    :duration="duration"
+    :enter-class="$style.enter"
+    :enter-to-class="$style.enterTo"
+    :leave-class="$style.leave"
+    :leave-to-class="$style.leaveTo"
+    :enter-active-class="$style.enterActive"
+    :leave-active-class="$style.leaveActive"
     :appear="true"
-    @before-enter="beforeEnter"
   >
-    <slot v-if="!isExiting" />
+    <div
+      v-if="!isExiting && $props.in"
+      :style="{
+        '--delay': `${$props.delay}ms`,
+        '--duration': `${$props.duration}ms`,
+      }"
+    >
+      <slot />
+    </div>
   </transition>
 </template>
 
@@ -17,6 +25,7 @@ import Vue from 'vue'
 import { PageTransitionState } from '@/extentions/pageTransitionState'
 
 export default Vue.extend({
+  name: 'ScaleTransition',
   props: {
     duration: {
       type: Number,
@@ -25,6 +34,10 @@ export default Vue.extend({
     delay: {
       type: Number,
       default: 0,
+    },
+    in: {
+      type: Boolean,
+      default: true,
     },
   },
   computed: {
@@ -35,38 +48,35 @@ export default Vue.extend({
       )
     },
   },
-  methods: {
-    beforeEnter(el: any) {
-      el.style.transitionDelay = this.$props.delay
-    },
-  },
 })
 </script>
 
 <style module lang="scss">
-@keyframes bounceIn {
-  from {
-    transform: scale(0);
-  }
-  to {
-    transform: scale(1);
-  }
+.enter {
+  transform: scale(0);
 }
 
-@keyframes bounceOut {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(0);
-  }
+.enterTo {
+  transform: scale(1);
 }
 
-.scaleEnterActive {
-  animation: bounceIn 600ms cubic-bezier(0.89, -0.11, 0.07, 1.4);
+.leave {
+  transform: scale(1);
 }
 
-.scaleLeaveActive {
-  animation: bounceOut 600ms cubic-bezier(1, -0.46, 0.065, 1.005);
+.leaveTo {
+  transform: scale(0);
+}
+
+.enterActive {
+  transition: transform cubic-bezier(0.89, -0.11, 0.07, 1.4);
+  transition-delay: var(--delay);
+  transition-duration: var(--duration);
+}
+
+.leaveActive {
+  transition: transform cubic-bezier(1, -0.46, 0.065, 1.005);
+  transition-delay: var(--delay);
+  transition-duration: var(--duration);
 }
 </style>
