@@ -96,14 +96,25 @@ export default Vue.extend({
 
   & > img {
     position: absolute;
+    z-index: 2;
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 }
 
+@keyframes flush {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
 .loading {
   position: absolute;
+  z-index: 1;
   width: 100%;
   height: 100%;
   padding: 35px;
@@ -111,6 +122,7 @@ export default Vue.extend({
   justify-content: center;
   align-items: center;
   border-radius: 5px;
+  animation: flush 0.1s infinite alternate;
   & > svg {
     width: 100%;
     height: 100%;
