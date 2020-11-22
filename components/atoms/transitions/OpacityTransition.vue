@@ -69,13 +69,13 @@ export default Vue.extend({
 }
 
 .enterActive {
-  transition: opacity cubic-bezier(0.89, -0.11, 0.07, 1.4);
+  transition: opacity ease;
   transition-delay: var(--delay);
   transition-duration: var(--duration);
 }
 
 .leaveActive {
-  transition: opacity cubic-bezier(1, -0.46, 0.065, 1.005);
+  transition: opacity ease;
   transition-delay: var(--delay);
   transition-duration: var(--duration);
 }
