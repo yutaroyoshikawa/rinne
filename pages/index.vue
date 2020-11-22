@@ -86,6 +86,7 @@ export default Vue.extend({
   width: 200px;
   padding: 10px 0;
   border-radius: 30px;
+  display: inline-block;
   margin: 0 auto 10px auto;
   background-color: $secondary-color;
   color: #fff;

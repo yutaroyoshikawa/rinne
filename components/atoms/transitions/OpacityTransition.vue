@@ -25,7 +25,7 @@ import Vue from 'vue'
 import { PageTransitionState } from '@/extentions/pageTransitionState'
 
 export default Vue.extend({
-  name: 'ScaleTransition',
+  name: 'OpacityTransition',
   props: {
     duration: {
       type: Number,
@@ -53,29 +53,29 @@ export default Vue.extend({
 
 <style module lang="scss">
 .enter {
-  transform: scale(0);
+  opacity: 0;
 }
 
 .enterTo {
-  transform: scale(1);
+  opacity: 1;
 }
 
 .leave {
-  transform: scale(1);
+  opacity: 1;
 }
 
 .leaveTo {
-  transform: scale(0);
+  opacity: 0;
 }
 
 .enterActive {
-  transition: transform cubic-bezier(0.89, -0.11, 0.07, 1.4);
+  transition: opacity ease;
   transition-delay: var(--delay);
   transition-duration: var(--duration);
 }
 
 .leaveActive {
-  transition: transform cubic-bezier(1, -0.46, 0.065, 1.005);
+  transition: opacity ease;
   transition-delay: var(--delay);
   transition-duration: var(--duration);
 }
