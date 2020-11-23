@@ -20,7 +20,11 @@
           :icon="['fa', 'check-circle']"
           :class="$style.selectedIcon"
         />
-        <img :src="imageDatum.url" alt="image" @click="onImageSelect(index)" />
+        <img
+          :src="imageDatum.url"
+          :alt="imageDatum.name"
+          @click="onImageSelect(index)"
+        />
       </div>
     </div>
     <div v-if="selectedIndexes.length" :class="$style.functions">
@@ -41,6 +45,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { CLOSE_TAB } from '@/store/index'
+import personalityData from '@/assets/personality.json'
 
 type Data = {
   imageData: {
@@ -53,12 +58,13 @@ type Data = {
 export default Vue.extend({
   name: 'CameraRool',
   data(): Data {
+    const imageData = personalityData.map(({ fileName, name }) => ({
+      url: `/img/${fileName}`,
+      name,
+    }))
+
     return {
-      imageData: [
-        { url: '/img/0.jpg' },
-        { url: '/img/1.jpg' },
-        { url: '/img/2.jpg' },
-      ],
+      imageData,
       selectedIndexes: [],
       count: 0,
     }
@@ -103,7 +109,6 @@ export default Vue.extend({
 @import '@/assets/scss/variables.scss';
 
 .wrap {
-  height: 100%;
   background-color: $base-color;
   padding-bottom: 20px;
 }
