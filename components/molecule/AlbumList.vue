@@ -5,8 +5,8 @@
       :key="index"
       :style="{
         '--enterDelay': `${50 * index}ms`,
-        '--leaveDelay': `${50 * (renderList.length - index)}ms`,
-        '--duration': `${400}ms`,
+        '--leaveDelay': `${50 * (renderList.length - index - 1)}ms`,
+        '--duration': `${600 - renderList.length * 50}ms`,
       }"
     >
       <PhotoListImage :src="item" />
