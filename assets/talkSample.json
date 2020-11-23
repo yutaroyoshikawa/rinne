@@ -1,0 +1,24 @@
+[
+  {
+    "input": "おはよう",
+    "response": {
+      "wise": "おはよう",
+      "easygoing": "おはよー",
+      "naughty": "おはよ",
+      "energetic": "おはよう！！",
+      "kindness": "おはよー",
+      "affable": "おはよー"
+    }
+  },
+  {
+    "input": "おやすみ",
+    "response": {
+      "wise": "",
+      "easygoing": "",
+      "naughty": "",
+      "energetic": "",
+      "kindness": "",
+      "affable": ""
+    }
+  }
+]
