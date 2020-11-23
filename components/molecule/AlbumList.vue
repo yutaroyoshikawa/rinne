@@ -4,8 +4,9 @@
       v-for="(item, index) in renderList"
       :key="index"
       :style="{
-        '--delay': `${100 * index}ms`,
-        '--duration': `${600}ms`,
+        '--enterDelay': `${50 * index}ms`,
+        '--leaveDelay': `${50 * (renderList.length - index - 1)}ms`,
+        '--duration': `${600 - renderList.length * 50}ms`,
       }"
     >
       <PhotoListImage :src="item" />

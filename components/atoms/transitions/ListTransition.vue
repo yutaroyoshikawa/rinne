@@ -54,13 +54,14 @@ export default Vue.extend({
 
 .enterActive {
   transition: opacity ease;
-  transition-delay: var(--delay);
+  transition-delay: var(--enterDelay);
   transition-duration: var(--duration);
 }
 
 .leaveActive {
   transition: opacity ease;
-  transition-delay: var(--delay);
+  transition-delay: var(--leaveDelay);
   transition-duration: var(--duration);
+  opacity: 0;
 }
 </style>
