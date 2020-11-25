@@ -5,7 +5,7 @@
       :key="index"
       :style="{
         '--enterDelay': `${50 * index}ms`,
-        '--leaveDelay': `${50 * (5 - index)}ms`,
+        '--leaveDelay': `${30 * (5 - index)}ms`,
         '--duration': `${600 - 6 * 50}ms`,
       }"
     >

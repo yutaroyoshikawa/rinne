@@ -1,19 +1,23 @@
 <template>
   <div>
-    <div :class="$style.imageCircleWrap">
-      <CharacterImageCircle :image-src="imageSrc" />
-    </div>
-    <ProfileText
-      :user-name="userName"
-      :doll-name="dollName"
-      :class="$style.profileText"
-    />
+    <ScaleTransition>
+      <div :class="$style.imageCircleWrap">
+        <CharacterImageCircle :image-src="imageSrc" />
+      </div>
+      <ProfileText
+        :user-name="userName"
+        :doll-name="dollName"
+        :class="$style.profileText"
+      />
+    </ScaleTransition>
     <div :class="$style.characterListWrap">
       <CharacterList />
     </div>
-    <div :class="$style.profileButtonWrap">
-      <ProfileButton :class="$style.profileButton" />
-    </div>
+    <ScaleTransition>
+      <div :class="$style.profileButtonWrap">
+        <ProfileButton :class="$style.profileButton" />
+      </div>
+    </ScaleTransition>
   </div>
 </template>
 
@@ -22,6 +26,7 @@ import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
 import ProfileText from '@/components/atoms/profileText.vue'
 import CharacterImageCircle from '@/components/atoms/characterImageCircle.vue'
+import ScaleTransition from '@/components/atoms/transitions/ScaleTransition.vue'
 import ProfileButton from '../components/atoms/ProfileButton.vue'
 
 export default Vue.extend({
@@ -29,6 +34,7 @@ export default Vue.extend({
     ProfileButton,
     ProfileText,
     CharacterImageCircle,
+    ScaleTransition,
   },
   data() {
     return {
