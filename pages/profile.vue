@@ -8,7 +8,9 @@
       :doll-name="dollName"
       :class="$style.profileText"
     />
-    <CharacterList />
+    <div :class="$style.characterListWrap">
+      <CharacterList />
+    </div>
     <div :class="$style.profileButtonWrap">
       <ProfileButton :class="$style.profileButton" />
     </div>
@@ -52,5 +54,10 @@ export default Vue.extend({
 .profileButtonWrap {
   margin-top: 20px;
   padding-bottom: 20px;
+}
+.characterListWrap {
+  width: 340px;
+  height: 180px;
+  margin: 0 auto;
 }
 </style>
