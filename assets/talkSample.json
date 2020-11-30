@@ -4,8 +4,8 @@
     "response": {
       "wise": "おはよう",
       "easygoing": "おはよー",
-      "naughty": "おはよ",
-      "energetic": "おはよう！！",
+      "naughty": "おはよっ",
+      "energetic": "おはよー！！",
       "kindness": "おはよー",
       "affable": "おはよー"
     }
@@ -13,12 +13,100 @@
   {
     "input": "おやすみ",
     "response": {
-      "wise": "",
-      "easygoing": "",
-      "naughty": "",
-      "energetic": "",
-      "kindness": "",
-      "affable": ""
+      "wise": "おやすみ",
+      "easygoing": "おやすみ〜",
+      "naughty": "おやすみっ",
+      "energetic": "おやすみー！！",
+      "kindness": "おやすみー",
+      "affable": "おやすみー"
+    }
+  },
+  {
+    "input": "こんにちは",
+    "response": {
+      "wise": "こんにちは",
+      "easygoing": "こんにちは〜",
+      "naughty": "こんにちはっ",
+      "energetic": "こんにちはー！！",
+      "kindness": "こんにちはー",
+      "affable": "こんにちはー"
+    }
+  },
+  {
+    "input": "こんばんは",
+    "response": {
+      "wise": "こんばんは",
+      "easygoing": "こんばんは〜",
+      "naughty": "こんばんはっ",
+      "energetic": "こんばんはー！！",
+      "kindness": "こんばんはー",
+      "affable": "こんばんはー"
+    }
+  },
+  {
+    "input": "いってきます",
+    "response": {
+      "wise": "いってらっしゃい",
+      "easygoing": "いってらっしゃ〜〜い",
+      "naughty": "いってらっしゃいっ",
+      "energetic": "いってらっしゃーい！！",
+      "kindness": "いってらっしゃーい",
+      "affable": "いってらっしゃーい"
+    }
+  },
+  {
+    "input": "ただいま",
+    "response": {
+      "wise": "おかえり",
+      "easygoing": "おかえり〜〜",
+      "naughty": "おかえりっ",
+      "energetic": "おかえりー！！",
+      "kindness": "おかえりー",
+      "affable": "おかえりー"
+    }
+  },
+  {
+    "input": "ねえねえ",
+    "response": {
+      "wise": "どうした？",
+      "easygoing": "ど〜したの〜？",
+      "naughty": "どうしたのっ？",
+      "energetic": "どうしたの？？",
+      "kindness": "なにかあった？",
+      "affable": "なにかあったー？"
+    }
+  },
+  {
+    "input": "おーい",
+    "response": {
+      "wise": "どうした？",
+      "easygoing": "なあに〜〜？",
+      "naughty": "はーいっ",
+      "energetic": "なになにっ？？",
+      "kindness": "なあにー？",
+      "affable": "なあにー？"
+    }
+  },
+  {
+    "input": "あそぼ",
+    "response": {
+      "wise": "なにであそびたい？",
+      "easygoing": "なにであそぶ〜〜？",
+      "naughty": "なにであそぼっか！",
+      "energetic": "あそぼあそぼ！！",
+      "kindness": "なにであそぶ？",
+      "affable": "なにであそぶ？"
+    }
+  },
+  {
+    "input": "天気",
+    "response": {
+      "wise": "ほんとうにいい天気だね",
+      "easygoing": "いい天気だね〜〜",
+      "naughty": "すっごい晴れてるねっ",
+      "energetic": "空が青いねー！！",
+      "kindness": "いい天気だねー",
+      "affable": "いい天気だねー"
     }
   }
 ]
