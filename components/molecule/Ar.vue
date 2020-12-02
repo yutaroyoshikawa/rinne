@@ -102,7 +102,6 @@ export default Vue.extend({
     ...mapState('ar', ['isLoadedPresentationAframe']),
   },
   mounted() {
-    alert('プレゼンモードではありません。')
     this.initAframe()
     // const talkEl = this.$refs.responseTalk as HTMLDivElement
     // const canvas = await html2canvas(talkEl)
