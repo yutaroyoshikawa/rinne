@@ -76,7 +76,7 @@ export default Vue.extend({
 
 .loader {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - #{$header-height});
   display: flex;
   justify-content: center;
   align-items: center;
