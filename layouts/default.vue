@@ -76,10 +76,15 @@ export default Vue.extend({
   z-index: 40;
   width: 100%;
   height: 100%;
+  top: 0;
 }
 
 .pageWrap {
-  position: relative;
+  position: absolute;
   z-index: 99;
+  width: 100%;
+  max-height: calc(100% - #{$header-height});
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 </style>
