@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div ref="responseTalk" :class="$style.responseTalkWrap">
-      <ResponseTalk />
-    </div>
     <client-only>
       <a-scene
         presenar
@@ -61,19 +58,6 @@
         </a-entity>
       </a-scene>
     </client-only>
-    <ActionModal
-      :show-action-modal="isOpenDetailsModal"
-      modal-title="くわしく"
-      @close="onCloseDetailsModal"
-      @action="onDeleteImage(selectedImageIndex)"
-    >
-      <img
-        :class="$style.detailsImage"
-        :src="imageSrcs[selectedImageIndex]"
-        alt="選択した写真"
-      />
-      <p>この写真を削除しますか？</p>
-    </ActionModal>
   </div>
 </template>
 
@@ -81,9 +65,6 @@
 import Vue from 'vue'
 // import html2canvas from 'html2canvas'
 import { mapState } from 'vuex'
-import { REMOVE_IMAGE } from '@/store/photoStore'
-import ActionModal from '@/components/molecule/actionModal.vue'
-import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
 
 Vue.config.ignoredElements = [
   'a-scene',
@@ -103,22 +84,16 @@ type Data = {
   isFoundXrimage: boolean
   isTapImage: boolean
   images: string[]
-  isOpenDetailsModal: boolean
   selectedImageIndex?: number
 }
 
 export default Vue.extend({
-  name: 'PresenArAlbum',
-  components: {
-    ActionModal,
-    ResponseTalk,
-  },
+  name: 'PresenAr',
   data(): Data {
     return {
       isFoundXrimage: false,
       isTapImage: false,
       images: ['renny', 'renny2', 'renny3'],
-      isOpenDetailsModal: false,
       selectedImageIndex: undefined,
     }
   },
@@ -127,9 +102,6 @@ export default Vue.extend({
     ...mapState('ar', ['isLoadedPresentationAframe']),
   },
   mounted() {
-    setTimeout(() => {
-      this.$emit('reality-ready')
-    }, 3000)
     this.initAframe()
     // const talkEl = this.$refs.responseTalk as HTMLDivElement
     // const canvas = await html2canvas(talkEl)
@@ -140,15 +112,7 @@ export default Vue.extend({
   methods: {
     onClickImage(imageIndex: number) {
       this.selectedImageIndex = imageIndex
-      this.isOpenDetailsModal = true
       this.isTapImage = true
-    },
-    onCloseDetailsModal() {
-      this.isOpenDetailsModal = false
-    },
-    onDeleteImage(imageIndex: number) {
-      this.$store.commit(`photoStore/${REMOVE_IMAGE}`, imageIndex)
-      this.isOpenDetailsModal = false
     },
     initAframe() {
       const AFRAME = window.AFRAME
@@ -178,18 +142,3 @@ export default Vue.extend({
   },
 })
 </script>
-
-<style lang="scss" module>
-.detailsImage {
-  width: 100%;
-}
-
-.responseTalkWrap {
-  position: fixed;
-  top: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  z-index: 50;
-}
-</style>
