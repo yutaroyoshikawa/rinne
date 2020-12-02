@@ -3,7 +3,7 @@ import { RootState } from './'
 
 type ArStore = {
   isLoadedAframe: boolean
-  presenMode: boolean
+  arMode?: 'presen' | 'nomal'
   talkResponseText?: String
   isLoadingTalkResponseText: boolean
 }
@@ -14,6 +14,7 @@ export const SET_IS_LOADING_TALK_RESPONSE_TEXT =
   'SET_IS_LOADING_TALK_RESPONSE_TEXT'
 
 export const ENABLE_PRESEN_MODE = 'ENABLE_PRESEN_MODE'
+export const ENABLE_NOMAL_MODE = 'ENABLE_NOMAL_MODE'
 
 export const REQUEST_TALK_TEXT = 'REQUEST_TALK_TEXT'
 
@@ -21,7 +22,7 @@ export const state = (): ArStore => ({
   isLoadedAframe: false,
   talkResponseText: undefined,
   isLoadingTalkResponseText: false,
-  presenMode: false,
+  arMode: undefined,
 })
 
 export const mutations: MutationTree<ArStore> = {
@@ -38,7 +39,10 @@ export const mutations: MutationTree<ArStore> = {
     state.isLoadingTalkResponseText = payload
   },
   [ENABLE_PRESEN_MODE](state) {
-    state.presenMode = true
+    state.arMode = 'presen'
+  },
+  [ENABLE_NOMAL_MODE](state) {
+    state.arMode = 'nomal'
   },
 }
 

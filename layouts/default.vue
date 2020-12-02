@@ -7,7 +7,7 @@
         <HeaderTitle />
       </header>
       <div :class="$style.arWrap">
-        <PresenArAlbum @reality-ready="onRealityReady" />
+        <ArAlbum @reality-ready="onRealityReady" />
       </div>
       <div :class="$style.pageWrap">
         <Nuxt />
@@ -24,14 +24,14 @@ import { LOADEDND_AFRAME } from '@/store/ar'
 import 'destyle.css'
 import HeaderTitle from '@/components/atoms/HeaderTitle.vue'
 import OverlayTab from '@/components/molecule/OverlayTab.vue'
-import PresenArAlbum from '@/components/organisms/PresenArAlbum.vue'
+import ArAlbum from '@/components/organisms/ArAlbum.vue'
 
 export default Vue.extend({
   name: 'App',
   components: {
     HeaderTitle,
     OverlayTab,
-    PresenArAlbum,
+    ArAlbum,
   },
   computed: {
     ...mapState(['isOpenTab']),
@@ -74,6 +74,8 @@ export default Vue.extend({
 .arWrap {
   position: absolute;
   z-index: 40;
+  width: 100%;
+  height: 100%;
 }
 
 .pageWrap {
