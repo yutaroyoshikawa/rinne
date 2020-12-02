@@ -81,7 +81,6 @@
 import Vue from 'vue'
 // import html2canvas from 'html2canvas'
 import { mapState } from 'vuex'
-import { LOADEDND_PRESENTATION_AFRAME } from '@/store/ar'
 import { REMOVE_IMAGE } from '@/store/photoStore'
 import ActionModal from '@/components/molecule/actionModal.vue'
 import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
@@ -109,7 +108,7 @@ type Data = {
 }
 
 export default Vue.extend({
-  name: 'ArAlbum',
+  name: 'PresenArAlbum',
   components: {
     ActionModal,
     ResponseTalk,
@@ -131,10 +130,7 @@ export default Vue.extend({
     setTimeout(() => {
       this.$emit('reality-ready')
     }, 3000)
-    if (!this.isLoadedPresentationAframe) {
-      this.initAframe()
-      this.$store.commit(`ar/${LOADEDND_PRESENTATION_AFRAME}`)
-    }
+    this.initAframe()
     // const talkEl = this.$refs.responseTalk as HTMLDivElement
     // const canvas = await html2canvas(talkEl)
     // canvas.id = 'talkElement'

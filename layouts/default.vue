@@ -6,7 +6,12 @@
       <header :class="$style.header">
         <HeaderTitle />
       </header>
-      <Nuxt />
+      <div :class="$style.arWrap">
+        <PresenArAlbum @reality-ready="onRealityReady" />
+      </div>
+      <div :class="$style.pageWrap">
+        <Nuxt />
+      </div>
     </div>
     <OverlayTab />
   </div>
@@ -15,18 +20,26 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
+import { LOADEDND_AFRAME } from '@/store/ar'
 import 'destyle.css'
 import HeaderTitle from '@/components/atoms/HeaderTitle.vue'
 import OverlayTab from '@/components/molecule/OverlayTab.vue'
+import PresenArAlbum from '@/components/organisms/PresenArAlbum.vue'
 
 export default Vue.extend({
   name: 'App',
   components: {
     HeaderTitle,
     OverlayTab,
+    PresenArAlbum,
   },
   computed: {
     ...mapState(['isOpenTab']),
+  },
+  methods: {
+    onRealityReady() {
+      this.$store.commit(`ar/${LOADEDND_AFRAME}`)
+    },
   },
 })
 </script>
@@ -35,7 +48,7 @@ export default Vue.extend({
 @import '@/assets/scss/variables.scss';
 
 .app {
-  perspective: 2000px;
+  perspective: 2000;
   background-color: #555;
   height: 100%;
 }
@@ -56,5 +69,15 @@ export default Vue.extend({
   position: sticky;
   top: 0;
   z-index: $header-zindex;
+}
+
+.arWrap {
+  position: absolute;
+  z-index: 40;
+}
+
+.pageWrap {
+  position: relative;
+  z-index: 99;
 }
 </style>
