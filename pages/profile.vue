@@ -1,25 +1,23 @@
 <template>
   <div>
-    <div :class="$style.imageCircleWrap">
-      <CharacterImageCircle :image-src="imageSrc" />
-    </div>
-    <ProfileText
-      :user-name="userName"
-      :doll-name="dollName"
-      :class="$style.profileText"
-    />
-    <div :class="$style.charactersWrap">
-      <div
-        v-for="(characterName, index) in characterNames"
-        :key="index"
-        :class="$style.characterWrap"
-      >
-        <CharacterCircle :character-name="characterName" />
+    <ScaleTransition>
+      <div :class="$style.imageCircleWrap">
+        <CharacterImageCircle :image-src="imageSrc" />
       </div>
+      <ProfileText
+        :user-name="userName"
+        :doll-name="dollName"
+        :class="$style.profileText"
+      />
+    </ScaleTransition>
+    <div :class="$style.characterListWrap">
+      <CharacterList />
     </div>
-    <div :class="$style.profileButtonWrap">
-      <ProfileButton :class="$style.profileButton" />
-    </div>
+    <ScaleTransition>
+      <div :class="$style.profileButtonWrap">
+        <ProfileButton :class="$style.profileButton" />
+      </div>
+    </ScaleTransition>
   </div>
 </template>
 
@@ -28,26 +26,18 @@ import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
 import ProfileText from '@/components/atoms/profileText.vue'
 import CharacterImageCircle from '@/components/atoms/characterImageCircle.vue'
-import CharacterCircle from '@/components/atoms/characterCircle.vue'
+import ScaleTransition from '@/components/atoms/transitions/ScaleTransition.vue'
 import ProfileButton from '../components/atoms/ProfileButton.vue'
 
 export default Vue.extend({
   components: {
-    CharacterCircle,
     ProfileButton,
     ProfileText,
     CharacterImageCircle,
+    ScaleTransition,
   },
   data() {
     return {
-      characterNames: [
-        'げんき',
-        'やさしい',
-        'かしこい',
-        'おっとり',
-        'やんちゃ',
-        'なつっこい',
-      ],
       userName: 'さくらちゃん',
       dollName: 'レニー',
       imageSrc: '/img/reny.jpg',
@@ -64,23 +54,16 @@ export default Vue.extend({
   margin: 30px 0;
   text-align: center;
 }
-.charactersWrap {
-  width: 80%;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
 .profileText {
   margin-bottom: 30px;
-}
-.characterWrap {
-  width: 80px;
-  height: 80px;
-  margin: 0 10px 10px 0;
 }
 .profileButtonWrap {
   margin-top: 20px;
   padding-bottom: 20px;
+}
+.characterListWrap {
+  width: 340px;
+  height: 180px;
+  margin: 0 auto;
 }
 </style>

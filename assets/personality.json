@@ -1,90 +1,155 @@
-{
-  "0": {
-    "wise": 0,
-    "easygoing": 2,
-    "naughty": 5,
-    "energetic": 4,
-    "kindness": 1,
-    "affable": 3
+[
+  {
+    "name": "0",
+    "fileName": "0.jpg",
+    "comment": "レニーと一緒に遊んだ日！一緒にクリスマスツリーたてたんだ",
+    "date": "2035/12/23",
+    "personality": {
+      "wise": 0,
+      "easygoing": 2,
+      "naughty": 5,
+      "energetic": 4,
+      "kindness": 1,
+      "affable": 3
+    }
   },
-  "1": {
-    "wise": 3,
-    "easygoing": 2,
-    "naughty": 0,
-    "energetic": 0,
-    "kindness": 3,
-    "affable": 3
+  {
+    "name": "1",
+    "fileName": "1.jpg",
+    "comment": "レニーと一緒にメリークリスマス！！",
+    "date": "2035/12/24",
+    "personality": {
+      "wise": 3,
+      "easygoing": 2,
+      "naughty": 0,
+      "energetic": 0,
+      "kindness": 3,
+      "affable": 3
+    }
   },
-  "2": {
-    "wise": 1,
-    "easygoing": 2,
-    "naughty": 0,
-    "energetic": 0,
-    "kindness": 3,
-    "affable": 5
+  {
+    "name": "2",
+    "fileName": "2.jpg",
+    "comment": "新しい洋服を買ってもらってレニーと写真とったよ！",
+    "date": "2035/11/18",
+    "personality": {
+      "wise": 1,
+      "easygoing": 2,
+      "naughty": 0,
+      "energetic": 0,
+      "kindness": 3,
+      "affable": 5
+    }
   },
-  "3": {
-    "wise": 2,
-    "easygoing": 2,
-    "naughty": 0,
-    "energetic": 0,
-    "kindness": 3,
-    "affable": 3
+  {
+    "name": "3",
+    "fileName": "3.jpg",
+    "comment": "もうすぐクリスマスが終わっちゃう…レニーもさみしそう",
+    "date": "2035/12/25",
+    "personality": {
+      "wise": 2,
+      "easygoing": 2,
+      "naughty": 0,
+      "energetic": 0,
+      "kindness": 3,
+      "affable": 3
+    }
   },
-  "4": {
-    "wise": 0,
-    "easygoing": 0,
-    "naughty": 5,
-    "energetic": 4,
-    "kindness": 0,
-    "affable": 0
+  {
+    "name": "4",
+    "fileName": "4.jpg",
+    "comment": "きょうはレニーと一緒にゲームしたよ！たのしかったな〜",
+    "date": "2036/09/11",
+    "personality": {
+      "wise": 0,
+      "easygoing": 0,
+      "naughty": 5,
+      "energetic": 4,
+      "kindness": 0,
+      "affable": 0
+    }
   },
-  "5": {
-    "wise": 0,
-    "easygoing": 2,
-    "naughty": 0,
-    "energetic": 0,
-    "kindness": 3,
-    "affable": 5
+  {
+    "name": "5",
+    "fileName": "5.jpg",
+    "comment": "レニーと一緒にのんびりした日！",
+    "date": "2036/10/04",
+    "personality": {
+      "wise": 0,
+      "easygoing": 2,
+      "naughty": 0,
+      "energetic": 0,
+      "kindness": 3,
+      "affable": 5
+    }
   },
-  "6": {
-    "wise": 5,
-    "easygoing": 0,
-    "naughty": 0,
-    "energetic": 1,
-    "kindness": 2,
-    "affable": 3
+  {
+    "name": "6",
+    "fileName": "6.jpg",
+    "comment": "レニーと一緒にお勉強！がんばったー！",
+    "date": "2036/11/25",
+    "personality": {
+      "wise": 5,
+      "easygoing": 0,
+      "naughty": 0,
+      "energetic": 1,
+      "kindness": 2,
+      "affable": 3
+    }
   },
-  "7": {
-    "wise": 0,
-    "easygoing": 1,
-    "naughty": 0,
-    "energetic": 2,
-    "kindness": 4,
-    "affable": 5
+  {
+    "name": "7",
+    "fileName": "7.jpg",
+    "comment": "きょうは家族みんなでお買い物いってきたよ！",
+    "date": "2037/06/14",
+    "personality": {
+      "wise": 0,
+      "easygoing": 1,
+      "naughty": 0,
+      "energetic": 2,
+      "kindness": 4,
+      "affable": 5
+    }
   },
-  "8": {
-    "wise": 0,
-    "easygoing": 3,
-    "naughty": 0,
-    "energetic": 0,
-    "kindness": 3,
-    "affable": 5
+  {
+    "name": "8",
+    "fileName": "8.jpg",
+    "comment": "レニーとお昼寝しちゃった〜",
+    "date": "2037/08/02",
+    "personality": {
+      "easygoing": 3,
+      "naughty": 0,
+      "energetic": 0,
+      "kindness": 3,
+      "affable": 5
+    }
   },
-  "9": {
-    "wise": 0,
-    "easygoing": 2,
-    "naughty": 0,
-    "energetic": 0,
-    "kindness": 2,
-    "affable": 5
+  {
+    "name": "9",
+    "fileName": "9.jpg",
+    "comment": "レニー！だいすきだよ！ずっと一緒にいようね",
+    "date": "2037/11/10",
+    "personality": {
+      "wise": 0,
+      "easygoing": 2,
+      "naughty": 0,
+      "energetic": 0,
+      "kindness": 2,
+      "affable": 5
+    }
   },
-  "10": {
-    "wise": 0,
-    "easygoing": 0,
-    "naughty": 2,
-    "energetic": 5,
-    "kindness": 0,
-    "affable": 0
+  {
+    "name": "10",
+    "fileName": "10.jpg",
+    "comment": "レニーとクリスマスパーティー！楽しかった〜！",
+    "date": "2037/12/25",
+    "personality": {
+      "wise": 0,
+      "easygoing": 0,
+      "naughty": 2,
+      "energetic": 5,
+      "kindness": 0,
+      "affable": 0
+    }
   }
-}
+]

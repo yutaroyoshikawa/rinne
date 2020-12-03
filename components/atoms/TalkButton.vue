@@ -1,24 +1,23 @@
 <template>
-  <transition
-    :enter-class="$style.scaleEnter"
-    :leave-to-class="$style.scaleLeaveTo"
-    :enter-active-class="$style.scaleEnterActive"
-    :leave-active-class="$style.scaleLeaveActive"
-  >
-    <div v-if="$props.in" :class="$style.wrap">
+  <ScaleTransition :in="$props.in">
+    <div :class="$style.wrap">
       <button :class="$style.talkButton" @click="$emit('click')">
         <fa :icon="['fa', 'comment']" :class="$style.icon" />
         <span>おはなしする</span>
       </button>
     </div>
-  </transition>
+  </ScaleTransition>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import ScaleTransition from '@/components/atoms/transitions/ScaleTransition.vue'
 
 export default Vue.extend({
   name: 'TalkButton',
+  components: {
+    ScaleTransition,
+  },
   props: {
     in: {
       type: Boolean,
@@ -62,31 +61,5 @@ export default Vue.extend({
   font-size: 20px;
   margin-right: 5px;
   display: inline-block;
-}
-
-@keyframes bounceIn {
-  from {
-    transform: scale(0);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
-@keyframes bounceOut {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(0);
-  }
-}
-
-.scaleEnterActive {
-  animation: bounceIn 600ms cubic-bezier(0.89, -0.11, 0.07, 1.4);
-}
-
-.scaleLeaveActive {
-  animation: bounceOut 600ms cubic-bezier(1, -0.46, 0.065, 1.005);
 }
 </style>

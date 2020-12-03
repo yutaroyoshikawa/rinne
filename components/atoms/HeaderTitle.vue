@@ -11,10 +11,10 @@
         <transition
           mode="out-in"
           :enter-class="$style.fadeEnter"
-          :leave-to-class="$style.fadeLeaveTo"
+          :leave-to-class="headerTitle ? $style.fadeLeaveTo : ''"
           :enter-active-class="$style.fadeEnterActive"
           :leave-active-class="$style.fadeLeaveActive"
-          :appear="false"
+          :appear="true"
         >
           <h2
             v-if="currentPosition === 'first'"

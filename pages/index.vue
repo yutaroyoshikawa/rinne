@@ -1,113 +1,134 @@
 <template>
-  <div :class="$style.container">
-    <div :class="$style.links">
-      <p :class="$style.contentsTitle">page</p>
-      <ScaleTransition>
-        <NuxtLink to="presentation" :class="$style.pageLink">プレゼン</NuxtLink>
-      </ScaleTransition>
-      <NuxtLink to="cleanliness" :class="$style.pageLink">たいちょう</NuxtLink>
-      <NuxtLink to="photolist" :class="$style.pageLink">いちらん</NuxtLink>
-      <NuxtLink to="profile" :class="$style.pageLink">プロフィール</NuxtLink>
-      <NuxtLink to="locate" :class="$style.pageLink">いばしょ</NuxtLink>
-      <NuxtLink to="friend" :class="$style.pageLink">おともだち</NuxtLink>
-      <NuxtLink to="testpage" :class="$style.pageLink">テストページ</NuxtLink>
-    </div>
-    <div :class="$style.borderWrap">
-      <hr />
-    </div>
-    <p :class="$style.contentsTitle">component</p>
-    <div :class="$style.componentWrap">
-      <ListButton />
-      <CharacterCircle
-        :character-name="characterName"
-        :class="$style.characterCircle"
-      />
-    </div>
+  <div>
+    <template v-if="!isLoadedAframe">
+      <Loading />
+    </template>
+    <template v-else>
+      <div :class="$style.talkWrap">
+        <TalkButton
+          :in="!isTalkMode"
+          @click="onClickTalkButton"
+          @cancel="onCancelSpeak"
+        />
+      </div>
+      <SpeakToText :in="isTalkMode" @error="onError" @cancel="onCancelSpeak" />
+      <div :class="$style.menuWrap">
+        <IndexMenu :in="!isTalkMode" />
+      </div>
+    </template>
+    <NotifyModal
+      modal-title="エラー"
+      :show-notify-modal="isOpenErrorModal"
+      @close="onCloseErrorModal"
+      @action="onCloseErrorModal"
+    >
+      <p>{{ errorMessage }}</p>
+    </NotifyModal>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { PageTransitionState } from '@/extentions/pageTransitionState'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
-import ScaleTransition from '@/components/atoms/transitions/ScaleTransition.vue'
-import ListButton from '../components/atoms/listButton.vue'
-import CharacterCircle from '../components/atoms/characterCircle.vue'
+import { ENABLE_PRESEN_MODE, ENABLE_NOMAL_MODE } from '@/store/ar'
+import Loading from '@/components/organisms/loading.vue'
+import IndexMenu from '@/components/molecule/IndexMenu.vue'
+import TalkButton from '@/components/atoms/TalkButton.vue'
+import SpeakToText from '@/components/templates/SpeakToText.vue'
+import NotifyModal from '@/components/molecule/notifyModal.vue'
+import { mapState } from 'vuex'
 
 type Data = {
-  characterName: string
+  isReadyReality: boolean
+  isTalkMode: boolean
+  errorMessage?: any
+  isOpenErrorModal: boolean
 }
 
 export default Vue.extend({
+  name: 'Top',
   components: {
-    ListButton,
-    CharacterCircle,
-    ScaleTransition,
+    Loading,
+    IndexMenu,
+    TalkButton,
+    SpeakToText,
+    NotifyModal,
   },
   data(): Data {
     return {
-      characterName: 'せいかく',
+      isReadyReality: false,
+      isTalkMode: false,
+      errorMessage: undefined,
+      isOpenErrorModal: false,
     }
   },
   computed: {
-    isExiting() {
-      return (
-        this.$store.state.pageTransitionState === PageTransitionState.EXITING
-      )
-    },
+    ...mapState('ar', ['isLoadedAframe']),
   },
   beforeCreate() {
+    if (typeof window !== 'undefined') {
+      const presenParam = this.$route.query.presen
+      if (presenParam || presenParam === '1') {
+        this.$store.commit(`ar/${ENABLE_PRESEN_MODE}`)
+      } else {
+        this.$store.commit(`ar/${ENABLE_NOMAL_MODE}`)
+      }
+    }
+  },
+  created() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, undefined)
+  },
+  methods: {
+    onRealityReady() {
+      this.isReadyReality = true
+    },
+    onRealityError(error: any) {
+      const message = this.getErrorMessage(error)
+      this.errorMessage = message
+      this.isOpenErrorModal = true
+    },
+    onClickTalkButton() {
+      this.isTalkMode = true
+    },
+    onCancelSpeak() {
+      this.isTalkMode = false
+    },
+    onError(error: Error) {
+      const message = this.getErrorMessage(error)
+      this.errorMessage = message
+      this.isOpenErrorModal = true
+    },
+    getErrorMessage(error: Error) {
+      switch (error.message) {
+        case 'no input audio data':
+          return '聞き取りに失敗しました。'
+        case 'No speech result':
+          return '聞き取りに失敗しました。'
+        default:
+          return '予期せぬエラーが発生しました。'
+      }
+    },
+    onCloseErrorModal() {
+      this.isOpenErrorModal = false
+    },
   },
 })
 </script>
 
 <style lang="scss" module>
-@import '@/assets/scss/variables.scss';
+.talkWrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 80px;
+  z-index: 10;
+}
 
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  text-align: center;
-}
-.contentsTitle {
-  font-size: 1.5em;
-  color: $dark-base-color;
-  margin-bottom: 20px;
-}
-.links {
-  display: flex;
-  flex-direction: column;
-}
-.pageLink {
-  width: 200px;
-  padding: 10px 0;
-  border-radius: 30px;
-  margin: 0 auto 10px auto;
-  background-color: $secondary-color;
-  color: #fff;
-}
-.borderWrap {
-  margin: 50px 0;
-}
-.componentWrap {
-  display: flex;
-  flex-direction: column;
-}
-.characterCircle {
-  margin: 0 auto;
-}
-.scaleEnterActive {
-  transition: transform 0.6s cubic-bezier(0.89, -0.11, 0.07, 1.4);
-}
-.scaleLeaveActive {
-  transition: transform 0.6s cubic-bezier(0.77, -0.595, 0.6, 1.025);
-}
-.scaleEnter,
-.scaleLeaveTo {
-  transform: scale(0);
+.menuWrap {
+  width: 100%;
+  position: fixed;
+  bottom: 50px;
+  z-index: 10;
 }
 </style>
