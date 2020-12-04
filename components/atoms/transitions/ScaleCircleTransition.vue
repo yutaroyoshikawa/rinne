@@ -15,7 +15,9 @@
         '--duration': `${$props.duration}ms`,
       }"
     >
-      <slot />
+      <div :class="$style.innerWrap">
+        <slot />
+      </div>
     </div>
   </transition>
 </template>
@@ -81,6 +83,7 @@ export default Vue.extend({
 .enterActive {
   transition: transform cubic-bezier(0.89, -0.11, 0.07, 1.4),
     border-radius ease-in-out;
+  overflow: hidden;
   transition-delay: var(--delay);
   transition-duration: var(--duration);
 }
@@ -88,7 +91,13 @@ export default Vue.extend({
 .leaveActive {
   transition: transform cubic-bezier(1, -0.46, 0.065, 1.005) border-radius
     ease-in-out;
+  overflow: hidden;
   transition-delay: var(--delay);
   transition-duration: var(--duration);
+}
+
+.innerWrap {
+  width: 100vw;
+  height: 100vh;
 }
 </style>
