@@ -89,6 +89,12 @@ type Data = {
 
 export default Vue.extend({
   name: 'Ar',
+  props: {
+    in: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data(): Data {
     return {
       isFoundXrimage: false,
