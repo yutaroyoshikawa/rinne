@@ -7,7 +7,7 @@
         <HeaderTitle />
       </header>
       <div :class="$style.arWrap">
-        <ArAlbum @reality-ready="onRealityReady" />
+        <ArAlbum :in="isIndexPage" @reality-ready="onRealityReady" />
       </div>
       <div :class="$style.pageWrap">
         <Nuxt />
@@ -35,6 +35,9 @@ export default Vue.extend({
   },
   computed: {
     ...mapState(['isOpenTab']),
+    isIndexPage(): boolean {
+      return this.$route.path === '/'
+    },
   },
   methods: {
     onRealityReady() {

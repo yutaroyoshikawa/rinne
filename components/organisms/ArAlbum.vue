@@ -3,18 +3,25 @@
     <div ref="responseTalk" :class="$style.responseTalkWrap">
       <ResponseTalk />
     </div>
-    <template v-if="arMode === 'presen'">
-      <PresenAr
-        @reality-ready="onRealityReady"
-        @reality-error="onRealityError"
-      />
-    </template>
-    <template v-else-if="arMode === 'nomal'">
-      <Ar @reality-ready="onRealityReady" @reality-error="onRealityError" />
-    </template>
-    <template v-else>
-      <div></div>
-    </template>
+    <ScaleCircleTransition :in="$props.in" :enable-page-transition="false">
+      <template v-if="arMode === 'presen'">
+        <PresenAr
+          :in="$props.in"
+          @reality-ready="onRealityReady"
+          @reality-error="onRealityError"
+        />
+      </template>
+      <template v-else-if="arMode === 'nomal'">
+        <Ar
+          :in="$props.in"
+          @reality-ready="onRealityReady"
+          @reality-error="onRealityError"
+        />
+      </template>
+      <template v-else>
+        <div></div>
+      </template>
+    </ScaleCircleTransition>
     <ActionModal
       :show-action-modal="isOpenDetailsModal"
       modal-title="くわしく"
@@ -40,6 +47,7 @@ import ActionModal from '@/components/molecule/actionModal.vue'
 import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
 import Ar from '@/components/molecule/Ar.vue'
 import PresenAr from '@/components/molecule/PresenAr.vue'
+import ScaleCircleTransition from '@/components/atoms/transitions/ScaleCircleTransition.vue'
 
 type Data = {
   isOpenDetailsModal: boolean
@@ -53,6 +61,13 @@ export default Vue.extend({
     ResponseTalk,
     Ar,
     PresenAr,
+    ScaleCircleTransition,
+  },
+  props: {
+    in: {
+      type: Boolean,
+      default: true,
+    },
   },
   data(): Data {
     return {
