@@ -1,7 +1,7 @@
 <template>
   <div>
     <Loading v-if="isLoadingMap" />
-    <ScaleCircleTransition :in="showMap">
+    <ScaleCircleTransition :in="!isLoadingMap">
       <div ref="map" :class="$style.map"></div>
     </ScaleCircleTransition>
   </div>
@@ -18,7 +18,6 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 type Data = {
   map?: mapboxgl.Map
   isLoadingMap: boolean
-  showMap: boolean
 }
 
 export default Vue.extend({
@@ -30,22 +29,17 @@ export default Vue.extend({
     return {
       map: undefined,
       isLoadingMap: true,
-      showMap: false,
     }
   },
   watch: {
     isLoadingMap() {
       if (!this.isLoadingMap) {
-        const DURATION_TIME = 500
         setTimeout(() => {
           const map = this.map
           if (map) {
             map.resize()
           }
-        }, DURATION_TIME + 50)
-        setTimeout(() => {
-          this.showMap = true
-        }, DURATION_TIME)
+        }, 50)
       }
     },
   },
@@ -95,8 +89,12 @@ export default Vue.extend({
         const el = document.createElement('div')
         el.className = 'marker'
 
-        map.on('styledata', () => {
-          this.isLoadingMap = false
+        map.on('data', (event) => {
+          if (event.tile) {
+            if (event.tile.state === 'loaded') {
+              this.isLoadingMap = false
+            }
+          }
         })
 
         new mapboxgl.Marker(el).setLngLat([lng, lat]).addTo(map)
