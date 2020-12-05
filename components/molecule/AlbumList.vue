@@ -44,11 +44,14 @@ export default Vue.extend({
 
 <style lang="scss" module>
 .imageWraps {
+  display: grid;
   width: 90%;
+  max-width: 800px;
   margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-gap: 16px;
+  justify-items: center;
+  align-items: center;
 }
 
 .imageWrap {

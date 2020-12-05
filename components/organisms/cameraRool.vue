@@ -131,20 +131,22 @@ export default Vue.extend({
 
 .wrap {
   background-color: $base-color;
-  padding-bottom: 99px;
+  padding: 40px 0 99px 0;
 }
 .imageWraps {
+  display: grid;
   width: 90%;
+  max-width: 800px;
   margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-gap: 16px;
+  justify-items: center;
+  align-items: center;
 }
 .imageWrap {
   width: 140px;
   height: 140px;
   background: $secondary-color;
-  margin-top: 20px;
   position: relative;
   box-sizing: border-box;
   transition: padding 0.1s linear;
