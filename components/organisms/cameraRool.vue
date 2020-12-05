@@ -42,10 +42,7 @@
           <button :class="$style.clearButton" @click="clear">クリア</button>
           <button
             :class="$style.addButton"
-            :disabled="
-              selectedIndexes.length >= selectableNumber ||
-              selectedIndexes.length === 0
-            "
+            :disabled="selectedIndexes.length === 0"
             @click="addImages"
           >
             ついか
