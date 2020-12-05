@@ -53,8 +53,7 @@ export default Vue.extend({
       }
 
       return (
-        (this.$store as any).state.pageTransitionState ===
-        PageTransitionState.EXITING
+        this.$store.state.pageTransitionState === PageTransitionState.EXITING
       )
     },
   },
