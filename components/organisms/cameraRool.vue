@@ -1,42 +1,56 @@
 <template>
-  <div
-    :class="{
-      [$style.wrap]: true,
-      [$style.wrapPadding]: selectedIndexes.length,
-    }"
-  >
-    <p><span v-text="selectedIndexes.length"></span>/{{ selectableNumber }}</p>
+  <div :class="$style.wrap">
     <div :class="$style.imageWraps">
       <div
         v-for="(imageDatum, index) in imageData"
         :key="index"
-        :class="{
-          [$style.imageWrap]: true,
-          [$style.active]: isSelected(index),
-        }"
+        :class="[$style.imageWrap, { [$style.active]: isSelected(index) }]"
+        @click="onImageSelect(index)"
       >
-        <fa
-          v-if="isSelected(index)"
-          :icon="['fa', 'check-circle']"
-          :class="$style.selectedIcon"
-        />
-        <img
-          :src="imageDatum.url"
-          :alt="imageDatum.name"
-          @click="onImageSelect(index)"
-        />
+        <transition
+          :enter-class="$style.enter"
+          :enter-to-class="$style.enterTo"
+          :leave-class="$style.leave"
+          :leave-to-class="$style.leaveTo"
+          :enter-active-class="$style.enterActive"
+          :leave-active-class="$style.leaveActive"
+        >
+          <fa
+            v-if="isSelected(index)"
+            :icon="['fa', 'check-circle']"
+            :class="$style.selectedIcon"
+          />
+        </transition>
+        <div :class="$style.image">
+          <PhotoListImage :src="imageDatum.url" :name="imageDatum.name" />
+        </div>
       </div>
     </div>
-    <div v-if="selectedIndexes.length" :class="$style.functions">
-      <div :class="$style.innerFunctions">
-        <button :class="$style.clearButton" @click="clear">クリア</button>
-        <button
-          v-if="selectedIndexes.length <= selectableNumber"
-          :class="$style.addButton"
-          @click="addImages"
+    <div :class="$style.footer">
+      <div :class="$style.footerMessageWrap">
+        <p
+          v-if="selectableNumber - selectedIndexes.length > 0"
+          :class="$style.footerMessage"
         >
-          ついか
-        </button>
+          あと<span>{{ selectableNumber - selectedIndexes.length }}枚</span
+          >選択できます
+        </p>
+        <p v-else :class="$style.footerMessage">これ以上選択できません</p>
+      </div>
+      <div :class="$style.functions">
+        <div :class="$style.innerFunctions">
+          <button :class="$style.clearButton" @click="clear">クリア</button>
+          <button
+            :class="$style.addButton"
+            :disabled="
+              selectedIndexes.length >= selectableNumber ||
+              selectedIndexes.length === 0
+            "
+            @click="addImages"
+          >
+            ついか
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -46,6 +60,7 @@
 import Vue from 'vue'
 import { CLOSE_TAB } from '@/store/index'
 import personalityData from '@/assets/personality.json'
+import PhotoListImage from '@/components/atoms/PhotoListImage.vue'
 
 type Data = {
   imageData: {
@@ -57,6 +72,9 @@ type Data = {
 
 export default Vue.extend({
   name: 'CameraRool',
+  components: {
+    PhotoListImage,
+  },
   data(): Data {
     const imageData = personalityData.map(({ fileName, name }) => ({
       url: `/img/${fileName}`,
@@ -84,6 +102,9 @@ export default Vue.extend({
           return selectedIndex !== imageIndex
         })
       } else {
+        if (this.selectableNumber - this.selectedIndexes.length === 0) {
+          return
+        }
         this.selectedIndexes.push(imageIndex)
       }
     },
@@ -110,10 +131,7 @@ export default Vue.extend({
 
 .wrap {
   background-color: $base-color;
-  padding-bottom: 20px;
-}
-.wrapPadding {
-  padding-bottom: 70px;
+  padding-bottom: 99px;
 }
 .imageWraps {
   width: 90%;
@@ -123,18 +141,17 @@ export default Vue.extend({
   justify-content: space-around;
 }
 .imageWrap {
-  float: left;
   width: 140px;
   height: 140px;
   background: $secondary-color;
   margin-top: 20px;
   position: relative;
-
-  & > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+  box-sizing: border-box;
+  transition: padding 0.1s linear;
+}
+.image {
+  width: 100%;
+  height: 100%;
 }
 .active {
   width: 140px;
@@ -143,6 +160,7 @@ export default Vue.extend({
 }
 .selectedIcon {
   position: absolute;
+  z-index: 20;
   top: 10px;
   left: 10px;
   font-size: 25px;
@@ -150,17 +168,42 @@ export default Vue.extend({
   background-color: #fff;
   border-radius: 50%;
 }
-.functions {
-  width: 100%;
-  height: 50px;
+.footer {
   position: fixed;
   bottom: 0;
   left: 0;
+  z-index: 100;
+  width: 100%;
+}
+.footerMessageWrap {
+  width: 100%;
+  height: 29px;
+  background-color: rgba(230, 230, 230, 0.9);
+  display: flex;
+  align-items: center;
+}
+.footerMessage {
+  width: 100%;
+  text-align: center;
+  color: $primary-color;
+  font-size: 14px;
+
+  & > span {
+    color: $dark-base-color;
+    font-size: 17px;
+    padding: 0 5px;
+  }
+}
+.functions {
+  width: 100%;
+  height: 50px;
   background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .innerFunctions {
   width: 90%;
-  margin: 10px auto 0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -182,5 +225,36 @@ export default Vue.extend({
   color: $base-color;
   background-color: $primary-color;
   border: none;
+
+  &:disabled {
+    transition: filter 0.2s ease;
+    filter: grayscale(100%);
+  }
+}
+
+.enter {
+  transform: scale(0) rotate(180deg);
+}
+
+.enterTo {
+  transform: scale(1);
+}
+
+.leave {
+  transform: scale(1);
+}
+
+.leaveTo {
+  transform: scale(0) rotate(180deg);
+}
+
+.enterActive {
+  transition: transform cubic-bezier(0.89, -0.11, 0.07, 1.4);
+  transition-duration: 0.3s;
+}
+
+.leaveActive {
+  transition: transform cubic-bezier(1, -0.46, 0.065, 1.005);
+  transition-duration: 0.3s;
 }
 </style>

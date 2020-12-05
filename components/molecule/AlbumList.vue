@@ -3,6 +3,7 @@
     <div
       v-for="(item, index) in renderList"
       :key="index"
+      :class="$style.imageWrap"
       :style="{
         '--enterDelay': `${50 * index}ms`,
         '--leaveDelay': `${50 * (renderList.length - index - 1)}ms`,
@@ -28,7 +29,7 @@ export default Vue.extend({
   },
   computed: {
     renderList(): string[] {
-      const pageTransitionState = (this.$store as any).state.pageTransitionState
+      const pageTransitionState = this.$store.state.pageTransitionState
       if (
         pageTransitionState === PageTransitionState.EXITING ||
         pageTransitionState === PageTransitionState.ENTERING
@@ -48,5 +49,10 @@ export default Vue.extend({
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+
+.imageWrap {
+  width: 140px;
+  height: 140px;
 }
 </style>

@@ -87,10 +87,11 @@ export default Vue.extend({
 
 .imageWrap {
   float: left;
-  width: 140px;
-  height: 140px;
+  width: 100%;
+  max-width: 140px;
+  height: 100%;
+  max-height: 140px;
   background: #fff;
-  margin-top: 20px;
   position: relative;
   border-radius: 5px;
 
