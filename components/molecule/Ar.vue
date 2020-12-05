@@ -2,6 +2,7 @@
   <div>
     <client-only>
       <a-scene
+        ref="scene"
         nomal
         xrextras-gesture-detector
         xrextras-almost-there
@@ -106,6 +107,25 @@ export default Vue.extend({
   computed: {
     ...mapState('photoStore', ['imageSrcs']),
     ...mapState('ar', ['isLoadedPresentationAframe']),
+  },
+  watch: {
+    in: {
+      immediate: true,
+      handler() {
+        const XR8 = window.XR8
+        const sceneRef = this.$refs.scene as any
+        if (!XR8 || !sceneRef) {
+          return
+        }
+        if (this.$props.in) {
+          if (XR8.isPaused()) {
+            sceneRef.play()
+          }
+        } else {
+          sceneRef.pause()
+        }
+      },
+    },
   },
   mounted() {
     this.initAframe()
