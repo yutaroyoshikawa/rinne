@@ -1,9 +1,9 @@
 <template>
   <div>
     <Loading v-if="isLoadingMap" />
-    <div :class="$style.wrap">
+    <ScaleCircleTransition :in="showMap">
       <div ref="map" :class="$style.map"></div>
-    </div>
+    </ScaleCircleTransition>
   </div>
 </template>
 
@@ -11,23 +11,43 @@
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
 import Loading from '@/components/organisms/loading.vue'
+import ScaleCircleTransition from '@/components/atoms/transitions/ScaleCircleTransition.vue'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 type Data = {
   map?: mapboxgl.Map
   isLoadingMap: boolean
+  showMap: boolean
 }
 
 export default Vue.extend({
   components: {
     Loading,
+    ScaleCircleTransition,
   },
   data(): Data {
     return {
       map: undefined,
       isLoadingMap: true,
+      showMap: false,
     }
+  },
+  watch: {
+    isLoadingMap() {
+      if (!this.isLoadingMap) {
+        const DURATION_TIME = 500
+        setTimeout(() => {
+          const map = this.map
+          if (map) {
+            map.resize()
+          }
+        }, DURATION_TIME + 50)
+        setTimeout(() => {
+          this.showMap = true
+        }, DURATION_TIME)
+      }
+    },
   },
   mounted() {
     this.isAllowedToGeolocation()
