@@ -59,7 +59,7 @@ export default Vue.extend({
 .tabContainer {
   width: 100%;
   height: 83%;
-  background-color: #fff;
+  background-color: $base-color;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   position: fixed;
   z-index: $header-zindex + 2;

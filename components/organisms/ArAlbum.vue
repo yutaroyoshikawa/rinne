@@ -3,7 +3,7 @@
     <div ref="responseTalk" :class="$style.responseTalkWrap">
       <ResponseTalk />
     </div>
-    <ScaleCircleTransition :in="$props.in" :enable-page-transition="false">
+    <OpacityTransition :in="$props.in" :enable-page-transition="false">
       <template v-if="arMode === 'presen'">
         <PresenAr
           :in="$props.in"
@@ -21,7 +21,7 @@
       <template v-else>
         <div></div>
       </template>
-    </ScaleCircleTransition>
+    </OpacityTransition>
     <ActionModal
       :show-action-modal="isOpenDetailsModal"
       modal-title="くわしく"
@@ -47,7 +47,7 @@ import ActionModal from '@/components/molecule/actionModal.vue'
 import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
 import Ar from '@/components/molecule/Ar.vue'
 import PresenAr from '@/components/molecule/PresenAr.vue'
-import ScaleCircleTransition from '@/components/atoms/transitions/ScaleCircleTransition.vue'
+import OpacityTransition from '@/components/atoms/transitions/OpacityTransition.vue'
 
 type Data = {
   isOpenDetailsModal: boolean
@@ -61,7 +61,7 @@ export default Vue.extend({
     ResponseTalk,
     Ar,
     PresenAr,
-    ScaleCircleTransition,
+    OpacityTransition,
   },
   props: {
     in: {
