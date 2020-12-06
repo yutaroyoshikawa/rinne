@@ -5,7 +5,10 @@
     :enter-active-class="$style.fadeEnterActive"
     :leave-active-class="$style.fadeLeaveActive"
   >
-    <div v-if="$props.in" :class="$style.wrap" @click.self="$emit('cancel')">
+    <div v-if="$props.in" :class="$style.wrap">
+      <div :class="$style.cancelWrap">
+        <CancelButton @click="onCancel" />
+      </div>
       <div :class="$style.micWrap">
         <p v-if="isShowGuideComment" :class="$style.resultText">
           ホールドしてしゃべる
@@ -26,6 +29,7 @@
 import Vue from 'vue'
 import MicButton from '@/components/atoms/MicButton.vue'
 import { REQUEST_TALK_TEXT } from '@/store/ar'
+import CancelButton from '@/components/atoms/CancelButton.vue'
 
 type Data = {
   recorder?: any
@@ -41,6 +45,7 @@ export default Vue.extend({
   name: 'SpeakToText',
   components: {
     MicButton,
+    CancelButton,
   },
   props: {
     in: {
@@ -85,6 +90,10 @@ export default Vue.extend({
     chunks = undefined
   },
   methods: {
+    onCancel() {
+      this.$emit('cancel')
+      console.log('cancel')
+    },
     initRecorder() {
       import('audio-recorder-polyfill').then((module) => {
         navigator.mediaDevices
@@ -233,6 +242,13 @@ export default Vue.extend({
   position: fixed;
   bottom: 0;
   z-index: 10;
+}
+
+.cancelWrap {
+  position: absolute;
+  top: $header-height;
+  left: 40px;
+  z-index: 110;
 }
 
 .micWrap {
