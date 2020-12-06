@@ -4,7 +4,10 @@
       <ResponseTalk />
     </div>
     <div>
-      <OpacityTransition :in="$props.in" :enable-page-transition="false">
+      <OpacityTransition
+        :in="$props.in || !arMode"
+        :enable-page-transition="false"
+      >
         <template v-if="arMode === 'presen'">
           <PresenAr
             :in="$props.in"
