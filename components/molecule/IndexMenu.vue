@@ -9,7 +9,7 @@
       </ScaleTransition>
     </div>
     <ScaleTransition :in="$props.in" :delay="200" :duration="400">
-      <IndexLink to="/cleanliness">たいちょう</IndexLink>
+      <IndexLink to="/profile">プロフィール</IndexLink>
     </ScaleTransition>
   </div>
 </template>
