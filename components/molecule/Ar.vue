@@ -151,7 +151,7 @@ export default Vue.extend({
   },
   methods: {
     onClickImage(imageIndex: number) {
-      this.$emit('selectImage', imageIndex)
+      this.$emit('select-image', imageIndex)
     },
     initAframe() {
       const AFRAME = window.AFRAME
