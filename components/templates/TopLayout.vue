@@ -1,27 +1,29 @@
 <template>
   <div>
-    <!-- <template v-if="!isLoadedAframe && $props.in">
+    <template v-if="!isLoadedAframe">
       <Loading />
     </template>
-    <template v-else> -->
-    <div :class="$style.talkWrap">
-      <TalkButton
-        :in="!isTalkMode && $props.in"
-        @click="onClickTalkButton"
-        @cancel="onCancelSpeak"
-      />
-    </div>
-    <template v-if="isTalkMode">
-      <SpeakToText
-        :in="isTalkMode && $props.in"
-        @error="onError"
-        @cancel="onCancelSpeak"
-      />
+    <template v-else>
+      <template v-if="$props.in">
+        <div :class="$style.talkWrap">
+          <TalkButton
+            :in="!isTalkMode && $props.in"
+            @click="onClickTalkButton"
+            @cancel="onCancelSpeak"
+          />
+        </div>
+        <template v-if="isTalkMode">
+          <SpeakToText
+            :in="isTalkMode && $props.in"
+            @error="onError"
+            @cancel="onCancelSpeak"
+          />
+        </template>
+        <div :class="$style.menuWrap">
+          <IndexMenu :in="!isTalkMode && $props.in" />
+        </div>
+      </template>
     </template>
-    <div :class="$style.menuWrap">
-      <IndexMenu :in="!isTalkMode && $props.in" />
-    </div>
-    <!-- </template> -->
     <slot />
     <NotifyModal
       modal-title="エラー"
@@ -36,7 +38,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-// import Loading from '@/components/organisms/loading.vue'
+import { ENABLE_PRESEN_MODE, ENABLE_NOMAL_MODE } from '@/store/ar'
+import Loading from '@/components/organisms/loading.vue'
 import IndexMenu from '@/components/molecule/IndexMenu.vue'
 import TalkButton from '@/components/atoms/TalkButton.vue'
 import SpeakToText from '@/components/templates/SpeakToText.vue'
@@ -53,7 +56,7 @@ type Data = {
 export default Vue.extend({
   name: 'TopLayout',
   components: {
-    // Loading,
+    Loading,
     IndexMenu,
     TalkButton,
     SpeakToText,
@@ -75,6 +78,16 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('ar', ['isLoadedAframe']),
+  },
+  beforeCreate() {
+    if (typeof window !== 'undefined') {
+      const presenParam = this.$route.query.presen
+      if (presenParam || presenParam === '1') {
+        this.$store.commit(`ar/${ENABLE_PRESEN_MODE}`)
+      } else {
+        this.$store.commit(`ar/${ENABLE_NOMAL_MODE}`)
+      }
+    }
   },
   methods: {
     onRealityReady() {
