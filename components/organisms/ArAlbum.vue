@@ -3,6 +3,19 @@
     <div ref="responseTalk" :class="$style.responseTalkWrap">
       <ResponseTalk />
     </div>
+    <ActionModal
+      :show-action-modal="isOpenDetailsModal"
+      modal-title="くわしく"
+      @close="onCloseDetailsModal"
+      @action="onDeleteImage(selectedImageIndex)"
+    >
+      <img
+        :class="$style.detailsImage"
+        :src="imageSrcs[selectedImageIndex]"
+        alt="選択した写真"
+      />
+      <p>この写真を削除しますか？</p>
+    </ActionModal>
     <div>
       <OpacityTransition
         :in="$props.in && arMode"
@@ -28,22 +41,6 @@
           <!-- -->
         </template>
       </OpacityTransition>
-    </div>
-
-    <div :class="$style.modalWrap">
-      <ActionModal
-        :show-action-modal="isOpenDetailsModal"
-        modal-title="くわしく"
-        @close="onCloseDetailsModal"
-        @action="onDeleteImage(selectedImageIndex)"
-      >
-        <img
-          :class="$style.detailsImage"
-          :src="imageSrcs[selectedImageIndex]"
-          alt="選択した写真"
-        />
-        <p>この写真を削除しますか？</p>
-      </ActionModal>
     </div>
   </div>
 </template>
@@ -98,6 +95,7 @@ export default Vue.extend({
       this.isOpenDetailsModal = false
     },
     onSelectImage(imageIndex: number) {
+      alert('select')
       this.selectedImageIndex = imageIndex
       this.isOpenDetailsModal = true
     },
