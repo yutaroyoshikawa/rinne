@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-if="!isLoadedAframe">
+    <template v-if="!isLoadedAframe && $props.in">
       <Loading />
     </template>
     <template v-else>
