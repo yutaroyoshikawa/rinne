@@ -95,7 +95,6 @@ export default Vue.extend({
       this.isOpenDetailsModal = false
     },
     onSelectImage(imageIndex: number) {
-      alert('select')
       this.selectedImageIndex = imageIndex
       this.isOpenDetailsModal = true
     },
