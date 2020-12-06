@@ -22,7 +22,7 @@
           />
         </template>
         <template v-else>
-          <!-- -->
+          <div></div>
         </template>
       </OpacityTransition>
     </div>
