@@ -1,6 +1,14 @@
 <template>
   <div>
     <slot />
+    <NotifyModal
+      modal-title="エラー"
+      :show-notify-modal="isOpenErrorModal && $props.in"
+      @close="onCloseErrorModal"
+      @action="onCloseErrorModal"
+    >
+      <p>{{ errorMessage }}</p>
+    </NotifyModal>
 
     <template>
       <template v-if="!isLoadedAframe">
@@ -26,15 +34,6 @@
         </div>
       </template>
     </template>
-
-    <NotifyModal
-      modal-title="エラー"
-      :show-notify-modal="isOpenErrorModal && $props.in"
-      @close="onCloseErrorModal"
-      @action="onCloseErrorModal"
-    >
-      <p>{{ errorMessage }}</p>
-    </NotifyModal>
   </div>
 </template>
 
