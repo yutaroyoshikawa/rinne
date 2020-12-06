@@ -158,6 +158,7 @@ export default Vue.extend({
             encoding: 'LINEAR16',
             sampleRateHertz: AUDIO_SAMPLE_RATE,
             languageCode: 'ja-JP',
+            model: 'phone_call',
           },
           audio: {
             content: base64Data,

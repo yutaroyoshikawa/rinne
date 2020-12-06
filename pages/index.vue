@@ -105,7 +105,6 @@ export default Vue.extend({
       this.isOpenErrorModal = true
     },
     getErrorMessage(error: Error) {
-      alert(error.message)
       switch (error.message) {
         case 'no input audio data':
           return '聞き取りに失敗しました。'
