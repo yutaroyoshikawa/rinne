@@ -53,7 +53,7 @@ export default Vue.extend({
   text-align: center;
   width: 100%;
   font-size: 24px;
-  color: $base-color;
+  color: $dark-base-color;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
