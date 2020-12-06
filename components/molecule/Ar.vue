@@ -8,7 +8,7 @@
         xrextras-gesture-detector
         xrextras-almost-there
         xrextras-runtime-error
-        renderer="colorManagement: true"
+        xrextras-tap-recenter
       >
         <a-assets ref="assets">
           <a-asset-item id="teddyBearModel" src="/bear.glb" />
@@ -24,7 +24,11 @@
 
         <a-light type="ambient" intensity="0.7"></a-light>
 
-        <a-entity gltf-model="#teddyBearModel" scale="0.025 0.025 0.025" />
+        <a-entity
+          gltf-model="#teddyBearModel"
+          scale="0.025 0.025 0.025"
+          position="0 3 0"
+        />
 
         <a-entity
           id="ground"
@@ -36,7 +40,7 @@
         />
 
         <a-entity>
-          <template v-if="isFoundXrimage">
+          <template>
             <a-plane width="1" height="1" material="src:#talkElement"></a-plane>
             <a-image
               v-for="(imageSrc, index) in imageSrcs"
