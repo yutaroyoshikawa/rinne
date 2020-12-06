@@ -31,7 +31,7 @@
 
         <a-entity xrextras-named-image-target="name: renny">
           <template v-if="isFoundXrimage">
-            <a-plane width="1" height="1" material="src:#talkElement"></a-plane>
+            <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
             <a-image
               v-for="(imageSrc, index) in imageSrcs"
               :key="imageSrc"
