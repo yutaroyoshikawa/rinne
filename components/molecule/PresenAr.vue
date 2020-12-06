@@ -53,7 +53,7 @@
                 dur: 3000,
                 delay: 300 * index,
               }"
-              @click.self="onClickImage(index)"
+              @click="onClickImage(index)"
             />
           </template>
         </a-entity>
