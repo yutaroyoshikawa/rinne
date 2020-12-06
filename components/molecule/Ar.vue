@@ -48,7 +48,7 @@
         <a-entity>
           <template>
             <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
-            <!-- <a-image
+            <a-image
               v-for="(imageSrc, index) in imageSrcs"
               :key="imageSrc"
               class="cantap"
@@ -70,7 +70,7 @@
                 delay: 300 * index,
               }"
               @click="onClickImage(index)"
-            /> -->
+            />
           </template>
         </a-entity>
       </a-scene>
