@@ -53,7 +53,7 @@
                 dur: 3000,
                 delay: 300 * index,
               }"
-              @click="onClickImage(index)"
+              @click="$emit('select-image', index)"
             />
           </template>
         </a-entity>
@@ -136,9 +136,6 @@ export default Vue.extend({
     // assetsEl.appendChild(canvas)
   },
   methods: {
-    onClickImage(imageIndex: number) {
-      this.$emit('selectImage', imageIndex)
-    },
     initAframe() {
       const AFRAME = window.AFRAME
       if (AFRAME) {
