@@ -54,7 +54,7 @@
               }"
               :animation__2="{
                 property: 'position',
-                to: `${index - 1} ${isTapImage ? 0.3 : 0} 0.3`,
+                to: `${index - 1} 0 0.3`,
                 easing: 'easeOutElastic',
                 dur: 3000,
                 delay: 300 * index,
@@ -89,9 +89,7 @@ Vue.config.ignoredElements = [
 
 type Data = {
   isFoundXrimage: boolean
-  isTapImage: boolean
   images: string[]
-  selectedImageIndex?: number
 }
 
 export default Vue.extend({
@@ -105,9 +103,7 @@ export default Vue.extend({
   data(): Data {
     return {
       isFoundXrimage: false,
-      isTapImage: false,
       images: ['renny', 'renny2', 'renny3'],
-      selectedImageIndex: undefined,
     }
   },
   computed: {
@@ -143,8 +139,7 @@ export default Vue.extend({
   },
   methods: {
     onClickImage(imageIndex: number) {
-      this.selectedImageIndex = imageIndex
-      this.isTapImage = true
+      this.$emit('selectImage', imageIndex)
     },
     initAframe() {
       const AFRAME = window.AFRAME

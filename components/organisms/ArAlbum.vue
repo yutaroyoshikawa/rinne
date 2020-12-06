@@ -9,6 +9,7 @@
           :in="$props.in"
           @reality-ready="onRealityReady"
           @reality-error="onRealityError"
+          @select-image="onSelectImage"
         />
       </template>
       <template v-else-if="arMode === 'nomal'">
@@ -88,6 +89,10 @@ export default Vue.extend({
     onDeleteImage(imageIndex: number) {
       this.$store.commit(`photoStore/${REMOVE_IMAGE}`, imageIndex)
       this.isOpenDetailsModal = false
+    },
+    onSelectImage(imageIndex: number) {
+      this.selectedImageIndex = imageIndex
+      this.isOpenDetailsModal = true
     },
     onRealityReady() {
       this.$store.commit(`ar/${LOADEDND_AFRAME}`)
