@@ -88,9 +88,6 @@ export default Vue.extend({
     initRecorder() {
       import('audio-recorder-polyfill').then((module) => {
         navigator.mediaDevices
-          .enumerateDevices()
-          .then((devices) => alert(JSON.stringify(devices)))
-        navigator.mediaDevices
           .getUserMedia({
             audio: true,
           })
@@ -98,7 +95,7 @@ export default Vue.extend({
             const AudioRecorder = module.default
             const recorder = new AudioRecorder(stream, {
               audioBitsPerSecond: AUDIO_SAMPLE_RATE,
-              mimeType: 'video/webm;codecs=vp9',
+              mimeType: 'audio/wav',
             })
             recorder.addEventListener('dataavailable', (event: any) => {
               if (event.data.size > 0 && chunks) {
