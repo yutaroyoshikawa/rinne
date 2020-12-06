@@ -26,6 +26,15 @@
 
         <a-entity gltf-model="#teddyBearModel" scale="0.025 0.025 0.025" />
 
+        <a-entity
+          id="ground"
+          class="cantap"
+          geometry="primitive: box"
+          material="color: #ffffff; transparent: true; opacity: 0.0"
+          scale="1000 2 1000"
+          position="0 -1 0"
+        />
+
         <a-entity>
           <template v-if="isFoundXrimage">
             <a-plane width="1" height="1" material="src:#talkElement"></a-plane>
