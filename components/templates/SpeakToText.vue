@@ -88,9 +88,11 @@ export default Vue.extend({
     initRecorder() {
       import('audio-recorder-polyfill').then((module) => {
         navigator.mediaDevices
+          .enumerateDevices()
+          .then((devices) => alert(JSON.stringify(devices)))
+        navigator.mediaDevices
           .getUserMedia({
             audio: true,
-            video: false,
           })
           .then((stream) => {
             const AudioRecorder = module.default

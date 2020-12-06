@@ -63,6 +63,8 @@ export default Vue.extend({
 </script>
 
 <style module lang="scss">
+@import '@/assets/scss/variables.scss';
+
 .enter {
   width: 1px;
   height: 1px;
@@ -71,7 +73,7 @@ export default Vue.extend({
 
 .enterTo {
   width: 100vmax;
-  height: 100vmax;
+  height: calc(100vmax - #{$header-height});
   border-radius: 50%;
 }
 
@@ -107,12 +109,12 @@ export default Vue.extend({
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - #{$header-height});
   overflow: hidden;
 }
 
 .innerWrap {
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - #{$header-height});
 }
 </style>
