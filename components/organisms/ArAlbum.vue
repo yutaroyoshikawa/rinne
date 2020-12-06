@@ -18,7 +18,7 @@
     </ActionModal>
     <div>
       <OpacityTransition
-        :in="$props.in && arMode"
+        :in="$props.in && !!arMode"
         :enable-page-transition="false"
       >
         <template v-if="arMode === 'presen'">
