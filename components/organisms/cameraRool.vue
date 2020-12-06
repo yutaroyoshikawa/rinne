@@ -128,7 +128,7 @@ export default Vue.extend({
 
 .wrap {
   background-color: $base-color;
-  padding: 40px 0 99px 0;
+  padding: 40px 0 159px 0;
 }
 .imageWraps {
   display: grid;
