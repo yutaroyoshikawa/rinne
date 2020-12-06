@@ -86,6 +86,9 @@ export default Vue.extend({
     ...mapState('ar', ['arMode']),
     ...mapState('photoStore', ['imageSrcs']),
   },
+  mounted() {
+    alert('mounted ar')
+  },
   methods: {
     onCloseDetailsModal() {
       this.isOpenDetailsModal = false
