@@ -6,9 +6,9 @@
       <header :class="$style.header">
         <HeaderTitle />
       </header>
-      <div :class="$style.arWrap">
-        <ArAlbum :in="isIndexPage" @reality-ready="onRealityReady" />
-      </div>
+
+      <ArAlbum :in="isIndexPage" @reality-ready="onRealityReady" />
+
       <div :class="$style.pageWrap">
         <Nuxt />
       </div>
