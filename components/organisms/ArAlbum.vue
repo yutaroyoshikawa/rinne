@@ -22,7 +22,7 @@
           />
         </template>
         <template v-else>
-          <div></div>
+          <!-- -->
         </template>
       </OpacityTransition>
     </div>
@@ -100,6 +100,7 @@ export default Vue.extend({
       this.isOpenDetailsModal = true
     },
     onRealityReady() {
+      alert('loaded')
       this.$store.commit(`ar/${LOADEDND_AFRAME}`)
     },
     onRealityError() {

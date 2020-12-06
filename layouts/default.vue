@@ -7,7 +7,7 @@
         <HeaderTitle />
       </header>
       <TopLayout :in="isIndexPage">
-        <ArAlbum :in="isIndexPage" @reality-ready="onRealityReady" />
+        <ArAlbum :in="isIndexPage" />
       </TopLayout>
 
       <div :class="$style.pageWrap">
@@ -21,7 +21,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
-import { LOADEDND_AFRAME } from '@/store/ar'
 import 'destyle.css'
 import HeaderTitle from '@/components/atoms/HeaderTitle.vue'
 import OverlayTab from '@/components/molecule/OverlayTab.vue'
@@ -40,12 +39,6 @@ export default Vue.extend({
     ...mapState(['isOpenTab']),
     isIndexPage(): boolean {
       return this.$route.path === '/'
-    },
-  },
-  methods: {
-    onRealityReady() {
-      alert('loaded')
-      this.$store.commit(`ar/${LOADEDND_AFRAME}`)
     },
   },
 })
