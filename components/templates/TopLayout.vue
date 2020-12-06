@@ -4,25 +4,23 @@
       <Loading />
     </template>
     <template v-else>
-      <template v-if="$props.in">
-        <div :class="$style.talkWrap">
-          <TalkButton
-            :in="!isTalkMode && $props.in"
-            @click="onClickTalkButton"
-            @cancel="onCancelSpeak"
-          />
-        </div>
-        <template v-if="isTalkMode">
-          <SpeakToText
-            :in="isTalkMode && $props.in"
-            @error="onError"
-            @cancel="onCancelSpeak"
-          />
-        </template>
-        <div :class="$style.menuWrap">
-          <IndexMenu :in="!isTalkMode && $props.in" />
-        </div>
+      <div :class="$style.talkWrap">
+        <TalkButton
+          :in="!isTalkMode && $props.in"
+          @click="onClickTalkButton"
+          @cancel="onCancelSpeak"
+        />
+      </div>
+      <template v-if="isTalkMode">
+        <SpeakToText
+          :in="isTalkMode && $props.in"
+          @error="onError"
+          @cancel="onCancelSpeak"
+        />
       </template>
+      <div :class="$style.menuWrap">
+        <IndexMenu :in="!isTalkMode && $props.in" />
+      </div>
     </template>
     <slot />
     <NotifyModal
