@@ -8,7 +8,7 @@
     <div v-if="isOpenTab" :class="$style.tabOveray" @click.self="closeTab">
       <div v-if="isOpenTab" :class="$style.tabContainer">
         <div :class="$style.headerWrap">
-          <TabHeader />
+          <TabHeader @close="closeTab" />
         </div>
 
         <portal-target name="tab" :class="$style.portal"> </portal-target>

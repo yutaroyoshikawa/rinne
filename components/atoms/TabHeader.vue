@@ -1,5 +1,8 @@
 <template>
   <div :class="$style.container">
+    <div :class="$style.cancelWrap">
+      <CancelButton @click="$emit('close')" />
+    </div>
     <h2 :class="$style.header">
       {{ tabTitle }}
     </h2>
@@ -9,8 +12,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
+import CancelButton from '@/components/atoms/CancelButton.vue'
 
 export default Vue.extend({
+  components: {
+    CancelButton,
+  },
   props: {
     title: {
       type: String,
@@ -25,6 +32,11 @@ export default Vue.extend({
 
 <style lang="scss" module>
 @import '@/assets/scss/variables.scss';
+
+.cancelWrap {
+  position: absolute;
+  left: 20px;
+}
 
 .container {
   width: 100%;
