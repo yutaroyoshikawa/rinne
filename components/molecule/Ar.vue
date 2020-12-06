@@ -41,7 +41,7 @@
 
         <a-entity
           gltf-model="#teddyBearModel"
-          scale="0.1 0.1 0.1"
+          scale="3 3 3"
           position="0 0 0"
         ></a-entity>
 
