@@ -4,19 +4,14 @@
       <a-scene
         ref="scene"
         nomal
+        xrweb
         xrextras-gesture-detector
         xrextras-almost-there
         xrextras-runtime-error
         renderer="colorManagement: true"
-        xrweb="disableWorldTracking: true"
       >
         <a-assets ref="assets">
-          <img
-            v-for="(imageSrc, index) in imageSrcs"
-            :id="`renny${index}`"
-            :key="`renny${index}`"
-            :src="imageSrc"
-          />
+          <a-asset-item id="teddyBearModel" src="/bear.glb" />
         </a-assets>
         <a-camera
           position="0 4 10"
@@ -29,7 +24,9 @@
 
         <a-light type="ambient" intensity="0.7"></a-light>
 
-        <a-entity xrextras-named-image-target="name: renny">
+        <a-entity gltf-model="#teddyBearModel" scale="0.025 0.025 0.025" />
+
+        <a-entity>
           <template v-if="isFoundXrimage">
             <a-plane width="1" height="1" material="src:#talkElement"></a-plane>
             <a-image
@@ -73,7 +70,7 @@ Vue.config.ignoredElements = [
   'a-camera',
   'a-box',
   'a-ring',
-  'a-asset-items',
+  'a-asset-item',
   'a-assets',
   'a-cursor',
   'a-text',
