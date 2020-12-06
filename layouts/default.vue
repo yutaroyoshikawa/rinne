@@ -39,12 +39,12 @@ export default Vue.extend({
   computed: {
     ...mapState(['isOpenTab']),
     isIndexPage(): boolean {
-      console.log(this.$route.path === '/')
       return this.$route.path === '/'
     },
   },
   methods: {
     onRealityReady() {
+      alert('loaded')
       this.$store.commit(`ar/${LOADEDND_AFRAME}`)
     },
   },
