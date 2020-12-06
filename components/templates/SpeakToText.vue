@@ -158,7 +158,11 @@ export default Vue.extend({
             encoding: 'LINEAR16',
             sampleRateHertz: AUDIO_SAMPLE_RATE,
             languageCode: 'ja-JP',
-            model: 'phone_call',
+            model: 'command_and_search',
+            metadata: {
+              recordingDeviceType: 'SMARTPHONE',
+              originalMimeType: 'audio/wav',
+            },
           },
           audio: {
             content: base64Data,
