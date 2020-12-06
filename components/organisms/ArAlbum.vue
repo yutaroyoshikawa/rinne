@@ -22,7 +22,7 @@
         <div></div>
       </template>
     </OpacityTransition>
-    <div>
+    <div　:class="$style.modalWrap">
       <ActionModal
         :show-action-modal="isOpenDetailsModal"
         modal-title="くわしく"
