@@ -11,7 +11,7 @@
         xrextras-tap-recenter
       >
         <a-assets ref="assets">
-          <a-asset-item id="teddyBearModel" src="/bear.glb" />
+          <!-- <a-asset-item id="teddyBearModel" src="/bear.glb" /> -->
           <img
             v-for="(imageSrc, index) in imageSrcs"
             :id="`renny${index}`"
@@ -39,11 +39,11 @@
           position="0 -1 0"
         /> -->
 
-        <a-entity
+        <!-- <a-entity
           gltf-model="#teddyBearModel"
           scale="3 3 3"
           position="0 0 0"
-        ></a-entity>
+        ></a-entity> -->
 
         <a-entity>
           <template>
@@ -148,7 +148,6 @@ export default Vue.extend({
     // canvas.id = 'talkElement'
     // const assetsEl = this.$refs.assets as HTMLElement
     // assetsEl.appendChild(canvas)
-    alert('mounted')
   },
   methods: {
     onClickImage(imageIndex: number) {
