@@ -39,13 +39,14 @@
           position="0 -1 0"
         /> -->
 
+        <a-entity
+          gltf-model="#teddyBearModel"
+          scale="0.1 0.1 0.1"
+          position="0 0 0"
+        ></a-entity>
+
         <a-entity>
           <template>
-            <a-gltf-model
-              src="#teddyBearModel"
-              scale="0.025 0.025 0.025"
-              position="0 1 0"
-            ></a-gltf-model>
             <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
             <!-- <a-image
               v-for="(imageSrc, index) in imageSrcs"
