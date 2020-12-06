@@ -11,7 +11,13 @@
           @cancel="onCancelSpeak"
         />
       </div>
-      <SpeakToText :in="isTalkMode" @error="onError" @cancel="onCancelSpeak" />
+      <template v-if="isTalkMode">
+        <SpeakToText
+          :in="isTalkMode"
+          @error="onError"
+          @cancel="onCancelSpeak"
+        />
+      </template>
       <div :class="$style.menuWrap">
         <IndexMenu :in="!isTalkMode" />
       </div>
