@@ -187,6 +187,7 @@ export default Vue.extend({
             if (!resultJson.results || resultJson.results.length === 0) {
               return reject(Error('No speech result'))
             }
+            alert(JSON.stringify(resultJson))
             return resolve(resultJson.results[0].alternatives[0].transcript)
           })
           .catch((error) => {
