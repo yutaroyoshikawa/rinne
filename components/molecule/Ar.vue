@@ -148,6 +148,7 @@ export default Vue.extend({
     // canvas.id = 'talkElement'
     // const assetsEl = this.$refs.assets as HTMLElement
     // assetsEl.appendChild(canvas)
+    alert('mounted')
   },
   methods: {
     onClickImage(imageIndex: number) {
