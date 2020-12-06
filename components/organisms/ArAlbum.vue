@@ -22,19 +22,21 @@
         <div></div>
       </template>
     </OpacityTransition>
-    <ActionModal
-      :show-action-modal="isOpenDetailsModal"
-      modal-title="くわしく"
-      @close="onCloseDetailsModal"
-      @action="onDeleteImage(selectedImageIndex)"
-    >
-      <img
-        :class="$style.detailsImage"
-        :src="imageSrcs[selectedImageIndex]"
-        alt="選択した写真"
-      />
-      <p>この写真を削除しますか？</p>
-    </ActionModal>
+    <div>
+      <ActionModal
+        :show-action-modal="isOpenDetailsModal"
+        modal-title="くわしく"
+        @close="onCloseDetailsModal"
+        @action="onDeleteImage(selectedImageIndex)"
+      >
+        <img
+          :class="$style.detailsImage"
+          :src="imageSrcs[selectedImageIndex]"
+          alt="選択した写真"
+        />
+        <p>この写真を削除しますか？</p>
+      </ActionModal>
+    </div>
   </div>
 </template>
 
@@ -98,6 +100,8 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" module>
+@import '@/assets/scss/variables.scss';
+
 .detailsImage {
   width: 100%;
 }
@@ -108,6 +112,11 @@ export default Vue.extend({
   width: 100%;
   display: flex;
   justify-content: center;
-  z-index: 50;
+  z-index: $modal-zindex - 1;
+}
+
+.modalWrap {
+  position: relative;
+  z-index: $modal-zindex;
 }
 </style>
