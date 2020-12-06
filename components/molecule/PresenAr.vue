@@ -73,12 +73,13 @@ Vue.config.ignoredElements = [
   'a-camera',
   'a-box',
   'a-ring',
-  'a-asset-items',
+  'a-asset-item',
   'a-assets',
   'a-cursor',
   'a-text',
   'a-light',
   'a-image',
+  'a-plane',
 ]
 
 type Data = {
