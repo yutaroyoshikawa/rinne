@@ -1,29 +1,29 @@
 <template>
   <div>
-    <template>
+    <!-- <template>
       <template v-if="!isLoadedAframe">
         <Loading />
       </template>
-      <template v-else>
-        <div :class="$style.talkWrap">
-          <TalkButton
-            :in="!isTalkMode && $props.in"
-            @click="onClickTalkButton"
-            @cancel="onCancelSpeak"
-          />
-        </div>
-        <template v-if="isTalkMode">
-          <SpeakToText
-            :in="isTalkMode && $props.in"
-            @error="onError"
-            @cancel="onCancelSpeak"
-          />
-        </template>
-        <div :class="$style.menuWrap">
-          <IndexMenu :in="!isTalkMode && $props.in" />
-        </div>
-      </template>
+      <template v-else> -->
+    <div :class="$style.talkWrap">
+      <TalkButton
+        :in="!isTalkMode && $props.in"
+        @click="onClickTalkButton"
+        @cancel="onCancelSpeak"
+      />
+    </div>
+    <template v-if="isTalkMode">
+      <SpeakToText
+        :in="isTalkMode && $props.in"
+        @error="onError"
+        @cancel="onCancelSpeak"
+      />
     </template>
+    <div :class="$style.menuWrap">
+      <IndexMenu :in="!isTalkMode && $props.in" />
+    </div>
+    <!-- </template>
+    </template> -->
 
     <slot />
     <NotifyModal
@@ -40,7 +40,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { ENABLE_PRESEN_MODE, ENABLE_NOMAL_MODE } from '@/store/ar'
-import Loading from '@/components/organisms/loading.vue'
+// import Loading from '@/components/organisms/loading.vue'
 import IndexMenu from '@/components/molecule/IndexMenu.vue'
 import TalkButton from '@/components/atoms/TalkButton.vue'
 import SpeakToText from '@/components/templates/SpeakToText.vue'
@@ -57,7 +57,7 @@ type Data = {
 export default Vue.extend({
   name: 'TopLayout',
   components: {
-    Loading,
+    // Loading,
     IndexMenu,
     TalkButton,
     SpeakToText,
