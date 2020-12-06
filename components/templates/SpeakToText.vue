@@ -106,6 +106,7 @@ export default Vue.extend({
               // 集音したものから音声データを作成する
               try {
                 const base64 = await this.encodeBase64(new Blob(chunks))
+                alert(base64)
                 const speechText = await this.getSpeechText(base64)
                 this.speechTextResult = speechText
               } catch (error) {
