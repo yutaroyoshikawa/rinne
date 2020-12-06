@@ -118,6 +118,7 @@ export default Vue.extend({
             this.recorder = recorder
           })
           .catch((error) => {
+            alert(JSON.stringify(error))
             this.$emit('error', error)
           })
       })
