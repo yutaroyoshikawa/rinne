@@ -174,7 +174,6 @@ export default Vue.extend({
             this.el.sceneEl.addEventListener('xrimagelost', onXrimagelost)
             this.el.sceneEl.addEventListener('realityready', onRealityReady)
             this.el.sceneEl.addEventListener('realityerror', onRealityError)
-            alert('hoge')
           },
         })
       }

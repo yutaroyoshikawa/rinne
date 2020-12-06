@@ -98,12 +98,10 @@ export default Vue.extend({
       this.isOpenDetailsModal = false
     },
     onSelectImage(imageIndex: number) {
-      alert('selected')
       this.selectedImageIndex = imageIndex
       this.isOpenDetailsModal = true
     },
     onRealityReady() {
-      alert('loaded')
       this.$store.commit(`ar/${LOADEDND_AFRAME}`)
     },
     onRealityError() {
