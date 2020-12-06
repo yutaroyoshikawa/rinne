@@ -3,26 +3,30 @@
     <div ref="responseTalk" :class="$style.responseTalkWrap">
       <ResponseTalk />
     </div>
-    <OpacityTransition :in="$props.in" :enable-page-transition="false">
-      <template v-if="arMode === 'presen'">
-        <PresenAr
-          :in="$props.in"
-          @reality-ready="onRealityReady"
-          @reality-error="onRealityError"
-          @select-image="onSelectImage"
-        />
-      </template>
-      <template v-else-if="arMode === 'nomal'">
-        <Ar
-          :in="$props.in"
-          @reality-ready="onRealityReady"
-          @reality-error="onRealityError"
-        />
-      </template>
-      <template v-else>
-        <div></div>
-      </template>
-    </OpacityTransition>
+    <div>
+      <OpacityTransition :in="$props.in" :enable-page-transition="false">
+        <template v-if="arMode === 'presen'">
+          <PresenAr
+            :in="$props.in"
+            @reality-ready="onRealityReady"
+            @reality-error="onRealityError"
+            @select-image="onSelectImage"
+          />
+        </template>
+        <template v-else-if="arMode === 'nomal'">
+          <Ar
+            :in="$props.in"
+            @reality-ready="onRealityReady"
+            @reality-error="onRealityError"
+            @select-image="onSelectImage"
+          />
+        </template>
+        <template v-else>
+          <div></div>
+        </template>
+      </OpacityTransition>
+    </div>
+
     <div :class="$style.modalWrap">
       <ActionModal
         :show-action-modal="isOpenDetailsModal"
@@ -91,6 +95,7 @@ export default Vue.extend({
       this.isOpenDetailsModal = false
     },
     onSelectImage(imageIndex: number) {
+      alert('selected')
       this.selectedImageIndex = imageIndex
       this.isOpenDetailsModal = true
     },
@@ -117,7 +122,12 @@ export default Vue.extend({
   width: 100%;
   display: flex;
   justify-content: center;
-  z-index: $modal-zindex - 1;
+  z-index: 41;
+}
+
+.arWrap {
+  position: relative;
+  z-index: 40;
 }
 
 .modalWrap {
