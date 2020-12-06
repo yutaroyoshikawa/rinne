@@ -30,25 +30,24 @@
 
         <a-light type="ambient" intensity="0.7"></a-light>
 
-        <a-entity
-          gltf-model="#teddyBearModel"
-          scale="0.025 0.025 0.025"
-          position="0 3 0"
-        />
-
-        <a-entity
+        <!-- <a-entity
           id="ground"
           class="cantap"
           geometry="primitive: box"
           material="color: #ffffff; transparent: true; opacity: 0.0"
           scale="1000 2 1000"
           position="0 -1 0"
-        />
+        /> -->
 
         <a-entity>
           <template>
+            <a-gltf-model
+              src="#teddyBearModel"
+              scale="0.025 0.025 0.025"
+              position="0 1 0"
+            ></a-gltf-model>
             <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
-            <a-image
+            <!-- <a-image
               v-for="(imageSrc, index) in imageSrcs"
               :key="imageSrc"
               class="cantap"
@@ -70,7 +69,7 @@
                 delay: 300 * index,
               }"
               @click="onClickImage(index)"
-            />
+            /> -->
           </template>
         </a-entity>
       </a-scene>
@@ -96,6 +95,7 @@ Vue.config.ignoredElements = [
   'a-light',
   'a-image',
   'a-plane',
+  'a-gltf-model',
 ]
 
 type Data = {

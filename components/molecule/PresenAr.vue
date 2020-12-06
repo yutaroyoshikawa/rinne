@@ -80,6 +80,7 @@ Vue.config.ignoredElements = [
   'a-light',
   'a-image',
   'a-plane',
+  'a-gltf-model',
 ]
 
 type Data = {
