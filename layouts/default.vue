@@ -6,8 +6,9 @@
       <header :class="$style.header">
         <HeaderTitle />
       </header>
-
-      <ArAlbum :in="isIndexPage" @reality-ready="onRealityReady" />
+      <TopLayout :in="isIndexPage">
+        <ArAlbum :in="isIndexPage" @reality-ready="onRealityReady" />
+      </TopLayout>
 
       <div :class="$style.pageWrap">
         <Nuxt />
@@ -25,6 +26,7 @@ import 'destyle.css'
 import HeaderTitle from '@/components/atoms/HeaderTitle.vue'
 import OverlayTab from '@/components/molecule/OverlayTab.vue'
 import ArAlbum from '@/components/organisms/ArAlbum.vue'
+import TopLayout from '@/components/templates/TopLayout.vue'
 
 export default Vue.extend({
   name: 'App',
@@ -32,10 +34,12 @@ export default Vue.extend({
     HeaderTitle,
     OverlayTab,
     ArAlbum,
+    TopLayout,
   },
   computed: {
     ...mapState(['isOpenTab']),
     isIndexPage(): boolean {
+      console.log(this.$route.path === '/')
       return this.$route.path === '/'
     },
   },
