@@ -159,6 +159,8 @@ export default Vue.extend({
             sampleRateHertz: AUDIO_SAMPLE_RATE,
             languageCode: 'ja-JP',
             model: 'command_and_search',
+            audioChannelCount: 2,
+            enableSeparateRecognitionPerChannel: true,
             metadata: {
               recordingDeviceType: 'SMARTPHONE',
               originalMimeType: 'audio/wav',
