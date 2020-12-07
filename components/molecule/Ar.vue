@@ -12,12 +12,12 @@
       >
         <a-assets ref="assets">
           <!-- <a-asset-item id="teddyBearModel" src="/bear.glb" /> -->
-          <img
+          <!-- <img
             v-for="(imageSrc, index) in imageSrcs"
             :id="`renny${index}`"
             :key="`renny${index}`"
             :src="imageSrc"
-          />
+          /> -->
         </a-assets>
         <a-camera
           position="0 4 10"
@@ -48,7 +48,7 @@
         <a-entity>
           <template>
             <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
-            <a-image
+            <!-- <a-image
               v-for="(imageSrc, index) in imageSrcs"
               :key="imageSrc"
               class="cantap"
@@ -72,7 +72,7 @@
               @click="onClickImage(index)"
             />
           </template>
-        </a-entity>
+        </a-entity> -->
       </a-scene>
     </client-only>
   </div>
