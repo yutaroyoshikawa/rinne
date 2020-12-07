@@ -45,10 +45,10 @@
           position="0 0 0"
         ></a-entity> -->
 
-        <a-entity>
-          <template>
-            <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
-            <!-- <a-image
+        <!-- <a-entity>
+          <template> -->
+        <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
+        <!-- <a-image
               v-for="(imageSrc, index) in imageSrcs"
               :key="imageSrc"
               class="cantap"
