@@ -6,11 +6,20 @@ import {
   faPlus,
   faComment,
   faMicrophone,
+  faChevronLeft,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 
 config.autoAddCss = false
 
-const icons = [faCheckCircle, faPlus, faComment, faMicrophone]
+const icons = [
+  faCheckCircle,
+  faPlus,
+  faComment,
+  faMicrophone,
+  faChevronLeft,
+  faTimes,
+]
 
 // 利用するアイコンをlibraryに追加
 icons.forEach((icon) => library.add(icon))

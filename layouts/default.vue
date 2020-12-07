@@ -1,14 +1,12 @@
 <template>
   <div :class="$style.app">
-    <div
-      :class="[$style.mainContainer, isOpenTab ? $style.openTab : undefined]"
-    >
+    <div :class="[$style.mainContainer, { [$style.openTab]: isOpenTab }]">
       <header :class="$style.header">
         <HeaderTitle />
       </header>
-      <div :class="$style.arWrap">
-        <ArAlbum @reality-ready="onRealityReady" />
-      </div>
+
+      <ArAlbum :in="isIndexPage" />
+
       <div :class="$style.pageWrap">
         <Nuxt />
       </div>
@@ -20,8 +18,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
-import { LOADEDND_AFRAME } from '@/store/ar'
-import 'destyle.css'
 import HeaderTitle from '@/components/atoms/HeaderTitle.vue'
 import OverlayTab from '@/components/molecule/OverlayTab.vue'
 import ArAlbum from '@/components/organisms/ArAlbum.vue'
@@ -35,10 +31,8 @@ export default Vue.extend({
   },
   computed: {
     ...mapState(['isOpenTab']),
-  },
-  methods: {
-    onRealityReady() {
-      this.$store.commit(`ar/${LOADEDND_AFRAME}`)
+    isIndexPage(): boolean {
+      return this.$route.path === '/'
     },
   },
 })

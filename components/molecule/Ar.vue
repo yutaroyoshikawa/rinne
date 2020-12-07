@@ -2,14 +2,16 @@
   <div>
     <client-only>
       <a-scene
+        ref="scene"
         nomal
+        xrweb
         xrextras-gesture-detector
         xrextras-almost-there
         xrextras-runtime-error
-        renderer="colorManagement: true"
-        xrweb="disableWorldTracking: true"
+        xrextras-tap-recenter
       >
         <a-assets ref="assets">
+          <!-- <a-asset-item id="teddyBearModel" src="/bear.glb" /> -->
           <img
             v-for="(imageSrc, index) in imageSrcs"
             :id="`renny${index}`"
@@ -28,9 +30,24 @@
 
         <a-light type="ambient" intensity="0.7"></a-light>
 
-        <a-entity xrextras-named-image-target="name: renny">
-          <template v-if="isFoundXrimage">
-            <a-plane width="1" height="1" material="src:#talkElement"></a-plane>
+        <!-- <a-entity
+          id="ground"
+          class="cantap"
+          geometry="primitive: box"
+          material="color: #ffffff; transparent: true; opacity: 0.0"
+          scale="1000 2 1000"
+          position="0 -1 0"
+        /> -->
+
+        <!-- <a-entity
+          gltf-model="#teddyBearModel"
+          scale="3 3 3"
+          position="0 0 0"
+        ></a-entity> -->
+
+        <a-entity>
+          <template>
+            <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
             <a-image
               v-for="(imageSrc, index) in imageSrcs"
               :key="imageSrc"
@@ -47,12 +64,12 @@
               }"
               :animation__2="{
                 property: 'position',
-                to: `${index - 1} ${isTapImage ? 0.3 : 0} 0.3`,
+                to: `${index - 1} 0 0.3`,
                 easing: 'easeOutElastic',
                 dur: 3000,
                 delay: 300 * index,
               }"
-              @click.self="onClickImage(index)"
+              @click="onClickImage(index)"
             />
           </template>
         </a-entity>
@@ -72,34 +89,57 @@ Vue.config.ignoredElements = [
   'a-camera',
   'a-box',
   'a-ring',
-  'a-asset-items',
+  'a-asset-item',
   'a-assets',
   'a-cursor',
   'a-text',
   'a-light',
   'a-image',
+  'a-plane',
+  'a-gltf-model',
 ]
 
 type Data = {
   isFoundXrimage: boolean
-  isTapImage: boolean
   images: string[]
-  selectedImageIndex?: number
 }
 
 export default Vue.extend({
   name: 'Ar',
+  props: {
+    in: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data(): Data {
     return {
       isFoundXrimage: false,
-      isTapImage: false,
       images: ['renny', 'renny2', 'renny3'],
-      selectedImageIndex: undefined,
     }
   },
   computed: {
     ...mapState('photoStore', ['imageSrcs']),
     ...mapState('ar', ['isLoadedPresentationAframe']),
+  },
+  watch: {
+    in: {
+      immediate: true,
+      handler() {
+        const XR8 = window.XR8
+        const sceneRef = this.$refs.scene as any
+        if (!XR8 || !sceneRef) {
+          return
+        }
+        if (this.$props.in) {
+          if (XR8.isPaused()) {
+            sceneRef.play()
+          }
+        } else {
+          sceneRef.pause()
+        }
+      },
+    },
   },
   mounted() {
     this.initAframe()
@@ -111,8 +151,7 @@ export default Vue.extend({
   },
   methods: {
     onClickImage(imageIndex: number) {
-      this.selectedImageIndex = imageIndex
-      this.isTapImage = true
+      this.$emit('select-image', imageIndex)
     },
     initAframe() {
       const AFRAME = window.AFRAME

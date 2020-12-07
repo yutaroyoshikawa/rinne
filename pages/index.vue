@@ -1,21 +1,5 @@
 <template>
   <div>
-    <template v-if="!isLoadedAframe">
-      <Loading />
-    </template>
-    <template v-else>
-      <div :class="$style.talkWrap">
-        <TalkButton
-          :in="!isTalkMode"
-          @click="onClickTalkButton"
-          @cancel="onCancelSpeak"
-        />
-      </div>
-      <SpeakToText :in="isTalkMode" @error="onError" @cancel="onCancelSpeak" />
-      <div :class="$style.menuWrap">
-        <IndexMenu :in="!isTalkMode" />
-      </div>
-    </template>
     <NotifyModal
       modal-title="エラー"
       :show-notify-modal="isOpenErrorModal"
@@ -24,6 +8,31 @@
     >
       <p>{{ errorMessage }}</p>
     </NotifyModal>
+
+    <template>
+      <template v-if="!isLoadedAframe">
+        <Loading />
+      </template>
+      <template v-else>
+        <div :class="$style.talkWrap">
+          <TalkButton
+            :in="!isTalkMode"
+            @click="onClickTalkButton"
+            @cancel="onCancelSpeak"
+          />
+        </div>
+        <template v-if="isTalkMode">
+          <SpeakToText
+            :in="isTalkMode"
+            @error="onError"
+            @cancel="onCancelSpeak"
+          />
+        </template>
+        <div :class="$style.menuWrap">
+          <IndexMenu :in="!isTalkMode" />
+        </div>
+      </template>
+    </template>
   </div>
 </template>
 
@@ -65,6 +74,9 @@ export default Vue.extend({
   computed: {
     ...mapState('ar', ['isLoadedAframe']),
   },
+  created() {
+    this.$store.dispatch(CHANGE_HEADER_TITLE, undefined)
+  },
   beforeCreate() {
     if (typeof window !== 'undefined') {
       const presenParam = this.$route.query.presen
@@ -74,9 +86,6 @@ export default Vue.extend({
         this.$store.commit(`ar/${ENABLE_NOMAL_MODE}`)
       }
     }
-  },
-  created() {
-    this.$store.dispatch(CHANGE_HEADER_TITLE, undefined)
   },
   methods: {
     onRealityReady() {

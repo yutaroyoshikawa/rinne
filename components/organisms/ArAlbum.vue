@@ -3,18 +3,6 @@
     <div ref="responseTalk" :class="$style.responseTalkWrap">
       <ResponseTalk />
     </div>
-    <template v-if="arMode === 'presen'">
-      <PresenAr
-        @reality-ready="onRealityReady"
-        @reality-error="onRealityError"
-      />
-    </template>
-    <template v-else-if="arMode === 'nomal'">
-      <Ar @reality-ready="onRealityReady" @reality-error="onRealityError" />
-    </template>
-    <template v-else>
-      <div></div>
-    </template>
     <ActionModal
       :show-action-modal="isOpenDetailsModal"
       modal-title="くわしく"
@@ -28,6 +16,32 @@
       />
       <p>この写真を削除しますか？</p>
     </ActionModal>
+    <div>
+      <OpacityTransition
+        :in="$props.in && !!arMode"
+        :enable-page-transition="false"
+      >
+        <template v-if="arMode === 'presen'">
+          <PresenAr
+            :in="$props.in"
+            @reality-ready="onRealityReady"
+            @reality-error="onRealityError"
+            @select-image="onSelectImage"
+          />
+        </template>
+        <template v-else-if="arMode === 'nomal'">
+          <Ar
+            :in="$props.in"
+            @reality-ready="onRealityReady"
+            @reality-error="onRealityError"
+            @select-image="onSelectImage"
+          />
+        </template>
+        <template v-else>
+          <!-- -->
+        </template>
+      </OpacityTransition>
+    </div>
   </div>
 </template>
 
@@ -40,6 +54,7 @@ import ActionModal from '@/components/molecule/actionModal.vue'
 import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
 import Ar from '@/components/molecule/Ar.vue'
 import PresenAr from '@/components/molecule/PresenAr.vue'
+import OpacityTransition from '@/components/atoms/transitions/OpacityTransition.vue'
 
 type Data = {
   isOpenDetailsModal: boolean
@@ -53,6 +68,13 @@ export default Vue.extend({
     ResponseTalk,
     Ar,
     PresenAr,
+    OpacityTransition,
+  },
+  props: {
+    in: {
+      type: Boolean,
+      default: true,
+    },
   },
   data(): Data {
     return {
@@ -72,6 +94,10 @@ export default Vue.extend({
       this.$store.commit(`photoStore/${REMOVE_IMAGE}`, imageIndex)
       this.isOpenDetailsModal = false
     },
+    onSelectImage(imageIndex: number) {
+      this.selectedImageIndex = imageIndex
+      this.isOpenDetailsModal = true
+    },
     onRealityReady() {
       this.$store.commit(`ar/${LOADEDND_AFRAME}`)
     },
@@ -83,6 +109,8 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" module>
+@import '@/assets/scss/variables.scss';
+
 .detailsImage {
   width: 100%;
 }
@@ -93,6 +121,16 @@ export default Vue.extend({
   width: 100%;
   display: flex;
   justify-content: center;
-  z-index: 50;
+  z-index: 41;
+}
+
+.arWrap {
+  position: relative;
+  z-index: 40;
+}
+
+.modalWrap {
+  position: relative;
+  z-index: $modal-zindex;
 }
 </style>

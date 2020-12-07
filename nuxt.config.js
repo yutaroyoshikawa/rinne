@@ -41,6 +41,7 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
+    'destyle.css',
     '@fortawesome/fontawesome-svg-core/styles.css',
     '@/assets/scss/mapbox.scss',
     '@/assets/scss/8thwall.scss',

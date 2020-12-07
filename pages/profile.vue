@@ -13,11 +13,22 @@
     <div :class="$style.characterListWrap">
       <CharacterList />
     </div>
-    <ScaleTransition>
-      <div :class="$style.profileButtonWrap">
-        <ProfileButton :class="$style.profileButton" />
-      </div>
-    </ScaleTransition>
+    <div :class="$style.links">
+      <ScaleTransition>
+        <div :class="$style.profileButtonWrap">
+          <ProfileButton :class="$style.profileButton" src="/friend"
+            >おともだち</ProfileButton
+          >
+        </div>
+      </ScaleTransition>
+      <ScaleTransition>
+        <div :class="$style.profileButtonWrap">
+          <ProfileButton :class="$style.profileButton" src="/cleanliness"
+            >たいちょう</ProfileButton
+          >
+        </div>
+      </ScaleTransition>
+    </div>
   </div>
 </template>
 
@@ -58,6 +69,7 @@ export default Vue.extend({
   margin-bottom: 30px;
 }
 .profileButtonWrap {
+  width: 120px;
   margin-top: 20px;
   padding-bottom: 20px;
 }
@@ -65,5 +77,10 @@ export default Vue.extend({
   width: 340px;
   height: 180px;
   margin: 0 auto;
+}
+.links {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 }
 </style>

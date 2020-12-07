@@ -8,6 +8,9 @@
       :appear="true"
     >
       <div v-show="headerTitle" :class="$style.container">
+        <div :class="$style.backWrap">
+          <BackButton />
+        </div>
         <transition
           mode="out-in"
           :enter-class="$style.fadeEnter"
@@ -39,6 +42,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import BackButton from '@/components/atoms/BackButton.vue'
 
 type Data = {
   firstTitle: string
@@ -47,6 +51,9 @@ type Data = {
 }
 
 export default Vue.extend({
+  components: {
+    BackButton,
+  },
   data(): Data {
     return {
       firstTitle: '',
@@ -105,6 +112,13 @@ export default Vue.extend({
   white-space: nowrap;
   overflow: hidden;
   position: absolute;
+  z-index: $header-zindex + 1;
+}
+
+.backWrap {
+  position: absolute;
+  left: 20px;
+  z-index: $header-zindex + 2;
 }
 
 .slideEnterActive,

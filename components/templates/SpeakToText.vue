@@ -5,7 +5,10 @@
     :enter-active-class="$style.fadeEnterActive"
     :leave-active-class="$style.fadeLeaveActive"
   >
-    <div v-if="$props.in" :class="$style.wrap" @click.self="$emit('cancel')">
+    <div v-if="$props.in" :class="$style.wrap">
+      <div :class="$style.cancelWrap">
+        <CancelButton @click="onCancel" />
+      </div>
       <div :class="$style.micWrap">
         <p v-if="isShowGuideComment" :class="$style.resultText">
           ホールドしてしゃべる
@@ -26,6 +29,7 @@
 import Vue from 'vue'
 import MicButton from '@/components/atoms/MicButton.vue'
 import { REQUEST_TALK_TEXT } from '@/store/ar'
+import CancelButton from '@/components/atoms/CancelButton.vue'
 
 type Data = {
   recorder?: any
@@ -41,6 +45,7 @@ export default Vue.extend({
   name: 'SpeakToText',
   components: {
     MicButton,
+    CancelButton,
   },
   props: {
     in: {
@@ -85,18 +90,21 @@ export default Vue.extend({
     chunks = undefined
   },
   methods: {
+    onCancel() {
+      this.$emit('cancel')
+      console.log('cancel')
+    },
     initRecorder() {
       import('audio-recorder-polyfill').then((module) => {
         navigator.mediaDevices
           .getUserMedia({
             audio: true,
-            video: false,
           })
           .then((stream) => {
             const AudioRecorder = module.default
             const recorder = new AudioRecorder(stream, {
               audioBitsPerSecond: AUDIO_SAMPLE_RATE,
-              mimeType: 'video/webm;codecs=vp9',
+              mimeType: 'audio/wav',
             })
             recorder.addEventListener('dataavailable', (event: any) => {
               if (event.data.size > 0 && chunks) {
@@ -159,6 +167,13 @@ export default Vue.extend({
             encoding: 'LINEAR16',
             sampleRateHertz: AUDIO_SAMPLE_RATE,
             languageCode: 'ja-JP',
+            model: 'command_and_search',
+            audioChannelCount: 2,
+            enableSeparateRecognitionPerChannel: true,
+            metadata: {
+              recordingDeviceType: 'SMARTPHONE',
+              originalMimeType: 'audio/wav',
+            },
           },
           audio: {
             content: base64Data,
@@ -181,6 +196,7 @@ export default Vue.extend({
             if (!resultJson.results || resultJson.results.length === 0) {
               return reject(Error('No speech result'))
             }
+            alert(JSON.stringify(resultJson))
             return resolve(resultJson.results[0].alternatives[0].transcript)
           })
           .catch((error) => {
@@ -226,6 +242,13 @@ export default Vue.extend({
   position: fixed;
   bottom: 0;
   z-index: 10;
+}
+
+.cancelWrap {
+  position: absolute;
+  top: $header-height;
+  left: 40px;
+  z-index: 110;
 }
 
 .micWrap {

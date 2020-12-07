@@ -2,6 +2,7 @@
   <div>
     <client-only>
       <a-scene
+        ref="scene"
         presenar
         xrextras-gesture-detector
         xrextras-almost-there
@@ -30,7 +31,7 @@
 
         <a-entity xrextras-named-image-target="name: renny">
           <template v-if="isFoundXrimage">
-            <a-plane width="1" height="1" material="src:#talkElement"></a-plane>
+            <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
             <a-image
               v-for="(imageSrc, index) in imageSrcs"
               :key="imageSrc"
@@ -47,12 +48,12 @@
               }"
               :animation__2="{
                 property: 'position',
-                to: `${index - 1} ${isTapImage ? 0.3 : 0} 0.3`,
+                to: `${index - 1} 0 0.3`,
                 easing: 'easeOutElastic',
                 dur: 3000,
                 delay: 300 * index,
               }"
-              @click.self="onClickImage(index)"
+              @click="$emit('select-image', index)"
             />
           </template>
         </a-entity>
@@ -72,34 +73,59 @@ Vue.config.ignoredElements = [
   'a-camera',
   'a-box',
   'a-ring',
-  'a-asset-items',
+  'a-asset-item',
   'a-assets',
   'a-cursor',
   'a-text',
   'a-light',
   'a-image',
+  'a-plane',
+  'a-gltf-model',
 ]
 
 type Data = {
   isFoundXrimage: boolean
   isTapImage: boolean
   images: string[]
-  selectedImageIndex?: number
 }
 
 export default Vue.extend({
   name: 'PresenAr',
+  props: {
+    in: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data(): Data {
     return {
       isFoundXrimage: false,
       isTapImage: false,
       images: ['renny', 'renny2', 'renny3'],
-      selectedImageIndex: undefined,
     }
   },
   computed: {
     ...mapState('photoStore', ['imageSrcs']),
     ...mapState('ar', ['isLoadedPresentationAframe']),
+  },
+  watch: {
+    in: {
+      immediate: true,
+      handler() {
+        const XR8 = window.XR8
+        const sceneRef = this.$refs.scene as any
+        if (!XR8 || !sceneRef) {
+          return
+        }
+        if (this.$props.in) {
+          if (XR8.isPaused()) {
+            sceneRef.play()
+          }
+        } else {
+          sceneRef.pause()
+        }
+      },
+    },
   },
   mounted() {
     this.initAframe()
@@ -110,10 +136,6 @@ export default Vue.extend({
     // assetsEl.appendChild(canvas)
   },
   methods: {
-    onClickImage(imageIndex: number) {
-      this.selectedImageIndex = imageIndex
-      this.isTapImage = true
-    },
     initAframe() {
       const AFRAME = window.AFRAME
       if (AFRAME) {
