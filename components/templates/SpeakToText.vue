@@ -357,6 +357,7 @@ export default Vue.extend({
 
 .resultWrap {
   position: absolute;
+  width: 100%;
   bottom: 0;
 }
 
