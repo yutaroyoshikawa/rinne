@@ -62,7 +62,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import MicButton from '@/components/atoms/MicButton.vue'
-import { REQUEST_TALK_TEXT } from '@/store/ar'
+import { REQUEST_TALK_TEXT, PAUSE_AR, PLAY_AR } from '@/store/ar'
 import CancelButton from '@/components/atoms/CancelButton.vue'
 
 type Data = {
@@ -162,6 +162,9 @@ export default Vue.extend({
           .catch((error) => {
             this.$emit('error', error)
           })
+          .finally(() => {
+            this.$store.commit(`ar/${PLAY_AR}`)
+          })
       })
     },
     encodeBase64(blobData: Blob): Promise<string> {
@@ -237,6 +240,7 @@ export default Vue.extend({
     },
     onHold() {
       if (this.recorder) {
+        this.$store.commit(`ar/${PAUSE_AR}`)
         this.recorder.start()
         this.speechTextResult = undefined
         this.isRecording = true
@@ -344,7 +348,7 @@ export default Vue.extend({
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 25vh;
+  height: 23vh;
   max-height: 420px;
   min-height: 150px;
   display: flex;
