@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="[$style.wrap, { [$style.pausedAr]: isPausedAr }]">
     <div ref="responseTalk" :class="$style.responseTalkWrap">
       <ResponseTalk />
     </div>
@@ -83,7 +83,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState('ar', ['arMode']),
+    ...mapState('ar', ['arMode', 'isPausedAr']),
     ...mapState('photoStore', ['imageSrcs']),
   },
   methods: {
@@ -110,6 +110,14 @@ export default Vue.extend({
 
 <style lang="scss" module>
 @import '@/assets/scss/variables.scss';
+
+.wrap {
+  transition: filter 0.2s ease;
+}
+
+.pausedAr {
+  filter: blur(2px);
+}
 
 .detailsImage {
   width: 100%;
