@@ -205,7 +205,7 @@ export default Vue.extend({
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-color: $primary-color;
+  background-color: $secondary-color;
   display: flex;
   justify-content: center;
   align-items: center;

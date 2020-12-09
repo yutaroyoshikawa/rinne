@@ -20,7 +20,7 @@ export default Vue.extend({
 
 .wrap {
   position: relative;
-  width: 100%;
+  width: 200px;
 }
 
 .cancelLabel {
