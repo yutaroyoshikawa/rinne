@@ -344,8 +344,9 @@ export default Vue.extend({
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 43vw;
+  height: 25vh;
   max-height: 420px;
+  min-height: 150px;
   display: flex;
   margin-bottom: 40px;
   justify-content: start;
@@ -355,7 +356,8 @@ export default Vue.extend({
 }
 
 .resultWrap {
-  margin-top: 20px;
+  position: absolute;
+  bottom: 0;
 }
 
 .resultText {
