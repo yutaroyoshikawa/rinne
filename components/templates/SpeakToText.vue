@@ -287,7 +287,7 @@ export default Vue.extend({
   }
 
   .waveWrap {
-    transform: translateY(35%);
+    transform: translateY(40%);
   }
 
   .micWrap {
