@@ -106,7 +106,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('photoStore', ['imageSrcs']),
-    ...mapState('ar', ['isLoadedPresentationAframe']),
+    ...mapState('ar', ['isLoadedPresentationAframe, isPausedAr']),
   },
   watch: {
     in: {
@@ -126,20 +126,23 @@ export default Vue.extend({
         }
       },
     },
-    '$store.state.isPausedAr'() {
-      const XR8 = window.XR8
-      const sceneRef = this.$refs.scene as any
-      const isPausedAr = this.$store.state.isPausedAr
-      if (!XR8 || !sceneRef) {
-        return
-      }
-      if (isPausedAr) {
-        if (XR8.isPaused()) {
-          sceneRef.play()
+    isPausedAr: {
+      immediate: false,
+      handler() {
+        const XR8 = window.XR8
+        const sceneRef = this.$refs.scene as any
+        const isPausedAr = this.$store.state.isPausedAr
+        if (!XR8 || !sceneRef) {
+          return
         }
-      } else {
-        sceneRef.pause()
-      }
+        if (isPausedAr) {
+          if (XR8.isPaused()) {
+            sceneRef.play()
+          }
+        } else {
+          sceneRef.pause()
+        }
+      },
     },
   },
   mounted() {
