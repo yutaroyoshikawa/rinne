@@ -15,21 +15,15 @@
       </template>
       <template v-else>
         <div :class="$style.talkWrap">
-          <TalkButton
-            :in="!isTalkMode"
-            @click="onClickTalkButton"
-            @cancel="onCancelSpeak"
-          />
+          <TalkButton :in="!isTalkMode && isEnter" />
         </div>
-        <template v-if="isTalkMode">
-          <SpeakToText
-            :in="isTalkMode"
-            @error="onError"
-            @cancel="onCancelSpeak"
-          />
-        </template>
+        <SpeakToText
+          :in="isTalkMode && isEnter"
+          @error="onError"
+          @cancel="onCancelSpeak"
+        />
         <div :class="$style.menuWrap">
-          <IndexMenu :in="!isTalkMode" />
+          <IndexMenu :in="!isTalkMode && isEnter" />
         </div>
       </template>
     </template>
@@ -40,6 +34,7 @@
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
 import { ENABLE_PRESEN_MODE, ENABLE_NOMAL_MODE } from '@/store/ar'
+import { PageTransitionState } from '@/extentions/pageTransitionState'
 import Loading from '@/components/organisms/loading.vue'
 import IndexMenu from '@/components/molecule/IndexMenu.vue'
 import TalkButton from '@/components/atoms/TalkButton.vue'
@@ -73,9 +68,25 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('ar', ['isLoadedAframe']),
+    isEnter(): boolean {
+      return (
+        this.$store.state.pageTransitionState === PageTransitionState.ENTERED ||
+        this.$store.state.pageTransitionState === PageTransitionState.ENTERING
+      )
+    },
+  },
+  watch: {
+    '$route.params'() {
+      const talkmodeQuery = this.$route.query.talkmode
+      this.isTalkMode = !!talkmodeQuery && talkmodeQuery === '1'
+    },
   },
   created() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, undefined)
+    const talkmodeQuery = this.$route.query.talkmode
+    if (talkmodeQuery && talkmodeQuery === '1') {
+      this.isTalkMode = true
+    }
   },
   beforeCreate() {
     if (typeof window !== 'undefined') {
@@ -96,11 +107,8 @@ export default Vue.extend({
       this.errorMessage = message
       this.isOpenErrorModal = true
     },
-    onClickTalkButton() {
-      this.isTalkMode = true
-    },
     onCancelSpeak() {
-      this.isTalkMode = false
+      this.$router.push('/')
     },
     onError(error: Error) {
       const message = this.getErrorMessage(error)

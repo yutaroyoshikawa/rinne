@@ -9,17 +9,51 @@
       <div :class="$style.cancelWrap">
         <CancelButton @click="onCancel" />
       </div>
+      <div :class="$style.circulate">
+        <div :class="$style.circle">
+          <div
+            :class="[
+              $style.wave,
+              { [$style.activeWave]: isLoading || isRecording },
+              {
+                [$style.inactiveWave]: !isLoading && !isRecording,
+              },
+            ]"
+          ></div>
+          <div
+            :class="[
+              $style.wave,
+              $style.two,
+              { [$style.activeWave]: isLoading || isRecording },
+              {
+                [$style.inactiveWave]: !isLoading && !isRecording,
+              },
+            ]"
+          ></div>
+          <div
+            :class="[
+              $style.wave,
+              $style.three,
+              { [$style.activeWave]: isLoading || isRecording },
+              {
+                [$style.inactiveWave]: !isLoading && !isRecording,
+              },
+            ]"
+          ></div>
+        </div>
+      </div>
       <div :class="$style.micWrap">
-        <p v-if="isShowGuideComment" :class="$style.resultText">
-          ホールドしてしゃべる
-        </p>
-        <p :class="$style.resultText">{{ speechTextResult }}</p>
         <MicButton
-          :disabled="isLoading"
           :loading="isLoading"
           @holdstart="onHold"
           @holdend="onHoldend"
         />
+        <div :class="$style.resultWrap">
+          <p v-if="isShowGuideComment" :class="$style.resultText">
+            ホールドしてしゃべる
+          </p>
+          <p :class="$style.resultText">{{ speechTextResult }}</p>
+        </div>
       </div>
     </div>
   </transition>
@@ -91,8 +125,7 @@ export default Vue.extend({
   },
   methods: {
     onCancel() {
-      this.$emit('cancel')
-      console.log('cancel')
+      this.$router.app.$router.push('/')
     },
     initRecorder() {
       import('audio-recorder-polyfill').then((module) => {
@@ -168,8 +201,6 @@ export default Vue.extend({
             sampleRateHertz: AUDIO_SAMPLE_RATE,
             languageCode: 'ja-JP',
             model: 'command_and_search',
-            audioChannelCount: 2,
-            enableSeparateRecognitionPerChannel: true,
             metadata: {
               recordingDeviceType: 'SMARTPHONE',
               originalMimeType: 'audio/wav',
@@ -196,7 +227,6 @@ export default Vue.extend({
             if (!resultJson.results || resultJson.results.length === 0) {
               return reject(Error('No speech result'))
             }
-            alert(JSON.stringify(resultJson))
             return resolve(resultJson.results[0].alternatives[0].transcript)
           })
           .catch((error) => {
@@ -228,12 +258,67 @@ export default Vue.extend({
 
 .fadeEnterActive,
 .fadeLeaveActive {
-  transition: opacity 0.5s;
+  transition: opacity 0.6s;
 }
 
 .fadeEnter,
 .fadeLeaveTo {
   opacity: 0;
+}
+
+.circle {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.waveActive {
+  top: 65% !important;
+  background: linear-gradient(to left top, $success-color, $primary-color);
+}
+
+.activeWave {
+  top: 70%;
+}
+
+.inactiveWave {
+  top: 80%;
+}
+
+.wave {
+  opacity: 0.4;
+  position: absolute;
+  left: 50%;
+  width: 200vw;
+  height: 200vw;
+  margin-left: -100vw;
+  margin-bottom: -155px;
+  transform-origin: 50% 48%;
+  border-radius: 43%;
+  animation: humming 2.5s infinite linear;
+  background: linear-gradient(to left top, #23345d, #921664);
+  transition: top 0.5s cubic-bezier(0.425, 0.105, 0, 0.645);
+}
+
+.three {
+  animation: humming 5000ms infinite linear;
+}
+
+.two {
+  animation: humming 9000ms infinite linear;
+  opacity: 1;
+}
+
+@keyframes humming {
+  from {
+    transform: rotate(0deg);
+  }
+  from {
+    transform: rotate(360deg);
+  }
 }
 
 .wrap {
@@ -246,8 +331,12 @@ export default Vue.extend({
 
 .cancelWrap {
   position: absolute;
-  top: $header-height;
-  left: 40px;
+  top: 80px;
+  width: 100%;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 110;
 }
 
@@ -255,19 +344,25 @@ export default Vue.extend({
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: 43vw;
+  max-height: 420px;
   display: flex;
-  justify-content: center;
+  margin-bottom: 40px;
+  justify-content: start;
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  padding: 50px 0;
+}
+
+.resultWrap {
+  margin-top: 20px;
 }
 
 .resultText {
   font-size: 28px;
   width: 100%;
   text-align: center;
-  color: $dark-base-color;
+  color: #fff;
   user-select: none;
 }
 </style>

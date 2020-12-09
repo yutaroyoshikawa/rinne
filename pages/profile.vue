@@ -36,6 +36,7 @@
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
 import ProfileText from '@/components/atoms/profileText.vue'
+import CharacterList from '@/components/molecule/CharacterList.vue'
 import CharacterImageCircle from '@/components/atoms/characterImageCircle.vue'
 import ScaleTransition from '@/components/atoms/transitions/ScaleTransition.vue'
 import ProfileButton from '../components/atoms/ProfileButton.vue'
@@ -44,6 +45,7 @@ export default Vue.extend({
   components: {
     ProfileButton,
     ProfileText,
+    CharacterList,
     CharacterImageCircle,
     ScaleTransition,
   },

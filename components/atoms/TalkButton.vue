@@ -1,10 +1,13 @@
 <template>
   <ScaleTransition :in="$props.in">
     <div :class="$style.wrap">
-      <button :class="$style.talkButton" @click="$emit('click')">
+      <NuxtLink
+        :class="$style.talkButton"
+        :to="{ name: '', query: { talkmode: 1 } }"
+      >
         <fa :icon="['fa', 'comment']" :class="$style.icon" />
         <span>おはなしする</span>
-      </button>
+      </NuxtLink>
     </div>
   </ScaleTransition>
 </template>
