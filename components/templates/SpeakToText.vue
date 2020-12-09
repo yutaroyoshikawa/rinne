@@ -155,15 +155,13 @@ export default Vue.extend({
               } finally {
                 chunks = []
                 this.isLoading = false
+                this.$store.commit(`ar/${PLAY_AR}`)
               }
             })
             this.recorder = recorder
           })
           .catch((error) => {
             this.$emit('error', error)
-          })
-          .finally(() => {
-            this.$store.commit(`ar/${PLAY_AR}`)
           })
       })
     },
