@@ -1,46 +1,17 @@
 <template>
   <transition
-    :enter-class="$style.fadeEnter"
-    :leave-to-class="$style.fadeLeaveTo"
-    :enter-active-class="$style.fadeEnterActive"
-    :leave-active-class="$style.fadeLeaveActive"
+    :enter-class="$style.enter"
+    :leave-to-class="$style.leaveTo"
+    :enter-active-class="$style.enterActive"
+    :leave-active-class="$style.leaveActive"
+    :duration="600"
   >
     <div v-if="$props.in" :class="$style.wrap">
       <div :class="$style.cancelWrap">
         <SpeakCancelButton @click="onCancel" />
       </div>
-      <div :class="$style.circulate">
-        <div :class="$style.circle">
-          <div
-            :class="[
-              $style.wave,
-              { [$style.activeWave]: isLoading || isRecording },
-              {
-                [$style.inactiveWave]: !isLoading && !isRecording,
-              },
-            ]"
-          ></div>
-          <div
-            :class="[
-              $style.wave,
-              $style.two,
-              { [$style.activeWave]: isLoading || isRecording },
-              {
-                [$style.inactiveWave]: !isLoading && !isRecording,
-              },
-            ]"
-          ></div>
-          <div
-            :class="[
-              $style.wave,
-              $style.three,
-              { [$style.activeWave]: isLoading || isRecording },
-              {
-                [$style.inactiveWave]: !isLoading && !isRecording,
-              },
-            ]"
-          ></div>
-        </div>
+      <div :class="$style.waveWrap">
+        <SpeakWave :active="isLoading || isRecording" :in="true" />
       </div>
       <div :class="$style.micWrap">
         <MicButton
@@ -64,6 +35,7 @@ import Vue from 'vue'
 import MicButton from '@/components/atoms/MicButton.vue'
 import { REQUEST_TALK_TEXT, PAUSE_AR, PLAY_AR } from '@/store/ar'
 import SpeakCancelButton from '@/components/atoms/SpeakCancelButton.vue'
+import SpeakWave from '@/components/atoms/SpeakWave.vue'
 
 type Data = {
   recorder?: any
@@ -80,6 +52,7 @@ export default Vue.extend({
   components: {
     MicButton,
     SpeakCancelButton,
+    SpeakWave,
   },
   props: {
     in: {
@@ -258,74 +231,6 @@ export default Vue.extend({
 <style lang="scss" module>
 @import '@/assets/scss/variables.scss';
 
-.fadeEnterActive,
-.fadeLeaveActive {
-  transition: opacity 0.6s;
-}
-
-.fadeEnter,
-.fadeLeaveTo {
-  opacity: 0;
-}
-
-.circle {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  bottom: 0;
-  overflow: hidden;
-  transform: translateZ(0);
-}
-
-.activeWave {
-  top: 70%;
-}
-
-.inactiveWave {
-  top: 80%;
-}
-
-.wave {
-  opacity: 0.4;
-  position: absolute;
-  left: 50%;
-  width: 200vw;
-  height: 200vw;
-  margin-left: -100vw;
-  margin-bottom: -155px;
-  transform-origin: 50% 48%;
-  border-radius: 43%;
-  animation: humming 2.5s infinite linear;
-  background: linear-gradient(to left top, $primary-color, $success-color);
-  transition: top 0.5s cubic-bezier(0.425, 0.105, 0, 0.645);
-}
-
-.three {
-  animation: humming 5000ms infinite linear;
-}
-
-.two {
-  animation: humming 9000ms infinite linear;
-  opacity: 1;
-}
-
-@keyframes humming {
-  from {
-    transform: rotate(0deg);
-  }
-  from {
-    transform: rotate(360deg);
-  }
-}
-
-.wrap {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  bottom: 0;
-  z-index: 10;
-}
-
 .cancelWrap {
   position: absolute;
   top: 80px;
@@ -346,10 +251,71 @@ export default Vue.extend({
   min-height: 150px;
   display: flex;
   margin-bottom: 40px;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
+}
+
+.enterActive,
+.leaveActive {
+  .waveWrap {
+    transition: transform 0.6s ease;
+  }
+
+  .micWrap {
+    transition: opacity 0.6s ease;
+  }
+}
+
+.enterActive {
+  .cancelWrap {
+    transition: transform 0.6s cubic-bezier(0.89, -0.11, 0.07, 1.4);
+  }
+}
+
+.leaveActive {
+  .cancelWrap {
+    transition: transform 0.6s cubic-bezier(1, -0.46, 0.065, 1.005);
+  }
+}
+
+.enter,
+.leaveTo {
+  .cancelWrap {
+    transform: scale(0);
+  }
+
+  .waveWrap {
+    transform: translateY(35%);
+  }
+
+  .micWrap {
+    opacity: 0;
+  }
+}
+
+.enterTo,
+.leave {
+  .cancelWrap {
+    transform: scale(1);
+  }
+
+  .waveWrap {
+    transform: translateY(0);
+  }
+
+  .micWrap {
+    opacity: 1;
+  }
+}
+
+.wrap {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
 }
 
 .resultWrap {
