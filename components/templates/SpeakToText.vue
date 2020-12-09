@@ -348,7 +348,7 @@ export default Vue.extend({
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 25vh;
+  height: 23vh;
   max-height: 420px;
   min-height: 150px;
   display: flex;
