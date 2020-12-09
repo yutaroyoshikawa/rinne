@@ -142,17 +142,14 @@ export default Vue.extend({
     },
     isPausedAr: {
       immediate: false,
-      handler() {
+      handler(_before, after) {
         const XR8 = window.XR8
         const sceneRef = this.$refs.scene as any
-        const isPausedAr = this.$store.state.isPausedAr
         if (!XR8 || !sceneRef) {
           return
         }
-        if (isPausedAr) {
-          if (XR8.isPaused()) {
-            sceneRef.play()
-          }
+        if (after) {
+          sceneRef.play()
         } else {
           sceneRef.pause()
         }
