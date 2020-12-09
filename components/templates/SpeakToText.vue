@@ -20,10 +20,18 @@
           @holdend="onHoldend"
         />
         <div :class="$style.resultWrap">
-          <p v-if="isShowGuideComment" :class="$style.resultText">
-            ホールドしてしゃべる
-          </p>
-          <p :class="$style.resultText">{{ speechTextResult }}</p>
+          <OpacityTransition
+            :enable-page-transition="false"
+            :in="isShowGuideComment"
+            :duration="300"
+          >
+            <p :class="$style.resultText">ホールドしてしゃべる</p>
+          </OpacityTransition>
+          <LetterAnim
+            :text="speechTextResult"
+            :in="isShowResultText"
+            :class-name="$style.resultText"
+          />
         </div>
       </div>
     </div>
@@ -36,6 +44,8 @@ import MicButton from '@/components/atoms/MicButton.vue'
 import { REQUEST_TALK_TEXT, PAUSE_AR, PLAY_AR } from '@/store/ar'
 import SpeakCancelButton from '@/components/atoms/SpeakCancelButton.vue'
 import SpeakWave from '@/components/atoms/SpeakWave.vue'
+import LetterAnim from '@/components/atoms/LetterAnim.vue'
+import OpacityTransition from '@/components/atoms/transitions/OpacityTransition.vue'
 
 type Data = {
   recorder?: any
@@ -53,6 +63,8 @@ export default Vue.extend({
     MicButton,
     SpeakCancelButton,
     SpeakWave,
+    LetterAnim,
+    OpacityTransition,
   },
   props: {
     in: {
@@ -80,6 +92,16 @@ export default Vue.extend({
         return false
       }
       return true
+    },
+    isShowResultText(): boolean {
+      if (this.isRecording) {
+        return false
+      }
+      if (this.isLoading) {
+        return false
+      }
+
+      return !!this.speechTextResult
     },
   },
   watch: {
@@ -330,5 +352,6 @@ export default Vue.extend({
   text-align: center;
   color: #fff;
   user-select: none;
+  overflow: hidden;
 }
 </style>
