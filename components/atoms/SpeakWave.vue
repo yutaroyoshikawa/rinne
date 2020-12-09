@@ -1,8 +1,26 @@
 <template>
   <div :class="$style.circle">
-    <div :class="[$style.wave, { [$style.activeWave]: $props.active }]"></div>
-    <div :class="[$style.two, { [$style.activeWave]: $props.active }]"></div>
-    <div :class="[$style.three, { [$style.activeWave]: $props.active }]"></div>
+    <div
+      :class="[
+        $style.wave,
+        { [$style.activeWave]: $props.active },
+        { [$style.inactiveWave]: !$props.active },
+      ]"
+    ></div>
+    <div
+      :class="[
+        $style.two,
+        { [$style.activeWave]: $props.active },
+        { [$style.inactiveWave]: !$props.active },
+      ]"
+    ></div>
+    <div
+      :class="[
+        $style.three,
+        { [$style.activeWave]: $props.active },
+        { [$style.inactiveWave]: !$props.active },
+      ]"
+    ></div>
   </div>
 </template>
 
@@ -37,10 +55,13 @@ export default Vue.extend({
   top: 70%;
 }
 
+.inactiveWave {
+  top: 80%;
+}
+
 .wave {
   opacity: 0.4;
   position: absolute;
-  top: 80%;
   left: 50%;
   width: 200vw;
   height: 200vw;
