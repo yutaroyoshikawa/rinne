@@ -64,7 +64,6 @@ import Vue from 'vue'
 import MicButton from '@/components/atoms/MicButton.vue'
 import { REQUEST_TALK_TEXT } from '@/store/ar'
 import CancelButton from '@/components/atoms/CancelButton.vue'
-import VueTextTransition from 'vue-text-transition'
 
 type Data = {
   recorder?: any
