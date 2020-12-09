@@ -7,7 +7,7 @@
   >
     <div v-if="$props.in" :class="$style.wrap">
       <div :class="$style.cancelWrap">
-        <CancelButton @click="onCancel" />
+        <SpeakCancelButton @click="onCancel" />
       </div>
       <div :class="$style.circulate">
         <div :class="$style.circle">
@@ -63,7 +63,7 @@
 import Vue from 'vue'
 import MicButton from '@/components/atoms/MicButton.vue'
 import { REQUEST_TALK_TEXT, PAUSE_AR, PLAY_AR } from '@/store/ar'
-import CancelButton from '@/components/atoms/CancelButton.vue'
+import SpeakCancelButton from '@/components/atoms/SpeakCancelButton.vue'
 
 type Data = {
   recorder?: any
@@ -79,7 +79,7 @@ export default Vue.extend({
   name: 'SpeakToText',
   components: {
     MicButton,
-    CancelButton,
+    SpeakCancelButton,
   },
   props: {
     in: {
