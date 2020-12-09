@@ -116,7 +116,7 @@ export default Vue.extend({
 }
 
 .pausedAr {
-  filter: blur(2px);
+  filter: blur(4px);
 }
 
 .detailsImage {

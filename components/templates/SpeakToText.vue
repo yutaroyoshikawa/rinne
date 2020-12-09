@@ -277,11 +277,6 @@ export default Vue.extend({
   transform: translateZ(0);
 }
 
-.waveActive {
-  top: 65% !important;
-  background: linear-gradient(to left top, $success-color, $primary-color);
-}
-
 .activeWave {
   top: 70%;
 }
@@ -301,7 +296,7 @@ export default Vue.extend({
   transform-origin: 50% 48%;
   border-radius: 43%;
   animation: humming 2.5s infinite linear;
-  background: linear-gradient(to left top, #23345d, #921664);
+  background: linear-gradient(to left top, $primary-color, $success-color);
   transition: top 0.5s cubic-bezier(0.425, 0.105, 0, 0.645);
 }
 
