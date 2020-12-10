@@ -5,6 +5,7 @@
         ref="scene"
         nomal
         xrweb
+        xrextras-loading
         xrextras-gesture-detector
         xrextras-almost-there
         xrextras-runtime-error
