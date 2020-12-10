@@ -34,7 +34,7 @@ export default {
       {
         src: `https://apps.8thwall.com/xrweb?appKey=${process.env.EIGHTHWALL_APP_KEY}`,
       },
-      { src: 'https://cdn.8thwall.com/web/aframe/8frame-0.9.2.min.js' },
+      { src: 'https://cdn.8thwall.com/web/aframe/8frame-1.0.4.min.js' },
       { src: 'https://cdn.8thwall.com/web/xrextras/xrextras.js' },
     ],
   },
