@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%">
     <client-only>
       <a-scene
         ref="scene"
@@ -12,7 +12,7 @@
         xrextras-tap-recenter
       >
         <a-assets ref="assets">
-          <!-- <a-asset-item id="teddyBearModel" src="/bear.glb" /> -->
+          <a-asset-item id="teddyBearModel" src="/bear.glb" />
           <!-- <img
             v-for="(imageSrc, index) in imageSrcs"
             :id="`renny${index}`"
@@ -30,6 +30,8 @@
         <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
 
         <a-light type="ambient" intensity="0.7"></a-light>
+
+        <a-gltf-model src="#teddyBearModel" shadow></a-gltf-model>
 
         <!-- <a-entity
           id="ground"
