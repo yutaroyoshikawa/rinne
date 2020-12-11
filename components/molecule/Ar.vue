@@ -5,14 +5,13 @@
         ref="scene"
         nomal
         xrweb
-        xrextras-loading
         xrextras-gesture-detector
         xrextras-almost-there
         xrextras-runtime-error
         xrextras-tap-recenter
       >
         <a-assets ref="assets">
-          <a-asset-item id="elephant" src="/elephant.glb" />
+          <a-asset-item id="bear" src="/bear.gltf" />
           <!-- <img
             v-for="(imageSrc, index) in imageSrcs"
             :id="`renny${index}`"
@@ -31,7 +30,7 @@
 
         <a-light type="ambient" intensity="0.7"></a-light>
 
-        <a-gltf-model src="#elephant" shadow></a-gltf-model>
+        <a-gltf-model src="#bear" shadow></a-gltf-model>
 
         <!-- <a-entity
           id="ground"
