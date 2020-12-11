@@ -11,7 +11,7 @@
         xrextras-tap-recenter
       >
         <a-assets ref="assets">
-          <a-asset-item id="bear" src="/bear.gltf" />
+          <a-asset-item id="bear" src="/bear.glb" />
           <!-- <img
             v-for="(imageSrc, index) in imageSrcs"
             :id="`renny${index}`"
