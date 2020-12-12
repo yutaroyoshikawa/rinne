@@ -1,10 +1,12 @@
 <template>
   <div style="height: 100%">
+    <ResponseTalk id-name="response" />
     <client-only>
       <a-scene
         ref="scene"
         nomal
         xrweb
+        update-html
         xrextras-gesture-detector
         xrextras-almost-there
         xrextras-runtime-error
@@ -31,6 +33,11 @@
         <a-light type="ambient" intensity="0.7"></a-light>
 
         <a-gltf-model src="#bear" shadow></a-gltf-model>
+
+        <a-entity
+          geometry="primitive: box"
+          material="shader: html; target: #response"
+        ></a-entity>
 
         <!-- <a-entity
           id="ground"
@@ -82,8 +89,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-// import html2canvas from 'html2canvas'
+import 'aframe-html-shader'
 import { mapState } from 'vuex'
+import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
 
 Vue.config.ignoredElements = [
   'a-scene',
@@ -108,6 +116,9 @@ type Data = {
 
 export default Vue.extend({
   name: 'Ar',
+  components: {
+    ResponseTalk,
+  },
   props: {
     in: {
       type: Boolean,

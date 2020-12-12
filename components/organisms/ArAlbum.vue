@@ -1,8 +1,8 @@
 <template>
   <div :class="[$style.wrap, { [$style.pausedAr]: isPausedAr }]">
-    <div ref="responseTalk" :class="$style.responseTalkWrap">
+    <!-- <div ref="responseTalk" :class="$style.responseTalkWrap">
       <ResponseTalk />
-    </div>
+    </div> -->
     <ActionModal
       :show-action-modal="isOpenDetailsModal"
       modal-title="くわしく"
@@ -51,7 +51,7 @@ import { mapState } from 'vuex'
 import { REMOVE_IMAGE } from '@/store/photoStore'
 import { LOADEDND_AFRAME } from '@/store/ar'
 import ActionModal from '@/components/molecule/actionModal.vue'
-import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
+// import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
 import Ar from '@/components/molecule/Ar.vue'
 import PresenAr from '@/components/molecule/PresenAr.vue'
 import OpacityTransition from '@/components/atoms/transitions/OpacityTransition.vue'
@@ -65,7 +65,7 @@ export default Vue.extend({
   name: 'ArAlbum',
   components: {
     ActionModal,
-    ResponseTalk,
+    // ResponseTalk,
     Ar,
     PresenAr,
     OpacityTransition,
