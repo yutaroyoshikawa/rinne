@@ -36,6 +36,7 @@ export default Vue.extend({
 }
 
 .talk {
+  position: relative;
   width: 1020px;
   height: 204px;
   border-radius: 204px;
@@ -45,5 +46,18 @@ export default Vue.extend({
   justify-content: center;
   align-items: center;
   font-size: 68px;
+
+  &::after {
+    content: '';
+    display: block;
+    border-top: 80px solid #f3ebd8;
+    border-right: 80px solid transparent;
+    border-bottom: 80px solid transparent;
+    border-left: 80px solid transparent;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -40px;
+  }
 }
 </style>
