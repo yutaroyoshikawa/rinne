@@ -1,11 +1,14 @@
 <template>
   <div :class="$style.wrap">
-    <button :class="$style.clearButton" @click="storeClear">
-      localstorage clear
-    </button>
-    <div :class="$style.numberWrap">
-      <p>{{ $store.state.photoStore.count }}/５件</p>
-    </div>
+    <template v-if="developMode">
+      <button :class="$style.clearButton" @click="storeClear">
+        localstorage clear
+      </button>
+      <div :class="$style.numberWrap">
+        <p>{{ $store.state.photoStore.count }}/５件</p>
+      </div>
+    </template>
+
     <AlbumList />
     <div @click="openTab">
       <AddButton
@@ -22,6 +25,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapState } from 'vuex'
 import { CHANGE_HEADER_TITLE, OPEN_TAB } from '@/store/index'
 import CameraRool from '@/components/organisms/cameraRool.vue'
 import AddButton from '@/components/atoms/addButton.vue'
@@ -33,6 +37,9 @@ export default Vue.extend({
     AddButton,
     CameraRool,
     AlbumList,
+  },
+  computed: {
+    ...mapState(['developMode']),
   },
   beforeCreate() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, 'いちらん')

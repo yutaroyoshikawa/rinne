@@ -28,7 +28,6 @@
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/pwa": "^3.0.2",
     "@types/mapbox-gl": "^1.12.5",
-    "aframe-html-shader": "^0.2.0",
     "audio-recorder-polyfill": "^0.4.0",
     "core-js": "^3.6.5",
     "destyle.css": "^2.0.2",
