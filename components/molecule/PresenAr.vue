@@ -117,7 +117,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('photoStore', ['imageSrcs']),
-    ...mapState('ar', ['isLoadedPresentationAframe, isPausedAr']),
+    ...mapState('ar', ['isLoadedPresentationAframe', 'isPausedAr']),
   },
   watch: {
     in: {
