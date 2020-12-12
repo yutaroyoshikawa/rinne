@@ -35,9 +35,8 @@
           <template v-if="isFoundXrimage">
             <a-entity
               geometry="primitive: plane"
-              material="shader: html; target: #response transparent: true; ratio: width; fps: 1.5"
+              material="shader: html; target: width: 1; height: 0.2; #response transparent: true; ratio: width; fps: 1.5"
               position="0 2 0"
-              scale="0.2 1 1"
             ></a-entity>
             <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
             <a-image
