@@ -2,7 +2,8 @@
   <div :class="$style.wrap">
     <div :id="$props.idName" :class="$style.targetWrap">
       <div :class="$style.talk">
-        <div>{{ talkResponseText }}</div>
+        <div v-if="!isLoadingTalkResponseText">{{ talkResponseText }}</div>
+        <div v-else>かんがえ中...</div>
       </div>
       <div :class="$style.triangle" />
     </div>
@@ -22,7 +23,7 @@ export default Vue.extend({
     },
   },
   computed: {
-    ...mapState('ar', ['talkResponseText']),
+    ...mapState('ar', ['isLoadingTalkResponseText', 'talkResponseText']),
   },
 })
 </script>
