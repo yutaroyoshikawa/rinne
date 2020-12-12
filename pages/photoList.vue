@@ -8,9 +8,7 @@
         <p>{{ $store.state.photoStore.count }}/５件</p>
       </div>
     </template>
-    <template v-else>
-      <!---->
-    </template>
+
     <AlbumList />
     <div @click="openTab">
       <AddButton
