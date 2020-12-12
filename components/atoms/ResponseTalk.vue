@@ -40,7 +40,7 @@ export default Vue.extend({
 .talk {
   position: relative;
   width: 1020px;
-  height: 204px;
+  height: 104px;
   border-radius: 204px;
   background-color: #f3ebd8;
   box-sizing: border-box;
