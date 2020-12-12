@@ -17,7 +17,6 @@
         height: 50px;
         border-radius: 30px;
         background-color: #f3ebd8;
-        position: relative;
         box-sizing: border-box;
         display: flex;
         justify-content: center;
