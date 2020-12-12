@@ -1,7 +1,9 @@
 <template>
   <div :class="$style.wrap">
-    <div :id="$props.idName" :class="$style.talk">
-      <div>{{ talkResponseText }}</div>
+    <div :id="$props.idName">
+      <div :class="$style.talk">
+        <div>{{ talkResponseText }}</div>
+      </div>
     </div>
   </div>
 </template>
