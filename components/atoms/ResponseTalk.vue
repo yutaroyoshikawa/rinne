@@ -1,28 +1,6 @@
 <template>
-  <div
-    style="
-      width: 100%;
-      height: 100%;
-      position: fixed;
-      left: 0;
-      top: 0;
-      z-index: -1;
-      overflow: hidden;
-    "
-  >
-    <div
-      :id="$props.idName"
-      style="
-        width: 1020px;
-        height: 204px;
-        border-radius: 30px;
-        background-color: #f3ebd8;
-        box-sizing: border-box;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      "
-    >
+  <div :class="$style.wrap">
+    <div :id="$props.idName" :class="$style.talk">
       <div>{{ talkResponseText }}</div>
     </div>
   </div>
@@ -45,3 +23,27 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style lang="scss" module>
+.wrap {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.talk {
+  width: 1020px;
+  height: 204px;
+  border-radius: 204px;
+  background-color: #f3ebd8;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+</style>
