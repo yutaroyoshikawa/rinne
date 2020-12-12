@@ -13,8 +13,8 @@
     <div
       :id="$props.idName"
       style="
-        width: 250px;
-        height: 50px;
+        width: 1020px;
+        height: 204px;
         border-radius: 30px;
         background-color: #f3ebd8;
         box-sizing: border-box;
