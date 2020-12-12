@@ -65,6 +65,6 @@ export default Vue.extend({
   position: absolute;
   top: calc(100% - 80px);
   left: 50%;
-  margin-left: -60px;
+  margin-left: -80px;
 }
 </style>
