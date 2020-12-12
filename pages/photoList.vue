@@ -59,11 +59,8 @@ export default Vue.extend({
 @import '@/assets/scss/variables.scss';
 
 .wrap {
-  padding-bottom: 20px;
+  padding: 20px 0;
   height: 100%;
-}
-.wrapPadding {
-  padding-bottom: 70px;
 }
 .numberWrap {
   text-align: center;
