@@ -5,6 +5,7 @@
       <a-scene
         ref="scene"
         presenar
+        update-html
         xrextras-gesture-detector
         xrextras-almost-there
         xrextras-runtime-error
@@ -34,7 +35,7 @@
           <template v-if="isFoundXrimage">
             <a-entity
               geometry="primitive: plane"
-              material="shader: html; target: #response; transparent: true;"
+              material="shader: html; target: #response; transparent: true"
               position="0 1.5 0"
             ></a-entity>
             <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
