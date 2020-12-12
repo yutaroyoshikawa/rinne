@@ -59,7 +59,7 @@ export default Vue.extend({
 @import '@/assets/scss/variables.scss';
 
 .wrap {
-  padding: 20px 0;
+  padding: 40px 0;
   height: 100%;
 }
 .numberWrap {
