@@ -88,13 +88,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-
 import { mapState } from 'vuex'
 import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
-
-// if (typeof window !== 'undefined') {
-//   import('aframe-html-shader')
-// }
 
 Vue.config.ignoredElements = [
   'a-scene',

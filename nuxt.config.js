@@ -36,6 +36,10 @@ export default {
       },
       { src: 'https://cdn.8thwall.com/web/aframe/8frame-1.1.0.min.js' },
       { src: 'https://cdn.8thwall.com/web/xrextras/xrextras.js' },
+      {
+        src:
+          'https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js',
+      },
     ],
   },
 
