@@ -34,8 +34,9 @@
         <a-entity xrextras-named-image-target="name: renny">
           <template v-if="isFoundXrimage">
             <a-entity
-              geometry="primitive: plane; width: 1; height: 0.2"
-              material="shader: html; target: #response; transparent: true; ratio: width*2; fps: 1.5"
+              geometry="primitive: plane; width: 2; height: 0.4"
+              scale="0.5 0.5"
+              material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
               position="0 1.5 0"
             ></a-entity>
             <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
