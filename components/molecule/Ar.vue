@@ -188,7 +188,7 @@ export default Vue.extend({
           this.isFoundXrimage = true
         }
         const onXrimagelost: (ctx: any) => void = () => {
-          this.isFoundXrimage = false
+          // this.isFoundXrimage = false
         }
         const onRealityReady: (event: any) => void = (event) => {
           this.$emit('reality-ready', event)
