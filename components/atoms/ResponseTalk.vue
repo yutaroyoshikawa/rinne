@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.wrap">
-    <div :id="$props.idName">
+    <div :id="$props.idName" :class="$style.targetWrap">
       <div :class="$style.talk">
         <div>{{ talkResponseText }}</div>
       </div>
@@ -35,6 +35,11 @@ export default Vue.extend({
   top: 0;
   z-index: -1;
   overflow: hidden;
+}
+
+.targetWrap {
+  width: 1020px;
+  height: 284px;
 }
 
 .talk {
