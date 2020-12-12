@@ -18,6 +18,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
+import { ENABLE_DEVELOP_MODE } from '@/store/index'
 import HeaderTitle from '@/components/atoms/HeaderTitle.vue'
 import OverlayTab from '@/components/molecule/OverlayTab.vue'
 import ArAlbum from '@/components/organisms/ArAlbum.vue'
@@ -34,6 +35,12 @@ export default Vue.extend({
     isIndexPage(): boolean {
       return this.$route.path === '/'
     },
+  },
+  beforeMount() {
+    const developModeQuery = this.$route.query.develop
+    if (developModeQuery && developModeQuery === '1') {
+      this.$store.commit(ENABLE_DEVELOP_MODE)
+    }
   },
 })
 </script>
