@@ -5,7 +5,6 @@
       <a-scene
         ref="scene"
         presenar
-        update-html
         xrextras-gesture-detector
         xrextras-almost-there
         xrextras-runtime-error
@@ -33,11 +32,11 @@
 
         <a-entity xrextras-named-image-target="name: renny">
           <template v-if="isFoundXrimage">
-            <a-entity
+            <!-- <a-entity
               geometry="primitive: plane"
               material="shader: html; target: #response; transparent: true"
               position="0 1.5 0"
-            ></a-entity>
+            ></a-entity> -->
             <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
             <a-image
               v-for="(imageSrc, index) in imageSrcs"
@@ -71,9 +70,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import 'aframe-html-shader'
+// import 'aframe-html-shader'
 import { mapState } from 'vuex'
 import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
+
+// if (typeof window !== 'undefined') {
+//   import('aframe-html-shader')
+// }
 
 Vue.config.ignoredElements = [
   'a-scene',

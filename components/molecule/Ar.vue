@@ -6,7 +6,6 @@
         ref="scene"
         nomal
         xrweb
-        update-html
         xrextras-gesture-detector
         xrextras-almost-there
         xrextras-runtime-error
@@ -34,10 +33,10 @@
 
         <a-gltf-model src="#bear" shadow></a-gltf-model>
 
-        <a-entity
+        <!-- <a-entity
           geometry="primitive: box"
           material="shader: html; target: #response"
-        ></a-entity>
+        ></a-entity> -->
 
         <!-- <a-entity
           id="ground"
@@ -89,9 +88,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import 'aframe-html-shader'
+
 import { mapState } from 'vuex'
 import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
+
+// if (typeof window !== 'undefined') {
+//   import('aframe-html-shader')
+// }
 
 Vue.config.ignoredElements = [
   'a-scene',
