@@ -33,7 +33,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
-import { ENABLE_PRESEN_MODE, ENABLE_NOMAL_MODE } from '@/store/ar'
+import {
+  ENABLE_PRESEN_MODE,
+  ENABLE_NOMAL_MODE,
+  ENABLE_TALK_MODE,
+  DISABLE_TALK_MODE,
+} from '@/store/ar'
 import { PageTransitionState } from '@/extentions/pageTransitionState'
 import Loading from '@/components/organisms/loading.vue'
 import IndexMenu from '@/components/molecule/IndexMenu.vue'
@@ -78,6 +83,11 @@ export default Vue.extend({
   watch: {
     '$route.params'() {
       const talkmodeQuery = this.$route.query.talkmode
+      if (!!talkmodeQuery && talkmodeQuery === '1') {
+        this.$store.commit(`ar/${ENABLE_TALK_MODE}`)
+      } else {
+        this.$store.commit(`ar/${DISABLE_TALK_MODE}`)
+      }
       this.isTalkMode = !!talkmodeQuery && talkmodeQuery === '1'
     },
   },

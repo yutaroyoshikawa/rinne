@@ -41,13 +41,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import MicButton from '@/components/atoms/MicButton.vue'
-import {
-  REQUEST_TALK_TEXT,
-  PAUSE_AR,
-  PLAY_AR,
-  DISABLE_TALK_MODE,
-  ENABLE_TALK_MODE,
-} from '@/store/ar'
+import { REQUEST_TALK_TEXT, PAUSE_AR, PLAY_AR } from '@/store/ar'
 import SpeakCancelButton from '@/components/atoms/SpeakCancelButton.vue'
 import SpeakWave from '@/components/atoms/SpeakWave.vue'
 import LetterAnim from '@/components/atoms/LetterAnim.vue'
@@ -116,7 +110,6 @@ export default Vue.extend({
     },
   },
   beforeMount() {
-    this.$store.commit(`ar/${ENABLE_TALK_MODE}`)
     if (typeof window !== 'undefined') {
       chunks = []
       this.initRecorder()
@@ -125,7 +118,6 @@ export default Vue.extend({
   beforeDestroy() {
     chunks = undefined
     this.$store.dispatch(`ar/${REQUEST_TALK_TEXT}`, '')
-    this.$store.commit(`ar/${DISABLE_TALK_MODE}`)
   },
   methods: {
     onCancel() {
