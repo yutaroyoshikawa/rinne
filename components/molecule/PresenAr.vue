@@ -58,17 +58,17 @@
 
           <a-entity
             geometry="primitive: plane; width: 2; height: 0.4"
-            scale="0.0001 0.0001 0.0001"
+            scale="0 0 0"
             material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
             position="0 2 0"
             :animation="{
               property: 'scale',
               to:
-                (isLoadingTalkResponseText || talkResponseText) && talkMode
+                (isLoadingTalkResponseText || !!talkResponseText) && talkMode
                   ? '1 1 1'
-                  : '0.0001 0.0001 0.0001',
+                  : '0 0 0',
               easing: 'easeOutElastic',
-              dur: 3000,
+              dur: 5000,
             }"
           ></a-entity>
         </a-entity>
