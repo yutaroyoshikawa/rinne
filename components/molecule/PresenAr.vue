@@ -60,24 +60,15 @@
 
             <a-entity
               geometry="primitive: plane; width: 2; height: 0.4"
-              scale="1 1"
+              scale="0 0"
               material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
               position="0 1 0"
               :animation="{
-                property: 'opacity',
-                from: 0,
-                to: isLoadingTalkResponseText || talkResponseText ? 1 : 0,
-                easing: 'easeInQuad',
-                dur: 500,
-              }"
-              :animation__2="{
-                property: 'position',
+                property: 'scale',
                 to:
-                  isLoadingTalkResponseText || talkResponseText
-                    ? '0 2 0'
-                    : '0 1 0',
-                easing: 'easeInQuad',
-                dur: 500,
+                  isLoadingTalkResponseText || talkResponseText ? '1 1' : '0 0',
+                easing: 'easeOutElastic',
+                dur: 800,
               }"
             ></a-entity>
           </template>
