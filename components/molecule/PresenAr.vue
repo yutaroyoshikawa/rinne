@@ -59,7 +59,6 @@
             />
 
             <a-entity
-              v-show="isLoadingTalkResponseText || talkResponseText"
               geometry="primitive: plane; width: 2; height: 0.4"
               scale="1 1"
               material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
@@ -67,13 +66,16 @@
               :animation="{
                 property: 'opacity',
                 from: 0,
-                to: 1,
+                to: isLoadingTalkResponseText || talkResponseText ? 1 : 0,
                 easing: 'easeInQuad',
                 dur: 500,
               }"
               :animation__2="{
                 property: 'position',
-                to: '0 2 0',
+                to:
+                  isLoadingTalkResponseText || talkResponseText
+                    ? '0 2 0'
+                    : '0 1 0',
                 easing: 'easeInQuad',
                 dur: 500,
               }"
