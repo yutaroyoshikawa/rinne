@@ -68,14 +68,14 @@
                 to: '1',
                 easing: 'easeInQuad',
                 dur: 500,
-                enable: isLoadingTalkResponseText || talkResponseText,
+                enabled: isLoadingTalkResponseText || talkResponseText,
               }"
               :animation__2="{
                 property: 'position',
                 to: '0 2 0',
                 easing: 'easeInQuad',
                 dur: 500,
-                enable: isLoadingTalkResponseText || talkResponseText,
+                enabled: isLoadingTalkResponseText || talkResponseText,
               }"
             ></a-entity>
           </template>
