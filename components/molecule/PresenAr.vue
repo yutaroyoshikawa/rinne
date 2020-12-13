@@ -64,11 +64,11 @@
               position="0 2.5 0"
               :animation="{
                 property: 'scale',
-                to: isShowTalk ? '1 1 1' : '0.0001 0.0001 0.0001',
+                to: talkMode ? '1 1 1' : '0.0001 0.0001 0.0001',
                 easing: 'easeOutElastic',
                 dur: 5000,
               }"
-            ></a-entity>
+            />
           </template>
         </a-entity>
       </a-scene>
@@ -130,12 +130,6 @@ export default Vue.extend({
       'talkResponseText',
       'talkMode',
     ]),
-    isShowTalk(): boolean {
-      return (
-        this.talkMode &&
-        (!!this.talkResponseText || this.isLoadingTalkResponseText)
-      )
-    },
   },
   watch: {
     in: {
