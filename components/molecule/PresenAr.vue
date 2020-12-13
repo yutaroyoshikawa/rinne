@@ -59,9 +59,9 @@
 
             <a-entity
               geometry="primitive: plane; width: 2; height: 0.4"
-              scale="0.0001 0.0001 0.0001"
+              scale="1 1 1"
               material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
-              position="0 3 0"
+              position="0 2.5 0"
               :animation="{
                 property: 'scale',
                 to: isShowTalk ? '1 1 1' : '0.0001 0.0001 0.0001',
@@ -131,12 +131,6 @@ export default Vue.extend({
       'talkMode',
     ]),
     isShowTalk(): boolean {
-      alert(
-        this.talkMode &&
-          (!!this.talkResponseText || this.isLoadingTalkResponseText)
-      )
-      alert(!!this.talkResponseText)
-      alert(this.isLoadingTalkResponseText)
       return (
         this.talkMode &&
         (!!this.talkResponseText || this.isLoadingTalkResponseText)
