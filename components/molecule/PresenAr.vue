@@ -131,12 +131,15 @@ export default Vue.extend({
       'talkMode',
     ]),
     isShowTalk(): boolean {
-      alert(this.talkMode)
-      alert(this.talkResponseText)
+      alert(
+        this.talkMode &&
+          (!!this.talkResponseText || this.isLoadingTalkResponseText)
+      )
+      alert(!!this.talkResponseText)
       alert(this.isLoadingTalkResponseText)
       return (
         this.talkMode &&
-        (this.talkResponseText || this.isLoadingTalkResponseText)
+        (!!this.talkResponseText || this.isLoadingTalkResponseText)
       )
     },
   },
