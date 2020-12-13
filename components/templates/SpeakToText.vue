@@ -117,6 +117,7 @@ export default Vue.extend({
   },
   beforeDestroy() {
     chunks = undefined
+    this.$store.dispatch(`ar/${REQUEST_TALK_TEXT}`, '')
   },
   methods: {
     onCancel() {

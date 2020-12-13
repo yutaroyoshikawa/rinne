@@ -43,14 +43,20 @@
               scale="0.0001 0.0001 0.0001"
               :animation="{
                 property: 'scale',
-                to: '0.9 0.9 0.9',
+                to:
+                  !isLoadingTalkResponseText && !talkResponseText
+                    ? '0.9 0.9 0.9'
+                    : '0.0001 0.0001 0.0001',
                 easing: 'easeOutElastic',
                 dur: 3000,
                 delay: 300 * index - 1,
               }"
               :animation__2="{
                 property: 'position',
-                to: `${index - 1} 0 0.3`,
+                to:
+                  !isLoadingTalkResponseText && !talkResponseText
+                    ? `${index - 1} 0 0.3`
+                    : '0 0 0',
                 easing: 'easeOutElastic',
                 dur: 3000,
                 delay: 300 * index,
@@ -60,15 +66,17 @@
 
             <a-entity
               geometry="primitive: plane; width: 2; height: 0.4"
-              scale="0 0"
+              scale="0.0001 0.0001 0.0001"
               material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
-              position="0 1 0"
+              position="0 2 0"
               :animation="{
                 property: 'scale',
                 to:
-                  isLoadingTalkResponseText || talkResponseText ? '1 1' : '0 0',
+                  isLoadingTalkResponseText || talkResponseText
+                    ? '1 1 1'
+                    : '0.0001 0.0001 0.0001',
                 easing: 'easeOutElastic',
-                dur: 800,
+                dur: 3000,
               }"
             ></a-entity>
           </template>
