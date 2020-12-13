@@ -53,6 +53,27 @@
         ></a-entity>
 
         <a-entity xrextras-named-image-target="name: renny">
+          <template v-if="isFoundXrimage">
+            <template v-if="isLoadingTalkResponseText || !!talkResponseText">
+              <a-entity
+                geometry="primitive: plane; width: 2; height: 0.4"
+                scale="1 1"
+                material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5; opacity: 0"
+                position="0 1 0"
+                :animation="{
+                  property: 'opacity',
+                  to: '1',
+                  easing: 'easeInQuad',
+                  dur: 500,
+                }"
+                :animation__2="{
+                  property: 'position',
+                  to: '0 2 0',
+                  easing: 'easeInQuad',
+                  dur: 500,
+                }"
+              ></a-entity>
+            </template>
             <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
             <a-image
               v-for="(imageSrc, index) in imageSrcs"
