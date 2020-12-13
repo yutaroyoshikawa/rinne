@@ -33,7 +33,6 @@
 
         <a-entity xrextras-named-image-target="name: renny">
           <template v-if="isFoundXrimage">
-            <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
             <a-image
               v-for="(imageSrc, index) in imageSrcs"
               :key="imageSrc"
@@ -43,14 +42,15 @@
               scale="0.0001 0.0001 0.0001"
               :animation="{
                 property: 'scale',
-                to: !talkMode ? '0.9 0.9 0.9' : '0.0001 0.0001 0.0001',
+                to: !talkMode && isFoundXrimage ? '0.9 0.9 0.9' : '0 0 0',
                 easing: 'easeOutElastic',
                 dur: 3000,
                 delay: 300 * index - 1,
               }"
               :animation__2="{
                 property: 'position',
-                to: !talkMode ? `${index - 1} 0 0.3` : '0 0 0',
+                to:
+                  !talkMode && isFoundXrimage ? `${index - 1} 0 0.3` : '0 0 0',
                 easing: 'easeOutElastic',
                 dur: 3000,
                 delay: 300 * index,
