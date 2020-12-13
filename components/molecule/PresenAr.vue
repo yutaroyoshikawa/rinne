@@ -41,14 +41,14 @@
             scale="0.0001 0.0001 0.0001"
             :animation="{
               property: 'scale',
-              to: !talkMode && isFoundXrimage ? '0.9 0.9 0.9' : '0 0 0',
+              to: !talkMode ? '0.9 0.9 0.9' : '0 0 0',
               easing: 'easeOutElastic',
               dur: 3000,
               delay: 300 * index - 1,
             }"
             :animation__2="{
               property: 'position',
-              to: !talkMode && isFoundXrimage ? `${index - 1} 0 0.3` : '0 0 0',
+              to: !talkMode ? `${index - 1} 0 0.3` : '0 0 0',
               easing: 'easeOutElastic',
               dur: 3000,
               delay: 300 * index,
@@ -63,10 +63,7 @@
             position="0 2 0"
             :animation="{
               property: 'scale',
-              to:
-                (isLoadingTalkResponseText || !!talkResponseText) && talkMode
-                  ? '1 1 1'
-                  : '0 0 0',
+              to: talkMode ? '1 1 1' : '0 0 0',
               easing: 'easeOutElastic',
               dur: 5000,
             }"
