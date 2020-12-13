@@ -194,13 +194,10 @@ export default Vue.extend({
       return new Promise((resolve, reject) => {
         const requestData = {
           config: {
-            encoding: 'ENCODING_UNSPECIFIED',
-            sampleRateHertz: AUDIO_SAMPLE_RATE,
+            enableAutomaticPunctuation: true,
+            encoding: 'LINEAR16',
             languageCode: 'ja-JP',
-            metadata: {
-              recordingDeviceType: 'SMARTPHONE',
-              originalMimeType: 'audio/wav',
-            },
+            model: 'default',
           },
           audio: {
             content: base64Data,
