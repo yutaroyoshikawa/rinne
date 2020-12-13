@@ -58,7 +58,7 @@
               @click="$emit('select-image', index)"
             />
 
-            <template v-if="isLoadingTalkResponseText || !!talkResponseText">
+            <template v-if="isLoadingTalkResponseText || talkResponseText">
               <a-entity
                 geometry="primitive: plane; width: 2; height: 0.4"
                 scale="1 1"
