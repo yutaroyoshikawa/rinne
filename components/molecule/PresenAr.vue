@@ -163,7 +163,7 @@ export default Vue.extend({
         }
         if (value) {
           sceneRef.pause()
-        } else if (XR8.isPaused()) {
+        } else {
           XR8.resume()
           sceneRef.play()
         }
