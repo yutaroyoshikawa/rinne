@@ -15,7 +15,7 @@
       </template>
       <template v-else>
         <div :class="$style.talkWrap">
-          <TalkButton :in="!isTalkMode && isEnter" />
+          <TalkButton :in="!talkMode && isEnter" />
         </div>
         <SpeakToText
           :in="isTalkMode && isEnter"
@@ -23,7 +23,7 @@
           @cancel="onCancelSpeak"
         />
         <div :class="$style.menuWrap">
-          <IndexMenu :in="!isTalkMode && isEnter" />
+          <IndexMenu :in="!talkMode && isEnter" />
         </div>
       </template>
     </template>
@@ -49,7 +49,6 @@ import { mapState } from 'vuex'
 
 type Data = {
   isReadyReality: boolean
-  isTalkMode: boolean
   errorMessage?: any
   isOpenErrorModal: boolean
 }
@@ -66,13 +65,12 @@ export default Vue.extend({
   data(): Data {
     return {
       isReadyReality: false,
-      isTalkMode: false,
       errorMessage: undefined,
       isOpenErrorModal: false,
     }
   },
   computed: {
-    ...mapState('ar', ['isLoadedAframe']),
+    ...mapState('ar', ['isLoadedAframe', 'talkMode']),
     isEnter(): boolean {
       return (
         this.$store.state.pageTransitionState === PageTransitionState.ENTERED ||
@@ -88,14 +86,13 @@ export default Vue.extend({
       } else {
         this.$store.commit(`ar/${DISABLE_TALK_MODE}`)
       }
-      this.isTalkMode = !!talkmodeQuery && talkmodeQuery === '1'
     },
   },
   created() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, undefined)
     const talkmodeQuery = this.$route.query.talkmode
     if (talkmodeQuery && talkmodeQuery === '1') {
-      this.isTalkMode = true
+      this.$store.commit(`ar/${ENABLE_TALK_MODE}`)
     }
   },
   beforeCreate() {
