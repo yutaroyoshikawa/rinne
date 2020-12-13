@@ -136,6 +136,7 @@ export default Vue.extend({
     ...mapState('photoStore', ['imageSrcs']),
     ...mapState('ar', [
       'isLoadedPresentationAframe',
+      'isLoadingTalkResponseText',
       'isPausedAr',
       'talkResponseText',
     ]),
