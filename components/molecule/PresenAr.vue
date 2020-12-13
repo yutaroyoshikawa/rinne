@@ -37,7 +37,7 @@
               v-if="isLoadingTalkResponseText || !!talkResponseText"
               geometry="primitive: plane; width: 2; height: 0.4"
               scale="1 1"
-              material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
+              material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5; opacity: 0"
               position="0 1 0"
               :animation="{
                 property: 'opacity',
