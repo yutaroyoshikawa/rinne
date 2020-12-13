@@ -117,6 +117,7 @@
     "comment": "レニーとお昼寝しちゃった〜",
     "date": "2037/08/02",
     "personality": {
+      "wise": 0,
       "easygoing": 3,
       "naughty": 0,
       "energetic": 0,
