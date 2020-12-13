@@ -59,23 +59,23 @@
             />
 
             <a-entity
+              v-show="isLoadingTalkResponseText || talkResponseText"
               geometry="primitive: plane; width: 2; height: 0.4"
               scale="1 1"
               material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
               position="0 1 0"
               :animation="{
                 property: 'opacity',
-                to: '1',
+                from: 0,
+                to: 1,
                 easing: 'easeInQuad',
                 dur: 500,
-                enabled: isLoadingTalkResponseText || talkResponseText,
               }"
               :animation__2="{
                 property: 'position',
                 to: '0 2 0',
                 easing: 'easeInQuad',
                 dur: 500,
-                enabled: isLoadingTalkResponseText || talkResponseText,
               }"
             ></a-entity>
           </template>
