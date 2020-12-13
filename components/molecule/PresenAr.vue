@@ -63,10 +63,7 @@
             position="0 3 0"
             :animation="{
               property: 'scale',
-              to:
-                talkMode && (talkResponseText || isLoadingTalkResponseText)
-                  ? '1 1 1'
-                  : '0 0 0',
+              to: isShowTalk ? '1 1 1' : '0 0 0',
               easing: 'easeOutElastic',
               dur: 5000,
             }"
@@ -131,6 +128,14 @@ export default Vue.extend({
       'talkResponseText',
       'talkMode',
     ]),
+    isShowTalk(): boolean {
+      if (this.talkMode) {
+        if (this.talkResponseText || this.isLoadingTalkResponseText) {
+          return true
+        }
+      }
+      return false
+    },
   },
   watch: {
     in: {
