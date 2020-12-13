@@ -18,7 +18,7 @@
           <TalkButton :in="!talkMode && isEnter" />
         </div>
         <SpeakToText
-          :in="isTalkMode && isEnter"
+          :in="talkMode && isEnter"
           @error="onError"
           @cancel="onCancelSpeak"
         />
