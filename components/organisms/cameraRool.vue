@@ -2,10 +2,10 @@
   <div :class="$style.wrap">
     <div :class="$style.imageWraps">
       <div
-        v-for="(imageDatum, index) in imageData"
+        v-for="(item, index) in imageData"
         :key="index"
-        :class="[$style.imageWrap, { [$style.active]: isSelected(index) }]"
-        @click="onImageSelect(index)"
+        :class="[$style.imageWrap, { [$style.active]: isSelected(item.url) }]"
+        @click="onImageSelect(item.url)"
       >
         <transition
           :enter-class="$style.enter"
@@ -16,23 +16,23 @@
           :leave-active-class="$style.leaveActive"
         >
           <fa
-            v-if="isSelected(index)"
+            v-if="isSelected(item.url)"
             :icon="['fa', 'check-circle']"
             :class="$style.selectedIcon"
           />
         </transition>
         <div :class="$style.image">
-          <PhotoListImage :src="imageDatum.url" :name="imageDatum.name" />
+          <PhotoListImage :src="item.url" :name="item.name" />
         </div>
       </div>
     </div>
     <div :class="$style.footer">
       <div :class="$style.footerMessageWrap">
         <p
-          v-if="selectableNumber - selectedIndexes.length > 0"
+          v-if="selectableNumber - selectedSrcs.length > 0"
           :class="$style.footerMessage"
         >
-          あと<span>{{ selectableNumber - selectedIndexes.length }}枚</span
+          あと<span>{{ selectableNumber - selectedSrcs.length }}枚</span
           >選択できます
         </p>
         <p v-else :class="$style.footerMessage">これ以上選択できません</p>
@@ -42,7 +42,7 @@
           <button :class="$style.clearButton" @click="clear">クリア</button>
           <button
             :class="$style.addButton"
-            :disabled="selectedIndexes.length === 0"
+            :disabled="selectedSrcs.length === 0"
             @click="addImages"
           >
             ついか
@@ -62,8 +62,9 @@ import PhotoListImage from '@/components/atoms/PhotoListImage.vue'
 type Data = {
   imageData: {
     url: string
+    name: string
   }[]
-  selectedIndexes: number[]
+  selectedSrcs: string[]
   count: number
 }
 
@@ -73,14 +74,16 @@ export default Vue.extend({
     PhotoListImage,
   },
   data(): Data {
-    const imageData = personalityData.map(({ fileName, name }) => ({
-      url: `/img/${fileName}`,
-      name,
-    }))
+    const imageData: Data['imageData'] = personalityData.map(
+      ({ fileName, name }) => ({
+        url: fileName,
+        name,
+      })
+    )
 
     return {
       imageData,
-      selectedIndexes: [],
+      selectedSrcs: [],
       count: 0,
     }
   },
@@ -90,33 +93,26 @@ export default Vue.extend({
     },
   },
   methods: {
-    isSelected(index: number) {
-      return this.selectedIndexes.includes(index)
+    isSelected(src: string) {
+      return this.selectedSrcs.includes(src)
     },
-    onImageSelect(imageIndex: number) {
-      if (this.isSelected(imageIndex)) {
-        this.selectedIndexes = this.selectedIndexes.filter((selectedIndex) => {
-          return selectedIndex !== imageIndex
+    onImageSelect(imageSrc: string) {
+      if (this.isSelected(imageSrc)) {
+        this.selectedSrcs = this.selectedSrcs.filter((src) => {
+          return src !== imageSrc
         })
       } else {
-        if (this.selectableNumber - this.selectedIndexes.length === 0) {
+        if (this.selectableNumber - this.selectedSrcs.length === 0) {
           return
         }
-        this.selectedIndexes.push(imageIndex)
+        this.selectedSrcs.push(imageSrc)
       }
-    },
-    imageCss(imageIndex: number) {
-      const classes = ['$style.image_wrap']
-      if (this.isSelected(imageIndex)) {
-        classes.push('$style.active')
-      }
-      return classes
     },
     clear() {
-      this.selectedIndexes = []
+      this.selectedSrcs = []
     },
     addImages() {
-      this.$store.commit('photoStore/ADD_IMAGES', this.selectedIndexes)
+      this.$store.commit('photoStore/ADD_IMAGES', this.selectedSrcs)
       this.$store.commit(CLOSE_TAB)
     },
   },

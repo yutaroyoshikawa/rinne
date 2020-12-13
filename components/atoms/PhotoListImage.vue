@@ -9,7 +9,7 @@
     >
       <img
         v-show="!loading"
-        :src="$props.src"
+        :src="`/img/${$props.src}`"
         :alt="$props.name"
         @load="onLoadImage"
       />

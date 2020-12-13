@@ -9,6 +9,7 @@
         xrextras-gesture-detector
         xrextras-almost-there
         xrextras-runtime-error
+        xrextras-tap-recenter
         renderer="colorManagement: true"
         xrweb="disableWorldTracking: true"
       >
@@ -17,7 +18,7 @@
             v-for="(imageSrc, index) in imageSrcs"
             :id="`renny${index}`"
             :key="`renny${index}`"
-            :src="imageSrc"
+            :src="`/img/${imageSrc}`"
           />
         </a-assets>
         <a-camera
