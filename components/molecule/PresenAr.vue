@@ -34,11 +34,10 @@
         <a-entity xrextras-named-image-target="name: renny">
           <template v-if="isFoundXrimage">
             <a-entity
-              geometry="primitive: plane; width: 1; height: 0.2"
+              geometry="primitive: plane; width: 1; height: 0.2; opacity: 0"
               scale="1 1"
               material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
               position="0 1 0"
-              opacity="0"
               :animation="{
                 property: 'opacity',
                 to: '1',
@@ -149,6 +148,7 @@ export default Vue.extend({
         }
         if (this.$props.in) {
           if (XR8.isPaused()) {
+            XR8.resume()
             sceneRef.play()
           }
         } else {
