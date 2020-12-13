@@ -34,10 +34,25 @@
         <a-entity xrextras-named-image-target="name: renny">
           <template v-if="isFoundXrimage">
             <a-entity
-              geometry="primitive: plane; width: 5; height: 1"
-              scale="0.3 0.3"
+              geometry="primitive: plane; width: 1; height: 0.2"
+              scale="1 1"
               material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
-              position="0 1.2 0"
+              position="0 1 0"
+              opacity="0"
+              :animation="{
+                property: 'opacity',
+                to: '1',
+                easing: 'easeInQuad',
+                dur: 500,
+                enable: isLoadingTalkResponseText || !!talkResponseText,
+              }"
+              :animation__2="{
+                property: 'position',
+                to: '0 2 0',
+                easing: 'easeInQuad',
+                dur: 500,
+                enable: isLoadingTalkResponseText || !!talkResponseText,
+              }"
             ></a-entity>
             <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
             <a-image
@@ -117,7 +132,11 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('photoStore', ['imageSrcs']),
-    ...mapState('ar', ['isLoadedPresentationAframe', 'isPausedAr']),
+    ...mapState('ar', [
+      'isLoadedPresentationAframe',
+      'isPausedAr',
+      'talkResponseText',
+    ]),
   },
   watch: {
     in: {
@@ -139,13 +158,13 @@ export default Vue.extend({
     },
     isPausedAr: {
       immediate: false,
-      handler(_before, after) {
+      handler(value: boolean) {
         const XR8 = window.XR8
         const sceneRef = this.$refs.scene as any
         if (!XR8 || !sceneRef) {
           return
         }
-        if (after) {
+        if (value) {
           sceneRef.pause()
         } else if (XR8.isPaused()) {
           sceneRef.play()
