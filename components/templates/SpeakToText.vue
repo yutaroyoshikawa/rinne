@@ -121,7 +121,9 @@ export default Vue.extend({
   },
   methods: {
     onCancel() {
-      this.$router.app.$router.push('/')
+      const params = new URLSearchParams(location.search.slice(1))
+      params.delete('talkmode')
+      this.$router.replace(`${location.pathname}?${params}`)
     },
     initRecorder() {
       import('audio-recorder-polyfill').then((module) => {

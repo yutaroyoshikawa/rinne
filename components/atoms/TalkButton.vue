@@ -1,13 +1,10 @@
 <template>
   <ScaleTransition :in="$props.in">
     <div :class="$style.wrap">
-      <NuxtLink
-        :class="$style.talkButton"
-        :to="{ name: '', query: { talkmode: 1 } }"
-      >
+      <button :class="$style.talkButton" @click="onClick">
         <fa :icon="['fa', 'comment']" :class="$style.icon" />
         <span>おはなしする</span>
-      </NuxtLink>
+      </button>
     </div>
   </ScaleTransition>
 </template>
@@ -25,6 +22,13 @@ export default Vue.extend({
     in: {
       type: Boolean,
       default: true,
+    },
+  },
+  methods: {
+    onClick() {
+      const params = new URLSearchParams(location.search.slice(1))
+      params.append('talkmode', '1')
+      this.$router.replace(`${location.pathname}?${params}`)
     },
   },
 })
