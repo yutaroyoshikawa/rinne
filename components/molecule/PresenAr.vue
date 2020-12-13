@@ -60,10 +60,13 @@
             geometry="primitive: plane; width: 2; height: 0.4"
             scale="0 0 0"
             material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
-            position="0 2 0"
+            position="0 3 0"
             :animation="{
               property: 'scale',
-              to: talkMode ? '1 1 1' : '0 0 0',
+              to:
+                talkMode && (talkResponseText || isLoadingTalkResponseText)
+                  ? '1 1 1'
+                  : '0 0 0',
               easing: 'easeOutElastic',
               dur: 5000,
             }"
