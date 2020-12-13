@@ -1,4 +1,6 @@
 import { MutationTree, ActionTree } from 'vuex'
+import talkSample from '@/assets/talkSample.json'
+import { getMaxPersonality } from '@/extentions/personality'
 import { RootState } from './'
 
 type ArStore = {
@@ -72,9 +74,12 @@ export const actions: ActionTree<ArStore, RootState> = {
   [REQUEST_TALK_TEXT]({ commit }, talkText: ArStore['talkResponseText']) {
     if (talkText) {
       commit(SET_IS_LOADING_TALK_RESPONSE_TEXT, true)
+      const personality = this.app.store?.state.photoStore.personality
       setTimeout(() => {
-        if (talkText.includes('おはよう')) {
-          const resTalkText = 'おはよう！！'
+        const talk = talkSample.find((item) => talkText.includes(item.input))
+        if (talk) {
+          const maxPerfonality = getMaxPersonality(personality)
+          const resTalkText = talk.response[maxPerfonality]
           commit(SET_TALK_RESPONSE, resTalkText)
         } else {
           commit(SET_TALK_RESPONSE, '何を言ってるのかわからないよ')
