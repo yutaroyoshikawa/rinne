@@ -194,7 +194,7 @@ export default Vue.extend({
       return new Promise((resolve, reject) => {
         const requestData = {
           config: {
-            encoding: 'LINEAR16',
+            encoding: 'ENCODING_UNSPECIFIED',
             sampleRateHertz: AUDIO_SAMPLE_RATE,
             languageCode: 'ja-JP',
             metadata: {
