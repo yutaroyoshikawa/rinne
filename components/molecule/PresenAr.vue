@@ -43,20 +43,14 @@
               scale="0.0001 0.0001 0.0001"
               :animation="{
                 property: 'scale',
-                to:
-                  !isLoadingTalkResponseText && !talkResponseText
-                    ? '0.9 0.9 0.9'
-                    : '0.0001 0.0001 0.0001',
+                to: !talkMode ? '0.9 0.9 0.9' : '0.0001 0.0001 0.0001',
                 easing: 'easeOutElastic',
                 dur: 3000,
                 delay: 300 * index - 1,
               }"
               :animation__2="{
                 property: 'position',
-                to:
-                  !isLoadingTalkResponseText && !talkResponseText
-                    ? `${index - 1} 0 0.3`
-                    : '0 0 0',
+                to: !talkMode ? `${index - 1} 0 0.3` : '0 0 0',
                 easing: 'easeOutElastic',
                 dur: 3000,
                 delay: 300 * index,
@@ -72,7 +66,7 @@
               :animation="{
                 property: 'scale',
                 to:
-                  isLoadingTalkResponseText || talkResponseText
+                  (isLoadingTalkResponseText || talkResponseText) && talkMode
                     ? '1 1 1'
                     : '0.0001 0.0001 0.0001',
                 easing: 'easeOutElastic',
@@ -138,6 +132,7 @@ export default Vue.extend({
       'isLoadingTalkResponseText',
       'isPausedAr',
       'talkResponseText',
+      'talkMode',
     ]),
   },
   watch: {

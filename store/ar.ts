@@ -7,6 +7,7 @@ type ArStore = {
   arMode?: 'presen' | 'nomal'
   talkResponseText?: String
   isLoadingTalkResponseText: boolean
+  talkMode: boolean
 }
 
 export const LOADEDND_AFRAME = 'LOADEDND_AFRAME'
@@ -20,6 +21,9 @@ export const PLAY_AR = 'PLAY_AR'
 export const ENABLE_PRESEN_MODE = 'ENABLE_PRESEN_MODE'
 export const ENABLE_NOMAL_MODE = 'ENABLE_NOMAL_MODE'
 
+export const ENABLE_TALK_MODE = 'ENABLE_TALK_MODE'
+export const DISABLE_TALK_MODE = 'DISABLE_TALK_MODE'
+
 export const REQUEST_TALK_TEXT = 'REQUEST_TALK_TEXT'
 
 export const state = (): ArStore => ({
@@ -28,6 +32,7 @@ export const state = (): ArStore => ({
   talkResponseText: undefined,
   isLoadingTalkResponseText: false,
   arMode: undefined,
+  talkMode: false,
 })
 
 export const mutations: MutationTree<ArStore> = {
@@ -54,6 +59,12 @@ export const mutations: MutationTree<ArStore> = {
   },
   [PLAY_AR](state) {
     state.isPausedAr = false
+  },
+  [ENABLE_TALK_MODE](state) {
+    state.talkMode = true
+  },
+  [DISABLE_TALK_MODE](state) {
+    state.talkMode = false
   },
 }
 
