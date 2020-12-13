@@ -161,6 +161,7 @@ export default Vue.extend({
         if (value) {
           sceneRef.pause()
         } else if (XR8.isPaused()) {
+          XR8.resume()
           sceneRef.play()
         }
       },
