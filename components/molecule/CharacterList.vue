@@ -88,12 +88,12 @@ export default Vue.extend({
       const personality = this.personality as Personality
 
       return {
-        wise: personality.wise / maxItemPersonality,
-        easygoing: personality.easygoing / maxItemPersonality,
-        naughty: personality.naughty / maxItemPersonality,
-        energetic: personality.energetic / maxItemPersonality,
-        kindness: personality.kindness / maxItemPersonality,
-        affable: personality.affable / maxItemPersonality,
+        wise: (personality.wise / maxItemPersonality) * 100,
+        easygoing: (personality.easygoing / maxItemPersonality) * 100,
+        naughty: (personality.naughty / maxItemPersonality) * 100,
+        energetic: (personality.energetic / maxItemPersonality) * 100,
+        kindness: (personality.kindness / maxItemPersonality) * 100,
+        affable: (personality.affable / maxItemPersonality) * 100,
       }
     },
   },

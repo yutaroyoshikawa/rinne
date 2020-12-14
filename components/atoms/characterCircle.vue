@@ -2,11 +2,11 @@
   <div
     :class="[
       $style.wrap,
-      { [$style.highScore]: $props.score * 100 >= 66 },
+      { [$style.highScore]: $props.score >= 66 },
       {
-        [$style.nomalScore]: 66 > $props.score * 100 && $props.score * 100 > 33,
+        [$style.nomalScore]: 66 > $props.score && $props.score > 33,
       },
-      { [$style.lowScore]: 33 >= $props.score * 100 },
+      { [$style.lowScore]: 33 >= $props.score },
     ]"
   >
     <p>{{ characterName }}</p>
