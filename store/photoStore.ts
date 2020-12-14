@@ -1,15 +1,7 @@
 import { MutationTree, GetterTree } from 'vuex'
 import personality from '@/assets/personality.json'
+import { Personality, PersonalityItem } from '@/extentions/personality'
 import { RootState } from '.'
-
-type Personality = {
-  wise: number
-  easygoing: number
-  naughty: number
-  energetic: number
-  kindness: number
-  affable: number
-}
 
 type PhotoStore = {
   imageSrcs: string[]
@@ -95,5 +87,31 @@ export const getters: GetterTree<PhotoStore, RootState> = {
   GetImageCount(state) {
     mutations.IMAGES_COUNT(state)
     return state.count
+  },
+  getMaxPersonality(state): PersonalityItem {
+    let maxItem: PersonalityItem = 'wise'
+    const personality = state.personality
+
+    if (personality[maxItem] < personality.easygoing) {
+      maxItem = 'easygoing'
+    }
+
+    if (personality[maxItem] < personality.naughty) {
+      maxItem = 'naughty'
+    }
+
+    if (personality[maxItem] < personality.energetic) {
+      maxItem = 'energetic'
+    }
+
+    if (personality[maxItem] < personality.kindness) {
+      maxItem = 'kindness'
+    }
+
+    if (personality[maxItem] < personality.affable) {
+      maxItem = 'affable'
+    }
+
+    return maxItem
   },
 }

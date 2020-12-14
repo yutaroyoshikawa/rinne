@@ -1,11 +1,13 @@
 <template>
   <div
-    :class="{
-      [$style.wrap]: true,
-      [$style.highScore]: score >= 66,
-      [$style.nomalScore]: 66 > score && score > 33,
-      [$style.lowScore]: 33 >= score,
-    }"
+    :class="[
+      $style.wrap,
+      { [$style.highScore]: $props.score * 100 >= 66 },
+      {
+        [$style.nomalScore]: 66 > $props.score * 100 && $props.score * 100 > 33,
+      },
+      { [$style.lowScore]: 33 >= $props.score * 100 },
+    ]"
   >
     <p>{{ characterName }}</p>
   </div>
@@ -18,10 +20,9 @@ export default Vue.extend({
   name: 'CharacterCircle',
   props: {
     characterName: { type: String, default: 'name' },
-  },
-  computed: {
-    score() {
-      return Math.floor(Math.random() * 100) + 1
+    score: {
+      type: Number,
+      default: 0,
     },
   },
 })
