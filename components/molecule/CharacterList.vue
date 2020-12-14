@@ -60,11 +60,11 @@ export default Vue.extend({
         },
         {
           label: 'やんちゃ',
-          key: 'affable',
+          key: 'naughty',
         },
         {
           label: 'なつっこい',
-          key: 'naughty',
+          key: 'affable',
         },
       ],
     }
@@ -87,7 +87,7 @@ export default Vue.extend({
       const maxItemPersonality = (this.personality as Personality)[maxItemKey]
       const personality = this.personality as Personality
 
-      return {
+      const score = {
         wise: (personality.wise / maxItemPersonality) * 100,
         easygoing: (personality.easygoing / maxItemPersonality) * 100,
         naughty: (personality.naughty / maxItemPersonality) * 100,
@@ -95,6 +95,8 @@ export default Vue.extend({
         kindness: (personality.kindness / maxItemPersonality) * 100,
         affable: (personality.affable / maxItemPersonality) * 100,
       }
+
+      return score
     },
   },
 })
