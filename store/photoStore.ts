@@ -45,7 +45,7 @@ const getPersonalitySum: (
 }
 
 export const state = (): PhotoStore => {
-  const imageSrcs = ['0.jpg', '1.jpg', '2.jpg']
+  const imageSrcs = ['3.jpg', '4.jpg', '10.jpg']
   const personalitySum = getPersonalitySum(imageSrcs)
 
   return {
