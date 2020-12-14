@@ -73,7 +73,7 @@ export default Vue.extend({
     ...mapState('photoStore', ['personality']),
     ...mapGetters('photoStore', ['getMaxPersonality']),
     renderList(): Data['characters'] {
-      const pageTransitionState = (this.$store as any).state.pageTransitionState
+      const pageTransitionState = this.$store.state.pageTransitionState
       if (
         pageTransitionState === PageTransitionState.EXITING ||
         pageTransitionState === PageTransitionState.ENTERING
