@@ -77,10 +77,14 @@ export const actions: ActionTree<ArStore, RootState> = {
       setTimeout(() => {
         const talk = talkSample.find((item) => talkText.includes(item.input))
         if (talk) {
-          const maxPerfonality = this.app.store?.getters.photoStore
-            .getMaxPersonality as PersonalityItem
-          const resTalkText = talk.response[maxPerfonality]
-          commit(SET_TALK_RESPONSE, resTalkText)
+          const store = this.app.store
+          if (store) {
+            const maxPerfonality = store.getters[
+              'photoStore/getMaxPersonality'
+            ] as PersonalityItem
+            const resTalkText = talk.response[maxPerfonality]
+            commit(SET_TALK_RESPONSE, resTalkText)
+          }
         } else {
           commit(SET_TALK_RESPONSE, '何を言ってるのかわからないよ')
         }
