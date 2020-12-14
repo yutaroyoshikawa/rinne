@@ -1,14 +1,14 @@
 <template>
   <div :class="[$style.wrap, { [$style.pausedAr]: isPausedAr }]">
-    <!-- <div ref="responseTalk" :class="$style.responseTalkWrap">
-      <ResponseTalk />
-    </div> -->
     <ActionModal
       :show-action-modal="isOpenDetailsModal"
       modal-title="くわしく"
       @close="onCloseDetailsModal"
       @action="onDeleteImage(selectedImageIndex)"
     >
+      <p :class="$style.comment">
+        {{ selectedPersonalityComment(imageSrcs[selectedImageIndex]) }}
+      </p>
       <img
         :class="$style.detailsImage"
         :src="`/img/${imageSrcs[selectedImageIndex]}`"
@@ -51,7 +51,7 @@ import { mapState } from 'vuex'
 import { REMOVE_IMAGE } from '@/store/photoStore'
 import { LOADEDND_AFRAME } from '@/store/ar'
 import ActionModal from '@/components/molecule/actionModal.vue'
-// import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
+import personality from '@/assets/personality.json'
 import Ar from '@/components/molecule/Ar.vue'
 import PresenAr from '@/components/molecule/PresenAr.vue'
 import OpacityTransition from '@/components/atoms/transitions/OpacityTransition.vue'
@@ -65,7 +65,6 @@ export default Vue.extend({
   name: 'ArAlbum',
   components: {
     ActionModal,
-    // ResponseTalk,
     Ar,
     PresenAr,
     OpacityTransition,
@@ -104,6 +103,13 @@ export default Vue.extend({
     onRealityError() {
       this.$store.commit(`ar/${LOADEDND_AFRAME}`)
     },
+    selectedPersonalityComment(fileName: string): string {
+      const selected = personality.find((item) => item.fileName === fileName)
+      if (selected) {
+        return selected.comment
+      }
+      return ''
+    },
   },
 })
 </script>
@@ -140,5 +146,11 @@ export default Vue.extend({
 .modalWrap {
   position: relative;
   z-index: $modal-zindex;
+}
+
+.comment {
+  padding: 20px 0;
+  text-align: center;
+  color: $dark-base-color;
 }
 </style>
