@@ -41,10 +41,9 @@ export default Vue.extend({
     },
   },
   computed: {
-    isExiting() {
+    isExiting(): boolean {
       return (
-        (this.$store as any).state.pageTransitionState ===
-        PageTransitionState.EXITING
+        this.$store.state.pageTransitionState === PageTransitionState.EXITING
       )
     },
   },

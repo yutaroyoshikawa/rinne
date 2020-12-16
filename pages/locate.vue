@@ -1,9 +1,9 @@
 <template>
   <div>
     <Loading v-if="isLoadingMap" />
-    <div :class="$style.wrap">
+    <ScaleCircleTransition :in="!isLoadingMap">
       <div ref="map" :class="$style.map"></div>
-    </div>
+    </ScaleCircleTransition>
   </div>
 </template>
 
@@ -11,6 +11,7 @@
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
 import Loading from '@/components/organisms/loading.vue'
+import ScaleCircleTransition from '@/components/atoms/transitions/ScaleCircleTransition.vue'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
@@ -22,12 +23,25 @@ type Data = {
 export default Vue.extend({
   components: {
     Loading,
+    ScaleCircleTransition,
   },
   data(): Data {
     return {
       map: undefined,
       isLoadingMap: true,
     }
+  },
+  watch: {
+    isLoadingMap() {
+      if (!this.isLoadingMap) {
+        setTimeout(() => {
+          const map = this.map
+          if (map) {
+            map.resize()
+          }
+        }, 50)
+      }
+    },
   },
   mounted() {
     this.isAllowedToGeolocation()
@@ -75,8 +89,12 @@ export default Vue.extend({
         const el = document.createElement('div')
         el.className = 'marker'
 
-        map.on('styledata', () => {
-          this.isLoadingMap = false
+        map.on('data', (event) => {
+          if (event.tile) {
+            if (event.tile.state === 'loaded') {
+              this.isLoadingMap = false
+            }
+          }
         })
 
         new mapboxgl.Marker(el).setLngLat([lng, lat]).addTo(map)

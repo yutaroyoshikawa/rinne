@@ -31,16 +31,21 @@ export default {
       },
     ],
     script: [
+      { src: 'https://cdn.8thwall.com/web/aframe/8frame-1.1.0.min.js' },
+      { src: 'https://cdn.8thwall.com/web/xrextras/xrextras.js' },
+      {
+        src:
+          'https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js',
+      },
       {
         src: `https://apps.8thwall.com/xrweb?appKey=${process.env.EIGHTHWALL_APP_KEY}`,
       },
-      { src: 'https://cdn.8thwall.com/web/aframe/8frame-0.9.2.min.js' },
-      { src: 'https://cdn.8thwall.com/web/xrextras/xrextras.js' },
     ],
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
+    'destyle.css',
     '@fortawesome/fontawesome-svg-core/styles.css',
     '@/assets/scss/mapbox.scss',
     '@/assets/scss/8thwall.scss',
@@ -55,7 +60,7 @@ export default {
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
-  components: true,
+  components: false,
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [

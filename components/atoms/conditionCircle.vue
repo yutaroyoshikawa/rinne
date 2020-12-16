@@ -21,9 +21,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import CharacterImageCircle from '@/components/atoms/characterImageCircle.vue'
 
 export default Vue.extend({
   name: 'ConditionCircle',
+  components: {
+    CharacterImageCircle,
+  },
   props: {
     score: { type: Number, default: 0 },
   },

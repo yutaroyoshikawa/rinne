@@ -1,109 +1,62 @@
 <template>
-  <div>
-    <div ref="responseTalk" :class="$style.responseTalkWrap">
-      <ResponseTalk />
-    </div>
-    <client-only>
-      <a-scene
-        presenar
-        xrextras-gesture-detector
-        xrextras-almost-there
-        xrextras-runtime-error
-        renderer="colorManagement: true"
-        xrweb="disableWorldTracking: true"
-      >
-        <a-assets ref="assets">
-          <img
-            v-for="(imageSrc, index) in imageSrcs"
-            :id="`renny${index}`"
-            :key="`renny${index}`"
-            :src="imageSrc"
-          />
-        </a-assets>
-        <a-camera
-          position="0 4 10"
-          raycaster="objects: .cantap"
-          cursor="fuse: false; rayOrigin: mouse;"
-        >
-        </a-camera>
-
-        <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
-
-        <a-light type="ambient" intensity="0.7"></a-light>
-
-        <a-entity xrextras-named-image-target="name: renny">
-          <template v-if="isFoundXrimage">
-            <a-plane width="1" height="1" material="src:#talkElement"></a-plane>
-            <a-image
-              v-for="(imageSrc, index) in imageSrcs"
-              :key="imageSrc"
-              class="cantap"
-              name="rennyImage"
-              :src="`#renny${index}`"
-              scale="0.0001 0.0001 0.0001"
-              :animation="{
-                property: 'scale',
-                to: '0.9 0.9 0.9',
-                easing: 'easeOutElastic',
-                dur: 3000,
-                delay: 300 * index - 1,
-              }"
-              :animation__2="{
-                property: 'position',
-                to: `${index - 1} ${isTapImage ? 0.3 : 0} 0.3`,
-                easing: 'easeOutElastic',
-                dur: 3000,
-                delay: 300 * index,
-              }"
-              @click.self="onClickImage(index)"
-            />
-          </template>
-        </a-entity>
-      </a-scene>
-    </client-only>
+  <div :class="[$style.wrap, { [$style.pausedAr]: isPausedAr }]">
     <ActionModal
       :show-action-modal="isOpenDetailsModal"
       modal-title="くわしく"
       @close="onCloseDetailsModal"
       @action="onDeleteImage(selectedImageIndex)"
     >
+      <p :class="$style.comment">
+        {{ selectedPersonalityComment(imageSrcs[selectedImageIndex]) }}
+      </p>
       <img
         :class="$style.detailsImage"
-        :src="imageSrcs[selectedImageIndex]"
+        :src="`/img/${imageSrcs[selectedImageIndex]}`"
         alt="選択した写真"
       />
       <p>この写真を削除しますか？</p>
     </ActionModal>
+    <div>
+      <OpacityTransition
+        :in="$props.in && !!arMode"
+        :enable-page-transition="false"
+      >
+        <template v-if="arMode === 'presen'">
+          <PresenAr
+            :in="$props.in"
+            @reality-ready="onRealityReady"
+            @reality-error="onRealityError"
+            @select-image="onSelectImage"
+          />
+        </template>
+        <template v-else-if="arMode === 'nomal'">
+          <Ar
+            :in="$props.in"
+            @reality-ready="onRealityReady"
+            @reality-error="onRealityError"
+            @select-image="onSelectImage"
+          />
+        </template>
+        <template v-else>
+          <!-- -->
+        </template>
+      </OpacityTransition>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-// import html2canvas from 'html2canvas'
 import { mapState } from 'vuex'
-import { LOADEDND_PRESENTATION_AFRAME } from '@/store/ar'
 import { REMOVE_IMAGE } from '@/store/photoStore'
+import { LOADEDND_AFRAME } from '@/store/ar'
 import ActionModal from '@/components/molecule/actionModal.vue'
-import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
-
-Vue.config.ignoredElements = [
-  'a-scene',
-  'a-entity',
-  'a-camera',
-  'a-box',
-  'a-ring',
-  'a-asset-items',
-  'a-assets',
-  'a-cursor',
-  'a-text',
-  'a-light',
-  'a-image',
-]
+import personality from '@/assets/personality.json'
+import Ar from '@/components/molecule/Ar.vue'
+import PresenAr from '@/components/molecule/PresenAr.vue'
+import OpacityTransition from '@/components/atoms/transitions/OpacityTransition.vue'
 
 type Data = {
-  isFoundXrimage: boolean
-  isTapImage: boolean
-  images: string[]
   isOpenDetailsModal: boolean
   selectedImageIndex?: number
 }
@@ -112,41 +65,27 @@ export default Vue.extend({
   name: 'ArAlbum',
   components: {
     ActionModal,
-    ResponseTalk,
+    Ar,
+    PresenAr,
+    OpacityTransition,
+  },
+  props: {
+    in: {
+      type: Boolean,
+      default: true,
+    },
   },
   data(): Data {
     return {
-      isFoundXrimage: false,
-      isTapImage: false,
-      images: ['renny', 'renny2', 'renny3'],
       isOpenDetailsModal: false,
       selectedImageIndex: undefined,
     }
   },
   computed: {
+    ...mapState('ar', ['arMode', 'isPausedAr']),
     ...mapState('photoStore', ['imageSrcs']),
-    ...mapState('ar', ['isLoadedPresentationAframe']),
-  },
-  mounted() {
-    setTimeout(() => {
-      this.$emit('reality-ready')
-    }, 3000)
-    if (!this.isLoadedPresentationAframe) {
-      this.initAframe()
-      this.$store.commit(`ar/${LOADEDND_PRESENTATION_AFRAME}`)
-    }
-    // const talkEl = this.$refs.responseTalk as HTMLDivElement
-    // const canvas = await html2canvas(talkEl)
-    // canvas.id = 'talkElement'
-    // const assetsEl = this.$refs.assets as HTMLElement
-    // assetsEl.appendChild(canvas)
   },
   methods: {
-    onClickImage(imageIndex: number) {
-      this.selectedImageIndex = imageIndex
-      this.isOpenDetailsModal = true
-      this.isTapImage = true
-    },
     onCloseDetailsModal() {
       this.isOpenDetailsModal = false
     },
@@ -154,36 +93,38 @@ export default Vue.extend({
       this.$store.commit(`photoStore/${REMOVE_IMAGE}`, imageIndex)
       this.isOpenDetailsModal = false
     },
-    initAframe() {
-      const AFRAME = window.AFRAME
-      if (AFRAME) {
-        const onXrimagefound: (ctx: any) => void = () => {
-          this.isFoundXrimage = true
-        }
-        const onXrimagelost: (ctx: any) => void = () => {
-          this.isFoundXrimage = false
-        }
-        const onRealityReady: (event: any) => void = (event) => {
-          this.$emit('reality-ready', event)
-        }
-        const onRealityError: (error: any) => void = (error) => {
-          this.$emit('reality-error', error)
-        }
-        AFRAME.registerComponent('presenar', {
-          init() {
-            this.el.sceneEl.addEventListener('xrimagefound', onXrimagefound)
-            this.el.sceneEl.addEventListener('xrimagelost', onXrimagelost)
-            this.el.sceneEl.addEventListener('realityready', onRealityReady)
-            this.el.sceneEl.addEventListener('realityerror', onRealityError)
-          },
-        })
+    onSelectImage(imageIndex: number) {
+      this.selectedImageIndex = imageIndex
+      this.isOpenDetailsModal = true
+    },
+    onRealityReady() {
+      this.$store.commit(`ar/${LOADEDND_AFRAME}`)
+    },
+    onRealityError() {
+      this.$store.commit(`ar/${LOADEDND_AFRAME}`)
+    },
+    selectedPersonalityComment(fileName: string): string {
+      const selected = personality.find((item) => item.fileName === fileName)
+      if (selected) {
+        return selected.comment
       }
+      return ''
     },
   },
 })
 </script>
 
 <style lang="scss" module>
+@import '@/assets/scss/variables.scss';
+
+.wrap {
+  transition: filter 0.2s ease;
+}
+
+.pausedAr {
+  filter: blur(4px);
+}
+
 .detailsImage {
   width: 100%;
 }
@@ -194,6 +135,22 @@ export default Vue.extend({
   width: 100%;
   display: flex;
   justify-content: center;
-  z-index: 50;
+  z-index: 41;
+}
+
+.arWrap {
+  position: relative;
+  z-index: 40;
+}
+
+.modalWrap {
+  position: relative;
+  z-index: $modal-zindex;
+}
+
+.comment {
+  padding: 20px 0;
+  text-align: center;
+  color: $dark-base-color;
 }
 </style>

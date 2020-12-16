@@ -7,11 +7,10 @@
   >
     <div v-if="isOpenTab" :class="$style.tabOveray" @click.self="closeTab">
       <div v-if="isOpenTab" :class="$style.tabContainer">
-        <div :class="$style.headerWrap">
-          <TabHeader />
+        <TabHeader @close="closeTab" />
+        <div :class="$style.contentWrap">
+          <portal-target name="tab" :class="$style.portal"> </portal-target>
         </div>
-
-        <portal-target name="tab" :class="$style.portal"> </portal-target>
       </div>
     </div>
   </transition>
@@ -50,21 +49,21 @@ export default Vue.extend({
   z-index: $header-zindex + 1;
 }
 
-.headerWrap {
-  position: sticky;
-  top: 0;
-  z-index: $header-zindex + 3;
-}
-
 .tabContainer {
   width: 100%;
   height: 83%;
-  background-color: #fff;
+  background-color: $base-color;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   position: fixed;
   z-index: $header-zindex + 2;
   bottom: 0;
+  overflow: hidden;
   border-radius: 10px 10px 0 0;
+}
+
+.contentWrap {
+  height: 100%;
+  width: 100%;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
