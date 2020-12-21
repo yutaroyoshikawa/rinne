@@ -32,7 +32,12 @@
 
         <a-light type="ambient" intensity="0.7"></a-light>
 
-        <a-obj-model src="#elephant-obj" mtl="#elephant-mtl" shadow />
+        <a-obj-model
+          scale="0.01 0.01 0.01"
+          src="#elephant-obj"
+          mtl="#elephant-mtl"
+          shadow
+        />
 
         <!-- <a-entity
           geometry="primitive: box"
