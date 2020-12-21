@@ -12,7 +12,8 @@
         xrextras-tap-recenter
       >
         <a-assets ref="assets">
-          <a-asset-item id="bear" src="/bear.gltf" />
+          <a-asset-item id="elephant-obj" src="/elephant.obj" />
+          <a-asset-item id="elephant-mtl" src="/materials.mtl" />
           <!-- <img
             v-for="(imageSrc, index) in imageSrcs"
             :id="`renny${index}`"
@@ -31,7 +32,7 @@
 
         <a-light type="ambient" intensity="0.7"></a-light>
 
-        <a-gltf-model src="#bear" shadow></a-gltf-model>
+        <a-obj-model src="#elephant-obj" mtl="#elephant-mtl" shadow />
 
         <!-- <a-entity
           geometry="primitive: box"
