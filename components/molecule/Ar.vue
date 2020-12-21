@@ -36,7 +36,6 @@
           scale="0.01 0.01 0.01"
           src="#elephant-obj"
           mtl="#elephant-mtl"
-          shadow
         />
 
         <!-- <a-entity
