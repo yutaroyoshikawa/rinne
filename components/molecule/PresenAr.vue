@@ -139,21 +139,21 @@ export default Vue.extend({
         }
       },
     },
-    isPausedAr: {
-      immediate: false,
-      handler(value: boolean) {
-        const XR8 = window.XR8
-        const sceneRef = this.$refs.scene as any
-        if (!XR8 || !sceneRef) {
-          return
-        }
-        if (value) {
-          sceneRef.pause()
-        } else if (XR8.isPaused()) {
-          sceneRef.play()
-        }
-      },
-    },
+    // isPausedAr: {
+    //   immediate: false,
+    //   handler(value: boolean) {
+    //     const XR8 = window.XR8
+    //     const sceneRef = this.$refs.scene as any
+    //     if (!XR8 || !sceneRef) {
+    //       return
+    //     }
+    //     if (value) {
+    //       sceneRef.pause()
+    //     } else if (XR8.isPaused()) {
+    //       sceneRef.play()
+    //     }
+    //   },
+    // },
   },
   mounted() {
     this.initAframe()
