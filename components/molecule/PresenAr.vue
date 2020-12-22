@@ -32,7 +32,7 @@
 
         <a-light type="ambient" intensity="0.7"></a-light>
 
-        <a-entity xrextras-named-image-target="name: renny">
+        <a-entity xrextras-named-image-target="name: rinne-device">
           <template v-if="isFoundXrimage">
             <a-entity
               geometry="primitive: plane; width: 2; height: 0.4"
