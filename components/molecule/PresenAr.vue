@@ -33,16 +33,11 @@
       <a-entity xrextras-named-image-target="name: rinne-device">
         <template v-if="isFoundXrimage">
           <a-entity
+            v-if="(isLoadingTalkResponseText || talkResponseText) && talkMode"
             geometry="primitive: plane; width: 2; height: 0.4"
-            scale="0.0001 0.0001 0.0001"
+            scale="1 1 1"
             material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
             position="0 3 0"
-            :animation="{
-              property: 'scale',
-              to: talkMode ? '1 1 1' : '0.0001 0.0001 0.0001',
-              easing: 'easeOutElastic',
-              dur: 5000,
-            }"
           />
 
           <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
