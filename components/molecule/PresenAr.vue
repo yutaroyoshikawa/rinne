@@ -1,89 +1,85 @@
 <template>
-  <div>
-    <ResponseTalk id-name="response" />
-    <client-only>
-      <a-scene
-        ref="scene"
-        presenar
-        update-html
-        xrextras-gesture-detector
-        xrextras-almost-there
-        xrextras-runtime-error
-        xrextras-tap-recenter
-        renderer="colorManagement: true"
-        xrweb="disableWorldTracking: true"
+  <client-only>
+    <a-scene
+      ref="scene"
+      presenar
+      update-html
+      xrextras-gesture-detector
+      xrextras-almost-there
+      xrextras-runtime-error
+      xrextras-tap-recenter
+      renderer="colorManagement: true"
+      xrweb="disableWorldTracking: true"
+    >
+      <a-assets ref="assets">
+        <img
+          v-for="(imageSrc, index) in imageSrcs"
+          :id="`renny${index}`"
+          :key="`renny${index}`"
+          :src="`/img/${imageSrc}`"
+        />
+      </a-assets>
+      <a-camera
+        position="0 4 10"
+        raycaster="objects: .cantap"
+        cursor="fuse: false; rayOrigin: mouse;"
       >
-        <a-assets ref="assets">
-          <img
-            v-for="(imageSrc, index) in imageSrcs"
-            :id="`renny${index}`"
-            :key="`renny${index}`"
-            :src="`/img/${imageSrc}`"
-          />
-        </a-assets>
-        <a-camera
-          position="0 4 10"
-          raycaster="objects: .cantap"
-          cursor="fuse: false; rayOrigin: mouse;"
-        >
-        </a-camera>
+      </a-camera>
 
-        <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
+      <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
 
-        <a-light type="ambient" intensity="0.7"></a-light>
+      <a-light type="ambient" intensity="0.7"></a-light>
 
-        <template v-if="!isPausedAr">
-          <a-entity xrextras-named-image-target="name: rinne-device">
-            <template v-if="isFoundXrimage">
-              <a-entity
-                geometry="primitive: plane; width: 2; height: 0.4"
-                scale="0.0001 0.0001 0.0001"
-                material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
-                position="0 3 0"
-                :animation="{
-                  property: 'scale',
-                  to: talkMode ? '1 1 1' : '0.0001 0.0001 0.0001',
-                  easing: 'easeOutElastic',
-                  dur: 5000,
-                }"
-              />
+      <template v-if="!isPausedAr">
+        <a-entity xrextras-named-image-target="name: rinne-device">
+          <template v-if="isFoundXrimage">
+            <a-entity
+              geometry="primitive: plane; width: 2; height: 0.4"
+              scale="0.0001 0.0001 0.0001"
+              material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
+              position="0 3 0"
+              :animation="{
+                property: 'scale',
+                to: talkMode ? '1 1 1' : '0.0001 0.0001 0.0001',
+                easing: 'easeOutElastic',
+                dur: 5000,
+              }"
+            />
 
-              <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
-              <a-image
-                v-for="(imageSrc, index) in imageSrcs"
-                :key="imageSrc"
-                class="cantap"
-                name="rennyImage"
-                :src="`#renny${index}`"
-                scale="0.0001 0.0001 0.0001"
-                :animation="{
-                  property: 'scale',
-                  to: !talkMode ? '0.9 0.9 0.9' : '0.0001 0.0001 0.0001',
-                  easing: 'easeOutElastic',
-                  dur: 3000,
-                  delay: 300 * index - 1,
-                }"
-                :animation__2="{
-                  property: 'position',
-                  to: !talkMode ? `${index - 1} 0 0.3` : '0.0001 0.0001 0.0001',
-                  easing: 'easeOutElastic',
-                  dur: 3000,
-                  delay: 300 * index,
-                }"
-                @click="$emit('select-image', index)"
-              />
-            </template>
-          </a-entity>
-        </template>
-      </a-scene>
-    </client-only>
-  </div>
+            <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
+            <a-image
+              v-for="(imageSrc, index) in imageSrcs"
+              :key="imageSrc"
+              class="cantap"
+              name="rennyImage"
+              :src="`#renny${index}`"
+              scale="0.0001 0.0001 0.0001"
+              :animation="{
+                property: 'scale',
+                to: !talkMode ? '0.9 0.9 0.9' : '0.0001 0.0001 0.0001',
+                easing: 'easeOutElastic',
+                dur: 3000,
+                delay: 300 * index - 1,
+              }"
+              :animation__2="{
+                property: 'position',
+                to: !talkMode ? `${index - 1} 0 0.3` : '0.0001 0.0001 0.0001',
+                easing: 'easeOutElastic',
+                dur: 3000,
+                delay: 300 * index,
+              }"
+              @click="$emit('select-image', index)"
+            />
+          </template>
+        </a-entity>
+      </template>
+    </a-scene>
+  </client-only>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
-import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
 
 Vue.config.ignoredElements = [
   'a-scene',
@@ -109,9 +105,6 @@ type Data = {
 
 export default Vue.extend({
   name: 'PresenAr',
-  components: {
-    ResponseTalk,
-  },
   props: {
     in: {
       type: Boolean,

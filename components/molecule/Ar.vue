@@ -1,6 +1,5 @@
 <template>
   <div style="height: 100%">
-    <ResponseTalk id-name="response" />
     <client-only>
       <a-scene
         ref="scene"
@@ -94,7 +93,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
-import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
 
 Vue.config.ignoredElements = [
   'a-scene',
@@ -119,9 +117,6 @@ type Data = {
 
 export default Vue.extend({
   name: 'Ar',
-  components: {
-    ResponseTalk,
-  },
   props: {
     in: {
       type: Boolean,
