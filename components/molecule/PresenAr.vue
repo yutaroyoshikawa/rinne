@@ -41,10 +41,7 @@
               position="0 3.5 0"
               :animation="{
                 property: 'scale',
-                to:
-                  (isLoadingTalkResponseText || !!talkResponseText) && talkMode
-                    ? '1 1 1'
-                    : '0.0001 0.0001 0.0001',
+                to: talkMode ? '1 1 1' : '0.0001 0.0001 0.0001',
                 easing: 'easeOutElastic',
                 dur: 5000,
               }"
