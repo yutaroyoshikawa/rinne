@@ -35,7 +35,7 @@
           <a-entity
             geometry="primitive: plane; width: 2; height: 0.4"
             scale="1 1 1"
-            material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
+            material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.0"
             position="0 3 0"
           />
           <a-image
