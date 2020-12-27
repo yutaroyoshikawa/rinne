@@ -59,7 +59,7 @@
           }"
           :animation__2="{
             property: 'position',
-            to: !talkMode ? `${index - 1} 0 0.3` : '0.0001 0.0001 0.0001',
+            to: !talkMode ? `${index - 1} 0 3` : '0.0001 0.0001 0.0001',
             easing: 'easeOutElastic',
             dur: 3000,
             delay: 300 * index,
