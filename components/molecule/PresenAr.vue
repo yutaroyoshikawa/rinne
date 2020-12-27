@@ -30,14 +30,16 @@
 
       <a-light type="ambient" intensity="0.7"></a-light>
 
+      <a-entity
+        xrextras-named-image-target="name: rinne-device"
+        geometry="primitive: plane; width: 2; height: 0.4"
+        scale="1 1 1"
+        material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.0"
+        position="0 3 0"
+      />
+
       <a-entity xrextras-named-image-target="name: rinne-device">
         <template v-if="isFoundXrimage">
-          <a-entity
-            geometry="primitive: plane; width: 2; height: 0.4"
-            scale="1 1 1"
-            material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.0"
-            position="0 3 0"
-          />
           <a-image
             v-for="(imageSrc, index) in imageSrcs"
             :key="imageSrc"
