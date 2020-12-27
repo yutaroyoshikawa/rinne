@@ -1,93 +1,74 @@
 <template>
-  <div style="height: 100%">
-    <client-only>
-      <a-scene
-        ref="scene"
-        nomal
-        xrweb
-        xrextras-gesture-detector
-        xrextras-almost-there
-        xrextras-runtime-error
-        xrextras-tap-recenter
-      >
-        <a-assets ref="assets">
-          <a-asset-item id="elephant-obj" src="/3dmodel/elephant.obj" />
-          <a-asset-item id="elephant-mtl" src="/3dmodel/materials.mtl" />
-          <!-- <img
-            v-for="(imageSrc, index) in imageSrcs"
-            :id="`renny${index}`"
-            :key="`renny${index}`"
-            :src="imageSrc"
-          /> -->
-        </a-assets>
-        <a-camera
-          position="0 4 10"
-          raycaster="objects: .cantap"
-          cursor="fuse: false; rayOrigin: mouse;"
-        >
-        </a-camera>
-
-        <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
-
-        <a-light type="ambient" intensity="0.7"></a-light>
-
-        <a-obj-model
-          scale="0.1 0.1 0.1"
-          src="#elephant-obj"
-          mtl="#elephant-mtl"
+  <client-only>
+    <a-scene
+      ref="scene"
+      normal
+      xrweb
+      xrextras-gesture-detector
+      xrextras-almost-there
+      xrextras-runtime-error
+      xrextras-tap-recenter
+    >
+      <a-assets ref="assets">
+        <a-asset-item id="elephant-obj" src="/3dmodel/elephant.obj" />
+        <a-asset-item id="elephant-mtl" src="/3dmodel/materials.mtl" />
+        <img
+          v-for="(imageSrc, index) in imageSrcs"
+          :id="`renny${index}`"
+          :key="`renny${index}`"
+          :src="`/img/${imageSrc}`"
         />
+      </a-assets>
+      <a-camera
+        position="0 4 10"
+        raycaster="objects: .cantap"
+        cursor="fuse: false; rayOrigin: mouse;"
+      >
+      </a-camera>
 
-        <!-- <a-entity
-          geometry="primitive: box"
-          material="shader: html; target: #response"
-        ></a-entity> -->
+      <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
 
-        <!-- <a-entity
-          id="ground"
+      <a-light type="ambient" intensity="0.7"></a-light>
+
+      <a-obj-model
+        scale="0.1 0.1 0.1"
+        src="#elephant-obj"
+        mtl="#elephant-mtl"
+      />
+
+      <a-entity>
+        <a-entity
+          geometry="primitive: plane; width: 2; height: 0.4"
+          scale="1 1 1"
+          material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
+          position="0 3 0"
+        />
+        <a-image
+          v-for="(imageSrc, index) in imageSrcs"
+          :key="imageSrc"
           class="cantap"
-          geometry="primitive: box"
-          material="color: #ffffff; transparent: true; opacity: 0.0"
-          scale="1000 2 1000"
-          position="0 -1 0"
-        /> -->
-
-        <!-- <a-entity
-          gltf-model="#teddyBearModel"
-          scale="3 3 3"
-          position="0 0 0"
-        ></a-entity> -->
-
-        <!-- <a-entity>
-          <template> -->
-        <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
-        <!-- <a-image
-              v-for="(imageSrc, index) in imageSrcs"
-              :key="imageSrc"
-              class="cantap"
-              name="rennyImage"
-              :src="`#renny${index}`"
-              scale="0.0001 0.0001 0.0001"
-              :animation="{
-                property: 'scale',
-                to: '0.9 0.9 0.9',
-                easing: 'easeOutElastic',
-                dur: 3000,
-                delay: 300 * index - 1,
-              }"
-              :animation__2="{
-                property: 'position',
-                to: `${index - 1} 0 0.3`,
-                easing: 'easeOutElastic',
-                dur: 3000,
-                delay: 300 * index,
-              }"
-              @click="onClickImage(index)"
-            />
-          </template>
-        </a-entity> -->
-      </a-scene>
-    </client-only>
-  </div>
+          name="rennyImage"
+          :src="`#renny${index}`"
+          scale="0.0001 0.0001 0.0001"
+          :animation="{
+            property: 'scale',
+            to: !talkMode ? '0.9 0.9 0.9' : '0.0001 0.0001 0.0001',
+            easing: 'easeOutElastic',
+            dur: 3000,
+            delay: 300 * index - 1,
+          }"
+          :animation__2="{
+            property: 'position',
+            to: !talkMode ? `${index - 1} 0 0.3` : '0.0001 0.0001 0.0001',
+            easing: 'easeOutElastic',
+            dur: 3000,
+            delay: 300 * index,
+          }"
+          @click="$emit('select-image', index)"
+        />
+      </a-entity>
+    </a-scene>
+  </client-only>
 </template>
 
 <script lang="ts">
@@ -111,8 +92,7 @@ Vue.config.ignoredElements = [
 ]
 
 type Data = {
-  isFoundXrimage: boolean
-  images: string[]
+  isTapImage: boolean
 }
 
 export default Vue.extend({
@@ -125,13 +105,18 @@ export default Vue.extend({
   },
   data(): Data {
     return {
-      isFoundXrimage: false,
-      images: ['renny', 'renny2', 'renny3'],
+      isTapImage: false,
     }
   },
   computed: {
     ...mapState('photoStore', ['imageSrcs']),
-    ...mapState('ar', ['isLoadedPresentationAframe', 'isPausedAr']),
+    ...mapState('ar', [
+      'isLoadedPresentationAframe',
+      'isLoadingTalkResponseText',
+      'isPausedAr',
+      'talkResponseText',
+      'talkMode',
+    ]),
   },
   watch: {
     in: {
@@ -182,22 +167,14 @@ export default Vue.extend({
     initAframe() {
       const AFRAME = window.AFRAME
       if (AFRAME) {
-        const onXrimagefound: (ctx: any) => void = () => {
-          this.isFoundXrimage = true
-        }
-        const onXrimagelost: (ctx: any) => void = () => {
-          // this.isFoundXrimage = false
-        }
         const onRealityReady: (event: any) => void = (event) => {
           this.$emit('reality-ready', event)
         }
         const onRealityError: (error: any) => void = (error) => {
           this.$emit('reality-error', error)
         }
-        AFRAME.registerComponent('nomal', {
+        AFRAME.registerComponent('normal', {
           init() {
-            this.el.sceneEl.addEventListener('xrimagefound', onXrimagefound)
-            this.el.sceneEl.addEventListener('xrimagelost', onXrimagelost)
             this.el.sceneEl.addEventListener('realityready', onRealityReady)
             this.el.sceneEl.addEventListener('realityerror', onRealityError)
           },

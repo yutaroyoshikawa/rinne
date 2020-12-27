@@ -90,7 +90,6 @@ Vue.config.ignoredElements = [
 type Data = {
   isFoundXrimage: boolean
   isTapImage: boolean
-  images: string[]
 }
 
 export default Vue.extend({
@@ -105,7 +104,6 @@ export default Vue.extend({
     return {
       isFoundXrimage: false,
       isTapImage: false,
-      images: ['renny', 'renny2', 'renny3'],
     }
   },
   computed: {
