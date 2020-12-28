@@ -31,11 +31,10 @@
       <a-light type="ambient" intensity="0.7"></a-light>
 
       <a-entity
-        xrextras-named-image-target="name: rinne-device"
         geometry="primitive: plane; width: 2; height: 0.4"
-        scale="1 1 1"
+        :scale="talkMode ? '1 1 1' : '0 0 0'"
         material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.0"
-        position="0 3 0"
+        position="0 10 0"
       />
 
       <a-entity xrextras-named-image-target="name: rinne-device">
