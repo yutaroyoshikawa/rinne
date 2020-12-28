@@ -149,6 +149,7 @@ export default Vue.extend({
             audio: true,
           })
           .then((stream) => {
+            this.mediaStream = stream
             const AudioRecorder = module.default
             const recorder = new AudioRecorder(stream, {
               audioBitsPerSecond: AUDIO_SAMPLE_RATE,
