@@ -23,8 +23,7 @@
         position="0 4 10"
         raycaster="objects: .cantap"
         cursor="fuse: false; rayOrigin: mouse;"
-      >
-      </a-camera>
+      />
 
       <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
 
@@ -34,7 +33,7 @@
         geometry="primitive: plane; width: 2; height: 0.4"
         :scale="talkMode ? '1 1 1' : '0 0 0'"
         material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.0"
-        position="0 10 0"
+        position="0 5 0"
       />
 
       <a-entity xrextras-named-image-target="name: rinne-device">
