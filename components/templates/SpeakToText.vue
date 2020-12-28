@@ -118,12 +118,12 @@ export default Vue.extend({
     }
   },
   mounted() {
-    document.addEventListener('visibilitychange', this.disableMediadevices)
+    document.addEventListener('visibilitychange', this.disabledMediadevices)
   },
   beforeDestroy() {
     chunks = undefined
     this.$store.dispatch(`ar/${REQUEST_TALK_TEXT}`, '')
-    document.removeEventListener('visibilitychange', this.disableMediadevices)
+    document.removeEventListener('visibilitychange', this.disabledMediadevices)
   },
   methods: {
     disabledMediadevices(): void {
