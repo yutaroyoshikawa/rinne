@@ -101,6 +101,15 @@ export default Vue.extend({
       const visibility = document.visibilityState
       if (visibility === 'hidden') {
         if (!this.isPausedAr) {
+          navigator.mediaDevices
+            .getUserMedia({ video: true })
+            .then((stream) => {
+              stream.getVideoTracks().forEach((track) => {
+                if (track.enabled) {
+                  track.stop()
+                }
+              })
+            })
           this.$store.commit(`ar/${PAUSE_AR}`)
         }
       } else if (visibility === 'visible') {

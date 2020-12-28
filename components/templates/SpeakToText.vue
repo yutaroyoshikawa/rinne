@@ -118,22 +118,37 @@ export default Vue.extend({
     }
   },
   mounted() {
-    document.addEventListener('visibilitychange', this.disabledMediadevices)
+    document.addEventListener('visibilitychange', this.onChangeVisibilityState)
   },
   beforeDestroy() {
     chunks = undefined
     this.$store.dispatch(`ar/${REQUEST_TALK_TEXT}`, '')
-    document.removeEventListener('visibilitychange', this.disabledMediadevices)
+    document.removeEventListener(
+      'visibilitychange',
+      this.onChangeVisibilityState
+    )
+    this.disableMediadevice()
   },
   methods: {
-    disabledMediadevices(): void {
+    onChangeVisibilityState(): void {
       const visibility = document.visibilityState
+      if (visibility === 'hidden') {
+        this.disableMediadevice()
+      } else {
+        this.initRecorder()
+      }
+    },
+    disableMediadevice() {
       const stream = this.mediaStream
       if (stream) {
-        if (visibility === 'hidden') {
-          stream.getAudioTracks().forEach((track) => (track.enabled = false))
-        } else {
-          stream.getAudioTracks().forEach((track) => (track.enabled = true))
+        stream.getAudioTracks().forEach((track) => track.stop())
+        if (this.recorder) {
+          this.recorder.removeEventListener(
+            'dataavailable',
+            this.onDataAvailable
+          )
+          this.recorder.removeEventListener('stop', this.onStopRecorder)
+          this.recorder = undefined
         }
       }
     },
@@ -155,31 +170,33 @@ export default Vue.extend({
               audioBitsPerSecond: AUDIO_SAMPLE_RATE,
               mimeType: 'audio/wav',
             })
-            recorder.addEventListener('dataavailable', (event: any) => {
-              if (event.data.size > 0 && chunks) {
-                chunks.push(event.data)
-              }
-            })
-            recorder.addEventListener('stop', async () => {
-              // 集音したものから音声データを作成する
-              try {
-                const base64 = await this.encodeBase64(new Blob(chunks))
-                const speechText = await this.getSpeechText(base64)
-                this.speechTextResult = speechText
-              } catch (error) {
-                this.$emit('error', error)
-              } finally {
-                chunks = []
-                this.isLoading = false
-                this.$store.commit(`ar/${PLAY_AR}`)
-              }
-            })
+            recorder.addEventListener('dataavailable', this.onDataAvailable)
+            recorder.addEventListener('stop', this.onStopRecorder)
             this.recorder = recorder
           })
           .catch((error) => {
             this.$emit('error', error)
           })
       })
+    },
+    onDataAvailable(event: any) {
+      if (event.data.size > 0 && chunks) {
+        chunks.push(event.data)
+      }
+    },
+    async onStopRecorder() {
+      // 集音したものから音声データを作成する
+      try {
+        const base64 = await this.encodeBase64(new Blob(chunks))
+        const speechText = await this.getSpeechText(base64)
+        this.speechTextResult = speechText
+      } catch (error) {
+        this.$emit('error', error)
+      } finally {
+        chunks = []
+        this.isLoading = false
+        this.$store.commit(`ar/${PLAY_AR}`)
+      }
     },
     encodeBase64(blobData: Blob): Promise<string> {
       return new Promise((resolve, reject) => {
