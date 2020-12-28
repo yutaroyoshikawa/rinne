@@ -158,26 +158,31 @@ export default Vue.extend({
       this.$router.replace(`${location.pathname}?${params}`)
     },
     initRecorder() {
-      import('audio-recorder-polyfill').then((module) => {
-        navigator.mediaDevices
-          .getUserMedia({
-            audio: true,
-          })
-          .then((stream) => {
-            this.mediaStream = stream
-            const AudioRecorder = module.default
-            const recorder = new AudioRecorder(stream, {
-              audioBitsPerSecond: AUDIO_SAMPLE_RATE,
-              mimeType: 'audio/wav',
+      if (
+        typeof this.recorder === 'undefined' &&
+        typeof this.mediaStream === 'undefined'
+      ) {
+        import('audio-recorder-polyfill').then((module) => {
+          navigator.mediaDevices
+            .getUserMedia({
+              audio: true,
             })
-            recorder.addEventListener('dataavailable', this.onDataAvailable)
-            recorder.addEventListener('stop', this.onStopRecorder)
-            this.recorder = recorder
-          })
-          .catch((error) => {
-            this.$emit('error', error)
-          })
-      })
+            .then((stream) => {
+              this.mediaStream = stream
+              const AudioRecorder = module.default
+              const recorder = new AudioRecorder(stream, {
+                audioBitsPerSecond: AUDIO_SAMPLE_RATE,
+                mimeType: 'audio/wav',
+              })
+              recorder.addEventListener('dataavailable', this.onDataAvailable)
+              recorder.addEventListener('stop', this.onStopRecorder)
+              this.recorder = recorder
+            })
+            .catch((error) => {
+              this.$emit('error', error)
+            })
+        })
+      }
     },
     onDataAvailable(event: any) {
       if (event.data.size > 0 && chunks) {
