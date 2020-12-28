@@ -52,6 +52,7 @@ type Data = {
   speechTextResult?: string
   isLoading: boolean
   isRecording: boolean
+  mediaStream?: MediaStream
 }
 
 let chunks: any[] | undefined = []
@@ -78,6 +79,7 @@ export default Vue.extend({
       speechTextResult: undefined,
       isLoading: false,
       isRecording: false,
+      mediaStream: undefined,
     }
   },
   computed: {
@@ -118,6 +120,10 @@ export default Vue.extend({
   beforeDestroy() {
     chunks = undefined
     this.$store.dispatch(`ar/${REQUEST_TALK_TEXT}`, '')
+    const stream = this.mediaStream
+    if (stream) {
+      stream.getAudioTracks().forEach((track) => track.stop())
+    }
   },
   methods: {
     onCancel() {

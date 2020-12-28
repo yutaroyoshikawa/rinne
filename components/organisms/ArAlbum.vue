@@ -52,7 +52,7 @@
 import Vue from 'vue'
 import { mapState } from 'vuex'
 import { REMOVE_IMAGE } from '@/store/photoStore'
-import { LOADEDND_AFRAME } from '@/store/ar'
+import { LOADEDND_AFRAME, PAUSE_AR, PLAY_AR } from '@/store/ar'
 import ActionModal from '@/components/molecule/actionModal.vue'
 import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
 import personality from '@/assets/personality.json'
@@ -90,7 +90,25 @@ export default Vue.extend({
     ...mapState('ar', ['arMode', 'isPausedAr']),
     ...mapState('photoStore', ['imageSrcs']),
   },
+  mounted() {
+    document.addEventListener('visibilitychange', this.disableMediadevices)
+  },
+  beforeDestroy() {
+    document.removeEventListener('visibilitychange', this.disableMediadevices)
+  },
   methods: {
+    disableMediadevices(): void {
+      const visibility = document.visibilityState
+      if (visibility === 'hidden') {
+        if (!this.isPausedAr) {
+          this.$store.commit(`ar/${PAUSE_AR}`)
+        }
+      } else if (visibility === 'visible') {
+        if (this.isPausedAr) {
+          this.$store.commit(`ar/${PLAY_AR}`)
+        }
+      }
+    },
     onCloseDetailsModal() {
       this.isOpenDetailsModal = false
     },
