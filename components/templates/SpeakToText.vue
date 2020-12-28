@@ -117,15 +117,26 @@ export default Vue.extend({
       this.initRecorder()
     }
   },
+  mounted() {
+    document.addEventListener('visibilitychange', this.disableMediadevices)
+  },
   beforeDestroy() {
     chunks = undefined
     this.$store.dispatch(`ar/${REQUEST_TALK_TEXT}`, '')
-    const stream = this.mediaStream
-    if (stream) {
-      stream.getAudioTracks().forEach((track) => track.stop())
-    }
+    document.removeEventListener('visibilitychange', this.disableMediadevices)
   },
   methods: {
+    disabledMediadevices(): void {
+      const visibility = document.visibilityState
+      const stream = this.mediaStream
+      if (stream) {
+        if (visibility === 'hidden') {
+          stream.getAudioTracks().forEach((track) => (track.enabled = false))
+        } else {
+          stream.getAudioTracks().forEach((track) => (track.enabled = true))
+        }
+      }
+    },
     onCancel() {
       const params = new URLSearchParams(location.search.slice(1))
       params.delete('talkmode')
