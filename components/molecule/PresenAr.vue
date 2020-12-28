@@ -30,14 +30,9 @@
       <a-light type="ambient" intensity="0.7"></a-light>
 
       <a-entity
+        v-if="talkMode"
         geometry="primitive: plane; width: 2; height: 0.4"
-        scale="0.0001 0.0001 0.0001"
-        :animation="{
-          property: 'scale',
-          to: talkMode ? '1 1 1' : '0 0 0',
-          easing: 'easeOutElastic',
-          dur: 3000,
-        }"
+        scale="1 1 1"
         material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.0"
         position="0 5 0"
       />
