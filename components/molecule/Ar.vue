@@ -46,7 +46,7 @@
           dur: 3000,
         }"
         material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.0"
-        position="0 3 0"
+        position="0 2 0"
       />
 
       <a-entity>
