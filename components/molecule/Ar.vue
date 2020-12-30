@@ -10,7 +10,7 @@
       xrextras-tap-recenter
     >
       <a-assets ref="assets">
-        <a-asset-item id="elephant-obj" src="/3dmodel/elephant.obj" />
+        <a-asset-item id="elephant-obj" src="/3dmodel/renny.obj" />
         <a-asset-item id="elephant-mtl" src="/3dmodel/materials.mtl" />
         <img
           v-for="(imageSrc, index) in imageSrcs"
