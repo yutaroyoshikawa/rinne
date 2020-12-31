@@ -41,7 +41,7 @@ export default Vue.extend({
     '$props.in': {
       handler(value) {
         if (!value) {
-          setTimeout(() => (this.close = true), 600)
+          timer = setTimeout(() => (this.close = true), 600)
         }
       },
       immediate: true,
