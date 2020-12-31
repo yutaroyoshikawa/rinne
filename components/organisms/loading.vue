@@ -19,6 +19,8 @@ type Data = {
   close: boolean
 }
 
+let timer: ReturnType<typeof setTimeout>
+
 export default Vue.extend({
   components: {
     ScaleTransition,
@@ -44,6 +46,11 @@ export default Vue.extend({
       },
       immediate: true,
     },
+  },
+  beforeDestroy() {
+    if (timer) {
+      clearTimeout(timer)
+    }
   },
 })
 </script>
