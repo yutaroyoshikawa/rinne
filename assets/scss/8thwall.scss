@@ -6,6 +6,10 @@
   background-color: $dark-base-color;
   font-family: 'Kosugi Maru', 'Source Sans Pro', -apple-system,
   BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  animation-name: scaleIn;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.89, -0.11, 0.07, 1.4);
+  animation-fill-mode: forwards;
 }
 
 .prompt-button-8w {
@@ -19,4 +23,13 @@
 .button-primary-8w {
   background-color: $secondary-color;
   color: #fff;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
 }
