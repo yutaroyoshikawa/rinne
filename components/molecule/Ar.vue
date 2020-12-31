@@ -30,50 +30,52 @@
 
       <a-light type="ambient" intensity="0.7"></a-light>
 
-      <a-obj-model
-        scale="0.05 0.05 0.05"
-        src="#elephant-obj"
-        mtl="#elephant-mtl"
-      />
+      <template v-if="closeSplash">
+        <a-obj-model
+          scale="0.05 0.05 0.05"
+          src="#elephant-obj"
+          mtl="#elephant-mtl"
+        />
 
-      <a-entity
-        geometry="primitive: plane; width: 2; height: 0.4"
-        scale="0.0001 0.0001 0.0001"
-        :animation="{
-          property: 'scale',
-          to: talkMode ? '1 1 1' : '0 0 0',
-          easing: 'easeOutElastic',
-          dur: 3000,
-        }"
-        material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.0"
-        position="0 2 0"
-      />
-
-      <a-entity>
-        <a-image
-          v-for="(imageSrc, index) in imageSrcs"
-          :key="imageSrc"
-          class="cantap"
-          name="rennyImage"
-          :src="`#renny${index}`"
+        <a-entity
+          geometry="primitive: plane; width: 2; height: 0.4"
           scale="0.0001 0.0001 0.0001"
           :animation="{
             property: 'scale',
-            to: !talkMode ? '0.9 0.9 0.9' : '0.0001 0.0001 0.0001',
+            to: talkMode ? '1 1 1' : '0 0 0',
             easing: 'easeOutElastic',
             dur: 3000,
-            delay: 300 * index - 1,
           }"
-          :animation__2="{
-            property: 'position',
-            to: !talkMode ? `${index - 1} 0 3` : '0.0001 0.0001 0.0001',
-            easing: 'easeOutElastic',
-            dur: 3000,
-            delay: 300 * index,
-          }"
-          @click="$emit('select-image', index)"
+          material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.0"
+          position="0 2 0"
         />
-      </a-entity>
+
+        <a-entity>
+          <a-image
+            v-for="(imageSrc, index) in imageSrcs"
+            :key="imageSrc"
+            class="cantap"
+            name="rennyImage"
+            :src="`#renny${index}`"
+            scale="0.0001 0.0001 0.0001"
+            :animation="{
+              property: 'scale',
+              to: !talkMode ? '0.9 0.9 0.9' : '0.0001 0.0001 0.0001',
+              easing: 'easeOutElastic',
+              dur: 3000,
+              delay: 300 * index - 1,
+            }"
+            :animation__2="{
+              property: 'position',
+              to: !talkMode ? `${index - 1} 0 3` : '0.0001 0.0001 0.0001',
+              easing: 'easeOutElastic',
+              dur: 3000,
+              delay: 300 * index,
+            }"
+            @click="$emit('select-image', index)"
+          />
+        </a-entity>
+      </template>
     </a-scene>
   </client-only>
 </template>
@@ -95,7 +97,7 @@ Vue.config.ignoredElements = [
   'a-light',
   'a-image',
   'a-plane',
-  'a-gltf-model',
+  'a-obj-model',
 ]
 
 type Data = {
@@ -124,6 +126,7 @@ export default Vue.extend({
       'talkResponseText',
       'talkMode',
     ]),
+    ...mapState(['closeSplash']),
   },
   watch: {
     in: {

@@ -10,12 +10,10 @@
     </NotifyModal>
 
     <template>
-      <template v-if="!isLoadedAframe">
-        <Loading />
-      </template>
-      <template v-else>
+      <Loading :in="closeSplash && !isLoadedAframe" />
+      <template v-if="closeSplash && isLoadedAframe">
         <div :class="$style.talkWrap">
-          <TalkButton :in="!talkMode && isEnter" />
+          <TalkButton :in="!talkMode && isEnter" @click="onToggleTalkMode" />
         </div>
         <SpeakToText
           :in="talkMode && isEnter"
@@ -43,7 +41,6 @@ import { PageTransitionState } from '@/extentions/pageTransitionState'
 import Loading from '@/components/organisms/loading.vue'
 import IndexMenu from '@/components/molecule/IndexMenu.vue'
 import TalkButton from '@/components/atoms/TalkButton.vue'
-import SpeakToText from '@/components/templates/SpeakToText.vue'
 import NotifyModal from '@/components/molecule/notifyModal.vue'
 import { mapState } from 'vuex'
 
@@ -51,7 +48,10 @@ type Data = {
   isReadyReality: boolean
   errorMessage?: any
   isOpenErrorModal: boolean
+  isShowSpeakToText: boolean
 }
+
+let timer: ReturnType<typeof setTimeout>
 
 export default Vue.extend({
   name: 'Top',
@@ -59,7 +59,7 @@ export default Vue.extend({
     Loading,
     IndexMenu,
     TalkButton,
-    SpeakToText,
+    SpeakToText: () => import('@/components/templates/SpeakToText.vue'),
     NotifyModal,
   },
   data(): Data {
@@ -67,10 +67,12 @@ export default Vue.extend({
       isReadyReality: false,
       errorMessage: undefined,
       isOpenErrorModal: false,
+      isShowSpeakToText: false,
     }
   },
   computed: {
     ...mapState('ar', ['isLoadedAframe', 'talkMode']),
+    ...mapState(['closeSplash']),
     isEnter(): boolean {
       return (
         this.$store.state.pageTransitionState === PageTransitionState.ENTERED ||
@@ -93,6 +95,7 @@ export default Vue.extend({
     const talkmodeQuery = this.$route.query.talkmode
     if (talkmodeQuery && talkmodeQuery === '1') {
       this.$store.commit(`ar/${ENABLE_TALK_MODE}`)
+      this.isShowSpeakToText = true
     }
   },
   beforeCreate() {
@@ -105,7 +108,18 @@ export default Vue.extend({
       }
     }
   },
+  beforeDestroy() {
+    if (timer) {
+      clearTimeout(timer)
+    }
+  },
   methods: {
+    onToggleTalkMode() {
+      timer = setTimeout(
+        () => (this.isShowSpeakToText = !this.isShowSpeakToText),
+        600
+      )
+    },
     onRealityReady() {
       this.isReadyReality = true
     },
@@ -116,6 +130,7 @@ export default Vue.extend({
     },
     onCancelSpeak() {
       this.$router.push('/')
+      this.onToggleTalkMode()
     },
     onError(error: Error) {
       const message = this.getErrorMessage(error)

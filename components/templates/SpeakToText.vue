@@ -150,6 +150,8 @@ export default Vue.extend({
           this.recorder.removeEventListener('stop', this.onStopRecorder)
           this.recorder = undefined
           this.mediaStream = undefined
+          chunks = []
+          this.isLoading = false
         }
       }
     },

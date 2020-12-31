@@ -23,22 +23,20 @@
           :in="$props.in && !!arMode"
           :enable-page-transition="false"
         >
-          <template v-if="arMode === 'presen'">
-            <PresenAr
-              :in="$props.in"
-              @reality-ready="onRealityReady"
-              @reality-error="onRealityError"
-              @select-image="onSelectImage"
-            />
-          </template>
-          <template v-else-if="arMode === 'nomal'">
-            <Ar
-              :in="$props.in"
-              @reality-ready="onRealityReady"
-              @reality-error="onRealityError"
-              @select-image="onSelectImage"
-            />
-          </template>
+          <PresenAr
+            v-if="arMode === 'presen'"
+            :in="$props.in"
+            @reality-ready="onRealityReady"
+            @reality-error="onRealityError"
+            @select-image="onSelectImage"
+          />
+          <Ar
+            v-else-if="arMode === 'nomal'"
+            :in="$props.in"
+            @reality-ready="onRealityReady"
+            @reality-error="onRealityError"
+            @select-image="onSelectImage"
+          />
           <template v-else>
             <!-- -->
           </template>
@@ -56,8 +54,6 @@ import { LOADEDND_AFRAME, PAUSE_AR, PLAY_AR } from '@/store/ar'
 import ActionModal from '@/components/molecule/actionModal.vue'
 import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
 import personality from '@/assets/personality.json'
-import Ar from '@/components/molecule/Ar.vue'
-import PresenAr from '@/components/molecule/PresenAr.vue'
 import OpacityTransition from '@/components/atoms/transitions/OpacityTransition.vue'
 
 type Data = {
@@ -69,8 +65,8 @@ export default Vue.extend({
   name: 'ArAlbum',
   components: {
     ActionModal,
-    Ar,
-    PresenAr,
+    Ar: () => import('@/components/molecule/Ar.vue'),
+    PresenAr: () => import('@/components/molecule/PresenAr.vue'),
     OpacityTransition,
     ResponseTalk,
   },

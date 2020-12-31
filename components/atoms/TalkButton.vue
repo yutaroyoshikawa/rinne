@@ -29,6 +29,7 @@ export default Vue.extend({
       const params = new URLSearchParams(location.search.slice(1))
       params.append('talkmode', '1')
       this.$router.replace(`${location.pathname}?${params}`)
+      this.$emit('click')
     },
   },
 })

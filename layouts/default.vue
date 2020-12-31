@@ -1,6 +1,11 @@
 <template>
   <div :class="$style.app">
     <div :class="[$style.mainContainer, { [$style.openTab]: isOpenTab }]">
+      <Splash />
+
+      <portal-target name="loader" :class="$style.loaderPortal">
+      </portal-target>
+
       <header :class="$style.header">
         <HeaderTitle />
       </header>
@@ -22,6 +27,7 @@ import { ENABLE_DEVELOP_MODE } from '@/store/index'
 import HeaderTitle from '@/components/atoms/HeaderTitle.vue'
 import OverlayTab from '@/components/molecule/OverlayTab.vue'
 import ArAlbum from '@/components/organisms/ArAlbum.vue'
+import Splash from '@/components/templates/Splash.vue'
 
 export default Vue.extend({
   name: 'App',
@@ -29,6 +35,7 @@ export default Vue.extend({
     HeaderTitle,
     OverlayTab,
     ArAlbum,
+    Splash,
   },
   computed: {
     ...mapState(['isOpenTab']),
@@ -87,5 +94,10 @@ export default Vue.extend({
   max-height: calc(100% - #{$header-height});
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+}
+
+.loaderPortal {
+  height: 100%;
+  width: 100%;
 }
 </style>

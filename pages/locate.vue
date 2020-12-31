@@ -1,35 +1,40 @@
 <template>
   <div>
-    <Loading v-if="isLoadingMap" />
-    <ScaleCircleTransition :in="!isLoadingMap">
+    <Loading :in="closeSplash && isLoadingMap" />
+    <OpacityTransition :in="!isLoadingMap">
       <div ref="map" :class="$style.map"></div>
-    </ScaleCircleTransition>
+    </OpacityTransition>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapState } from 'vuex'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
+import { LOADEDND_MAP } from '@/store/map'
 import Loading from '@/components/organisms/loading.vue'
-import ScaleCircleTransition from '@/components/atoms/transitions/ScaleCircleTransition.vue'
-import mapboxgl from 'mapbox-gl'
+import OpacityTransition from '@/components/atoms/transitions/OpacityTransition.vue'
+import { Marker, Map } from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 type Data = {
-  map?: mapboxgl.Map
+  map?: Map
   isLoadingMap: boolean
 }
 
 export default Vue.extend({
   components: {
     Loading,
-    ScaleCircleTransition,
+    OpacityTransition,
   },
   data(): Data {
     return {
       map: undefined,
       isLoadingMap: true,
     }
+  },
+  computed: {
+    ...mapState(['closeSplash']),
   },
   watch: {
     isLoadingMap() {
@@ -75,15 +80,13 @@ export default Vue.extend({
     createMap(lat: number, lng: number) {
       const mapRef = this.$refs.map as HTMLDivElement | undefined
       const mapboxAccessToken = process.env.MAPBOX_ACCESS_TOKEN
-      if (mapboxAccessToken) {
-        mapboxgl.accessToken = mapboxAccessToken
-      }
-      if (mapRef) {
-        const map = new mapboxgl.Map({
+      if (mapboxAccessToken && mapRef) {
+        const map = new Map({
           container: mapRef,
           style: 'mapbox://styles/chi24601/ckh5sf0y600l419pdxff45jj8',
           center: [lng, lat],
           zoom: 18,
+          accessToken: mapboxAccessToken,
         })
 
         const el = document.createElement('div')
@@ -93,11 +96,12 @@ export default Vue.extend({
           if (event.tile) {
             if (event.tile.state === 'loaded') {
               this.isLoadingMap = false
+              this.$store.commit(`map/${LOADEDND_MAP}`)
             }
           }
         })
 
-        new mapboxgl.Marker(el).setLngLat([lng, lat]).addTo(map)
+        new Marker(el).setLngLat([lng, lat]).addTo(map)
         this.map = map
       }
     },
