@@ -1,18 +1,21 @@
 <template>
-  <portal to="loader">
-    <div v-if="!close" :class="$style.loader">
-      <div :class="$style.logoWrap">
-        <ScaleTransition :in="$props.in">
-          <Logo :repeat-animation="true" />
-        </ScaleTransition>
+  <OpacityTransition>
+    <portal to="loader">
+      <div v-if="!close" :class="$style.loader">
+        <div :class="$style.logoWrap">
+          <ScaleTransition :in="$props.in">
+            <Logo :repeat-animation="true" />
+          </ScaleTransition>
+        </div>
       </div>
-    </div>
-  </portal>
+    </portal>
+  </OpacityTransition>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import ScaleTransition from '@/components/atoms/transitions/ScaleTransition.vue'
+import OpacityTransition from '@/components/atoms/transitions/OpacityTransition.vue'
 import Logo from '@/components/atoms/Logo.vue'
 
 type Data = {
@@ -25,6 +28,7 @@ export default Vue.extend({
   components: {
     ScaleTransition,
     Logo,
+    OpacityTransition,
   },
   props: {
     in: {
@@ -65,7 +69,7 @@ export default Vue.extend({
   justify-content: center;
   align-items: center;
   position: fixed;
-  z-index: $splash-zindex - 1;
+  z-index: $header-zindex - 1;
   top: 0;
   left: 0;
   background-color: $base-color;
