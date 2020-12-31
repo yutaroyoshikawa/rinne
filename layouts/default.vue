@@ -49,6 +49,36 @@ export default Vue.extend({
       this.$store.commit(ENABLE_DEVELOP_MODE)
     }
   },
+  mounted() {
+    let inDom = false
+    const observer = new MutationObserver(() => {
+      const arPromptRef = document.querySelector('.prompt-box-8w')
+      if (arPromptRef instanceof Element) {
+        if (!inDom) {
+          const arPromptPRef = document.querySelector('.prompt-box-8w p')
+          const arPromptButtonRef = document.querySelector('.prompt-button-8w')
+          const arPromptPrimaryRef = document.querySelector(
+            '.button-primary-8w'
+          )
+          if (arPromptPRef) {
+            arPromptPRef.innerHTML =
+              '<strong>My new text goes here</strong><br/><br/>Press Approve to continue.'
+          }
+          if (arPromptButtonRef) {
+            arPromptButtonRef.innerHTML = 'Deny'
+          }
+          if (arPromptPrimaryRef) {
+            arPromptPrimaryRef.innerHTML = 'Approve'
+          }
+        }
+        inDom = true
+      } else if (inDom) {
+        inDom = false
+        observer.disconnect()
+      }
+    })
+    observer.observe(document.body, { childList: true })
+  },
 })
 </script>
 
