@@ -8,6 +8,8 @@
   animation-duration: 1s;
   animation-timing-function: cubic-bezier(0.89, -0.11, 0.07, 1.4);
   animation-fill-mode: forwards;
+  top: 58%;
+  left: 14%;
 }
 
 .prompt-button-8w {
@@ -20,7 +22,6 @@
 
 .button-primary-8w {
   background-color: $secondary-color !important;
-  color: #fff !important;
 }
 
 @keyframes scaleIn {
