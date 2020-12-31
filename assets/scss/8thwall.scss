@@ -1,4 +1,22 @@
+@import '@/assets/scss/variables.scss';
+
 .prompt-box-8w {
   position: absolute;
   z-index: 99999999999;
+  background-color: $dark-base-color;
+  font-family: 'Kosugi Maru', 'Source Sans Pro', -apple-system,
+  BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.prompt-button-8w {
+  border-radius: 30px;
+  width: 98px;
+  border: solid 1px $dark-base-color;
+  background-color: #fff;
+  color: $dark-base-color;
+}
+
+.button-primary-8w {
+  background-color: $secondary-color;
+  color: #fff;
 }

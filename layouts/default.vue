@@ -62,13 +62,13 @@ export default Vue.extend({
           )
           if (arPromptPRef) {
             arPromptPRef.innerHTML =
-              '<strong>My new text goes here</strong><br/><br/>Press Approve to continue.'
+              'サービスの利用にはモーションセンサーのアクセス許可が必要です'
           }
           if (arPromptButtonRef) {
-            arPromptButtonRef.innerHTML = 'Deny'
+            arPromptButtonRef.innerHTML = 'NG'
           }
           if (arPromptPrimaryRef) {
-            arPromptPrimaryRef.innerHTML = 'Approve'
+            arPromptPrimaryRef.innerHTML = 'OK'
           }
         }
         inDom = true
