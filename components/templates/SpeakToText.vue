@@ -297,7 +297,7 @@ export default Vue.extend({
 
 .cancelWrap {
   position: absolute;
-  top: 80px;
+  top: 25px;
   width: 100%;
   height: 45px;
   display: flex;

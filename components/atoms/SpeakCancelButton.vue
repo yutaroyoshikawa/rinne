@@ -28,6 +28,7 @@ export default Vue.extend({
   top: -20px;
   width: 100%;
   text-align: center;
+  color: $base-color;
 }
 
 .backButton {

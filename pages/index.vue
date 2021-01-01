@@ -160,14 +160,14 @@ export default Vue.extend({
   display: flex;
   justify-content: center;
   position: fixed;
-  top: 80px;
+  top: 25px;
   z-index: 10;
 }
 
 .menuWrap {
   width: 100%;
   position: fixed;
-  bottom: 50px;
+  bottom: 25px;
   z-index: 10;
 }
 </style>

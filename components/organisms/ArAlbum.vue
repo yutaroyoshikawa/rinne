@@ -18,11 +18,12 @@
         />
         <p>この写真を削除しますか？</p>
       </ActionModal>
-      <div>
-        <OpacityTransition
-          :in="$props.in && !!arMode"
-          :enable-page-transition="false"
-        >
+
+      <OpacityTransition
+        :in="$props.in && !!arMode"
+        :enable-page-transition="false"
+      >
+        <div :class="$style.arWrap">
           <PresenAr
             v-if="arMode === 'presen'"
             :in="$props.in"
@@ -40,8 +41,8 @@
           <template v-else>
             <!-- -->
           </template>
-        </OpacityTransition>
-      </div>
+        </div>
+      </OpacityTransition>
     </div>
   </div>
 </template>
@@ -167,8 +168,41 @@ export default Vue.extend({
 }
 
 .arWrap {
-  position: relative;
-  z-index: 40;
+  &::before {
+    content: '';
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(
+      0turn,
+      rgba($dark-base-color, 0) 0%,
+      rgba($dark-base-color, 0.1) 30%,
+      rgba($dark-base-color, 0.2) 50%,
+      rgba($dark-base-color, 0.4) 70%,
+      $dark-base-color 100%
+    );
+    position: fixed;
+    z-index: 40;
+    top: 0;
+    left: 0;
+  }
+
+  &::after {
+    content: '';
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(
+      0.5turn,
+      rgba($dark-base-color, 0) 0%,
+      rgba($dark-base-color, 0.1) 30%,
+      rgba($dark-base-color, 0.2) 50%,
+      rgba($dark-base-color, 0.4) 70%,
+      $dark-base-color 100%
+    );
+    position: fixed;
+    z-index: 40;
+    bottom: 0;
+    left: 0;
+  }
 }
 
 .modalWrap {
