@@ -171,18 +171,23 @@ export default Vue.extend({
           this.isFoundXrimage = true
           const talkMessageEl = this.$refs.talkMessage as Element | undefined
           if (talkMessageEl) {
-            alert(detail.position)
-            talkMessageEl.setAttribute('position', detail.position)
-            talkMessageEl.setAttribute('scale', detail.scale)
-            talkMessageEl.setAttribute('rotate', detail.rotate)
+            talkMessageEl.setAttribute(
+              'position',
+              `${detail.position.x} ${detail.position.y + 3} ${
+                detail.position.z
+              }`
+            )
           }
         }
         const onXrimageupdated: (ctx: any) => void = ({ detail }) => {
           const talkMessageEl = this.$refs.talkMessage as Element | undefined
           if (talkMessageEl) {
-            talkMessageEl.setAttribute('position', detail.position)
-            talkMessageEl.setAttribute('scale', detail.scale)
-            talkMessageEl.setAttribute('rotate', detail.rotate)
+            talkMessageEl.setAttribute(
+              'position',
+              `${detail.position.x} ${detail.position.y + 3} ${
+                detail.position.z
+              }`
+            )
           }
         }
         const onXrimagelost: (ctx: any) => void = () => {
