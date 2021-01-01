@@ -155,19 +155,21 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" module>
+@import '@/assets/scss/variables.scss';
+
 .talkWrap {
   width: 100%;
   display: flex;
   justify-content: center;
   position: fixed;
   top: 25px;
-  z-index: 10;
+  z-index: $top-menu-zindex;
 }
 
 .menuWrap {
   width: 100%;
   position: fixed;
   bottom: 25px;
-  z-index: 10;
+  z-index: $top-menu-zindex;
 }
 </style>

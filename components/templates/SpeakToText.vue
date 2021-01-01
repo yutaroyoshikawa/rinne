@@ -303,7 +303,7 @@ export default Vue.extend({
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 110;
+  z-index: $top-menu-zindex;
 }
 
 .micWrap {

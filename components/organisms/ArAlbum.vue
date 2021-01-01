@@ -181,9 +181,10 @@ export default Vue.extend({
       $dark-base-color 100%
     );
     position: fixed;
-    z-index: 40;
+    z-index: $top-menu-zindex - 1;
     top: 0;
     left: 0;
+    pointer-events: none;
   }
 
   &::after {
@@ -199,9 +200,10 @@ export default Vue.extend({
       $dark-base-color 100%
     );
     position: fixed;
-    z-index: 40;
+    z-index: $top-menu-zindex - 1;
     bottom: 0;
     left: 0;
+    pointer-events: none;
   }
 }
 
