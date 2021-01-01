@@ -74,12 +74,12 @@
             />
           </div>
         </div>
-        <div :class="$style.buttonWrap">
-          <Qr :value="url" :width="170" />
-        </div>
         <p :class="$style.message">
           スマホかタブレットからアクセスしてください
         </p>
+        <div :class="$style.buttonWrap">
+          <Qr :value="url" :width="170" />
+        </div>
       </div>
     </div>
   </transition>

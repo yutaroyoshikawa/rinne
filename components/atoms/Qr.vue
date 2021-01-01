@@ -8,6 +8,7 @@
         color: { dark: '#3c230d', light: '#f3ebd8' },
       }"
     />
+    <p :class="$style.value">{{ $props.value }}</p>
   </div>
 </template>
 
@@ -42,8 +43,12 @@ export default Vue.extend({
 @import '@/assets/scss/variables.scss';
 
 .qr {
-  border-radius: 8px;
-  background-color: $dark-base-color;
-  padding: 5px;
+  text-align: center;
+}
+
+.value {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 5px;
 }
 </style>
