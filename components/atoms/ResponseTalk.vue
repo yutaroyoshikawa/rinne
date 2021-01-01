@@ -36,7 +36,7 @@ export default Vue.extend({
   left: 0;
   top: 0;
   z-index: -1;
-  visibility: hidden;
+  overflow: hidden;
 }
 
 .targetWrap {

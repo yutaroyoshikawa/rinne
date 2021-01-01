@@ -1,49 +1,46 @@
 <template>
-  <div>
-    <ResponseTalk id-name="response" />
-    <div :class="[$style.wrap, { [$style.pausedAr]: isPausedAr }]">
-      <ActionModal
-        :show-action-modal="isOpenDetailsModal"
-        modal-title="くわしく"
-        @close="onCloseDetailsModal"
-        @action="onDeleteImage(selectedImageIndex)"
-      >
-        <p :class="$style.comment">
-          {{ selectedPersonalityComment(imageSrcs[selectedImageIndex]) }}
-        </p>
-        <img
-          :class="$style.detailsImage"
-          :src="`/img/${imageSrcs[selectedImageIndex]}`"
-          alt="選択した写真"
-        />
-        <p>この写真を削除しますか？</p>
-      </ActionModal>
+  <div :class="[$style.wrap, { [$style.pausedAr]: isPausedAr }]">
+    <ActionModal
+      :show-action-modal="isOpenDetailsModal"
+      modal-title="くわしく"
+      @close="onCloseDetailsModal"
+      @action="onDeleteImage(selectedImageIndex)"
+    >
+      <p :class="$style.comment">
+        {{ selectedPersonalityComment(imageSrcs[selectedImageIndex]) }}
+      </p>
+      <img
+        :class="$style.detailsImage"
+        :src="`/img/${imageSrcs[selectedImageIndex]}`"
+        alt="選択した写真"
+      />
+      <p>この写真を削除しますか？</p>
+    </ActionModal>
 
-      <OpacityTransition
-        :in="$props.in && !!arMode"
-        :enable-page-transition="false"
-      >
-        <div :class="$style.arWrap">
-          <PresenAr
-            v-if="arMode === 'presen'"
-            :in="$props.in"
-            @reality-ready="onRealityReady"
-            @reality-error="onRealityError"
-            @select-image="onSelectImage"
-          />
-          <Ar
-            v-else-if="arMode === 'nomal'"
-            :in="$props.in"
-            @reality-ready="onRealityReady"
-            @reality-error="onRealityError"
-            @select-image="onSelectImage"
-          />
-          <template v-else>
-            <!-- -->
-          </template>
-        </div>
-      </OpacityTransition>
-    </div>
+    <OpacityTransition
+      :in="$props.in && !!arMode"
+      :enable-page-transition="false"
+    >
+      <div :class="$style.arWrap">
+        <PresenAr
+          v-if="arMode === 'presen'"
+          :in="$props.in"
+          @reality-ready="onRealityReady"
+          @reality-error="onRealityError"
+          @select-image="onSelectImage"
+        />
+        <Ar
+          v-else-if="arMode === 'nomal'"
+          :in="$props.in"
+          @reality-ready="onRealityReady"
+          @reality-error="onRealityError"
+          @select-image="onSelectImage"
+        />
+        <template v-else>
+          <!-- -->
+        </template>
+      </div>
+    </OpacityTransition>
   </div>
 </template>
 
@@ -53,7 +50,6 @@ import { mapState } from 'vuex'
 import { REMOVE_IMAGE } from '@/store/photoStore'
 import { LOADEDND_AFRAME, PAUSE_AR, PLAY_AR } from '@/store/ar'
 import ActionModal from '@/components/molecule/actionModal.vue'
-import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
 import personality from '@/assets/personality.json'
 import OpacityTransition from '@/components/atoms/transitions/OpacityTransition.vue'
 
@@ -69,7 +65,6 @@ export default Vue.extend({
     Ar: () => import('@/components/molecule/Ar.vue'),
     PresenAr: () => import('@/components/molecule/PresenAr.vue'),
     OpacityTransition,
-    ResponseTalk,
   },
   props: {
     in: {
