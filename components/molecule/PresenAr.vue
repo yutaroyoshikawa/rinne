@@ -31,10 +31,16 @@
 
       <template v-if="closeSplash">
         <a-entity
-          v-if="talkMode"
           ref="talkMessage"
           geometry="primitive: plane; width: 2; height: 0.4"
           scale="1 1 1"
+          :animation="{
+            property: 'scale',
+            to: talkMode ? '1 1 1' : '0.0001 0.0001 0.0001',
+            easing: 'easeOutElastic',
+            dur: 3000,
+            delay: 300 * index - 1,
+          }"
           material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.0"
           position="0 5 0"
         />
@@ -177,6 +183,8 @@ export default Vue.extend({
                 detail.position.z
               }`
             )
+            talkMessageEl.setAttribute('scale', detail.scale)
+            talkMessageEl.setAttribute('rotate', detail.rotate)
           }
         }
         const onXrimageupdated: (ctx: any) => void = ({ detail }) => {
@@ -184,10 +192,12 @@ export default Vue.extend({
           if (talkMessageEl) {
             talkMessageEl.setAttribute(
               'position',
-              `${detail.position.x} ${detail.position.y + 3} ${
+              `${detail.position.x} ${detail.position.y + 5} ${
                 detail.position.z
               }`
             )
+            talkMessageEl.setAttribute('scale', detail.scale)
+            talkMessageEl.setAttribute('rotate', detail.rotate)
           }
         }
         const onXrimagelost: (ctx: any) => void = () => {
