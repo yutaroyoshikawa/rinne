@@ -32,6 +32,7 @@
       <template v-if="closeSplash">
         <a-entity
           v-if="talkMode"
+          ref="talkMessage"
           geometry="primitive: plane; width: 2; height: 0.4"
           scale="1 1 1"
           material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.0"
@@ -166,8 +167,14 @@ export default Vue.extend({
     initAframe() {
       const AFRAME = window.AFRAME
       if (AFRAME) {
-        const onXrimagefound: (ctx: any) => void = () => {
+        const onXrimagefound: (ctx: any) => void = ({ detail }) => {
           this.isFoundXrimage = true
+          const talkMessageEl = this.$refs.talkMessage as Element | undefined
+          if (talkMessageEl) {
+            talkMessageEl.setAttribute('position', detail.position)
+            talkMessageEl.setAttribute('scale', detail.scale)
+            talkMessageEl.setAttribute('rotate', detail.rotate)
+          }
         }
         const onXrimagelost: (ctx: any) => void = () => {
           this.isFoundXrimage = false
