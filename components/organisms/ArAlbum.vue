@@ -18,11 +18,11 @@
         />
         <p>この写真を削除しますか？</p>
       </ActionModal>
-      <div :class="$style.arWrap" />
       <OpacityTransition
         :in="$props.in && !!arMode"
         :enable-page-transition="false"
       >
+        <div :class="$style.arWrap" />
         <PresenAr
           v-if="arMode === 'presen'"
           :in="$props.in"
