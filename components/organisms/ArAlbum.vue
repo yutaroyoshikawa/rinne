@@ -18,30 +18,28 @@
         />
         <p>この写真を削除しますか？</p>
       </ActionModal>
-
+      <div :class="$style.arWrap" />
       <OpacityTransition
         :in="$props.in && !!arMode"
         :enable-page-transition="false"
       >
-        <div :class="$style.arWrap">
-          <PresenAr
-            v-if="arMode === 'presen'"
-            :in="$props.in"
-            @reality-ready="onRealityReady"
-            @reality-error="onRealityError"
-            @select-image="onSelectImage"
-          />
-          <Ar
-            v-else-if="arMode === 'nomal'"
-            :in="$props.in"
-            @reality-ready="onRealityReady"
-            @reality-error="onRealityError"
-            @select-image="onSelectImage"
-          />
-          <template v-else>
-            <!-- -->
-          </template>
-        </div>
+        <PresenAr
+          v-if="arMode === 'presen'"
+          :in="$props.in"
+          @reality-ready="onRealityReady"
+          @reality-error="onRealityError"
+          @select-image="onSelectImage"
+        />
+        <Ar
+          v-else-if="arMode === 'nomal'"
+          :in="$props.in"
+          @reality-ready="onRealityReady"
+          @reality-error="onRealityError"
+          @select-image="onSelectImage"
+        />
+        <template v-else>
+          <!-- -->
+        </template>
       </OpacityTransition>
     </div>
   </div>
