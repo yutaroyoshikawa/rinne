@@ -53,7 +53,12 @@
       </div>
     </div>
     <svg style="display: none" xmlns="http://www.w3.org/2000/svg">
-      <symbol id="svg-loader-face" viewBox="0 0 162.27 156.78">
+      <symbol
+        id="svg-loader-face"
+        :viewBox="
+          $props.showLogoType ? '0 0 162.27 156.78' : '0 0 162.27 75.78'
+        "
+      >
         <g>
           <path
             :class="$style.pathLine"
@@ -62,7 +67,12 @@
           />
         </g>
       </symbol>
-      <symbol id="svg-loader-mouse" viewBox="0 0 162.27 156.78">
+      <symbol
+        id="svg-loader-mouse"
+        :viewBox="
+          $props.showLogoType ? '0 0 162.27 156.78' : '0 0 162.27 75.78'
+        "
+      >
         <g>
           <path
             :class="$style.pathLine"
@@ -78,7 +88,12 @@
           />
         </g>
       </symbol>
-      <symbol id="svg-loader-infinity" viewBox="0 0 162.27 156.78">
+      <symbol
+        id="svg-loader-infinity"
+        :viewBox="
+          $props.showLogoType ? '0 0 162.27 156.78' : '0 0 162.27 75.78'
+        "
+      >
         <g>
           <path
             :class="$style.fillShape"
@@ -158,6 +173,10 @@ export default Vue.extend({
   stroke: $dark-base-color;
   stroke-width: 1px;
   stroke-miterlimit: 10;
+}
+
+.fixLogoPosition {
+  transform: translateY(10px);
 }
 
 .greenTypeLine {
