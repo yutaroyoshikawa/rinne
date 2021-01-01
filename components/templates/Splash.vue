@@ -8,7 +8,7 @@
     :leave-active-class="$style.leaveActive"
   >
     <div v-if="show" :class="$style.splash">
-      <div>
+      <div v-if="hasDeviceOrientation">
         <div :class="$style.logoWrap">
           <div :class="$style.scaleWrap">
             <Logo
@@ -64,6 +64,23 @@
           />
         </div>
       </div>
+      <div v-else>
+        <div :class="$style.logoWrap">
+          <div :class="$style.scaleWrap">
+            <Logo
+              :repeat-animation="false"
+              :show-logo-type="true"
+              :logo-type-delay="1300"
+            />
+          </div>
+        </div>
+        <div :class="$style.buttonWrap">
+          <Qr :value="url" :width="170" />
+        </div>
+        <p :class="$style.message">
+          スマホかタブレットからアクセスしてください
+        </p>
+      </div>
     </div>
   </transition>
 </template>
@@ -78,6 +95,7 @@ import SplashStartButton from '@/components/atoms/SplashStartButton.vue'
 type Data = {
   show: boolean
   isLoadAssets: boolean
+  hasDeviceOrientation: boolean
 }
 
 export default Vue.extend({
@@ -85,11 +103,13 @@ export default Vue.extend({
   components: {
     Logo,
     SplashStartButton,
+    Qr: () => import('@/components/atoms/Qr.vue'),
   },
   data(): Data {
     return {
       show: true,
       isLoadAssets: false,
+      hasDeviceOrientation: true,
     }
   },
   computed: {
@@ -115,10 +135,18 @@ export default Vue.extend({
     isDefault(): boolean {
       return !this.isTop && !this.isTalkMode && !this.isMap
     },
+    url(): string {
+      return location.href
+    },
   },
   mounted() {
     window.onload = () => {
       this.isLoadAssets = true
+    }
+  },
+  beforeMount() {
+    if (!window.DeviceOrientationEvent || !('ontouchstart' in window)) {
+      this.hasDeviceOrientation = false
     }
   },
   methods: {
