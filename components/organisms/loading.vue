@@ -1,7 +1,7 @@
 <template>
-  <OpacityTransition>
+  <OpacityTransition v-if="!close">
     <portal to="loader">
-      <div v-if="!close" :class="$style.loader">
+      <div :class="$style.loader">
         <div :class="$style.logoWrap">
           <ScaleTransition :in="$props.in">
             <Logo :repeat-animation="true" />

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%">
     <Loading :in="closeSplash && isLoadingMap" />
     <OpacityTransition :in="!isLoadingMap">
       <div ref="map" :class="$style.map"></div>
@@ -113,6 +113,6 @@ export default Vue.extend({
 @import '@/assets/scss/variables.scss';
 .map {
   width: 100vw;
-  height: calc(100vh - #{$header-height});
+  height: 100%;
 }
 </style>

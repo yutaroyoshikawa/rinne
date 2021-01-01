@@ -13,6 +13,7 @@
       :style="{
         '--delay': `${$props.delay}ms`,
         '--duration': `${$props.duration}ms`,
+        height: '100%',
       }"
     >
       <slot />
