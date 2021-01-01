@@ -164,11 +164,6 @@ export default Vue.extend({
   },
   mounted() {
     this.initAframe()
-    // const talkEl = this.$refs.responseTalk as HTMLDivElement
-    // const canvas = await html2canvas(talkEl)
-    // canvas.id = 'talkElement'
-    // const assetsEl = this.$refs.assets as HTMLElement
-    // assetsEl.appendChild(canvas)
   },
   methods: {
     onClickImage(imageIndex: number) {

@@ -163,11 +163,6 @@ export default Vue.extend({
   },
   mounted() {
     this.initAframe()
-    // const talkEl = this.$refs.responseTalk as HTMLDivElement
-    // const canvas = await html2canvas(talkEl)
-    // canvas.id = 'talkElement'
-    // const assetsEl = this.$refs.assets as HTMLElement
-    // assetsEl.appendChild(canvas)
   },
   methods: {
     initAframe() {
@@ -192,7 +187,7 @@ export default Vue.extend({
           if (talkMessageEl) {
             talkMessageEl.setAttribute(
               'position',
-              `${detail.position.x} ${detail.position.y + 5} ${
+              `${detail.position.x} ${detail.position.y + 5.5} ${
                 detail.position.z
               }`
             )
