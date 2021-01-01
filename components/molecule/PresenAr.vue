@@ -171,6 +171,15 @@ export default Vue.extend({
           this.isFoundXrimage = true
           const talkMessageEl = this.$refs.talkMessage as Element | undefined
           if (talkMessageEl) {
+            alert(detail.position)
+            talkMessageEl.setAttribute('position', detail.position)
+            talkMessageEl.setAttribute('scale', detail.scale)
+            talkMessageEl.setAttribute('rotate', detail.rotate)
+          }
+        }
+        const onXrimageupdated: (ctx: any) => void = ({ detail }) => {
+          const talkMessageEl = this.$refs.talkMessage as Element | undefined
+          if (talkMessageEl) {
             talkMessageEl.setAttribute('position', detail.position)
             talkMessageEl.setAttribute('scale', detail.scale)
             talkMessageEl.setAttribute('rotate', detail.rotate)
@@ -188,6 +197,7 @@ export default Vue.extend({
         AFRAME.registerComponent('presenar', {
           init() {
             this.el.sceneEl.addEventListener('xrimagefound', onXrimagefound)
+            this.el.sceneEl.addEventListener('xrimageupdated', onXrimageupdated)
             this.el.sceneEl.addEventListener('xrimagelost', onXrimagelost)
             this.el.sceneEl.addEventListener('realityready', onRealityReady)
             this.el.sceneEl.addEventListener('realityerror', onRealityError)
