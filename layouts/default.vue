@@ -1,6 +1,5 @@
 <template>
   <div :class="$style.app">
-    <ResponseTalk id-name="response" />
     <div :class="[$style.mainContainer, { [$style.openTab]: isOpenTab }]">
       <Splash />
 
@@ -29,7 +28,6 @@ import HeaderTitle from '@/components/atoms/HeaderTitle.vue'
 import OverlayTab from '@/components/molecule/OverlayTab.vue'
 import ArAlbum from '@/components/organisms/ArAlbum.vue'
 import Splash from '@/components/templates/Splash.vue'
-import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
 
 export default Vue.extend({
   name: 'App',
@@ -38,7 +36,6 @@ export default Vue.extend({
     OverlayTab,
     ArAlbum,
     Splash,
-    ResponseTalk,
   },
   computed: {
     ...mapState(['isOpenTab']),
