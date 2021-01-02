@@ -121,7 +121,6 @@ export default Vue.extend({
   position: absolute;
   z-index: 99;
   width: 100%;
-  height: 100%;
   max-height: calc(100% - #{$header-height});
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
