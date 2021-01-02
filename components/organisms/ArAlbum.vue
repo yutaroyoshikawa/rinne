@@ -10,16 +10,18 @@
         <p :class="$style.comment">
           {{
             selectedPersonalityComment(
-              albamPositions[selectedAlbamPosition[0]][selectedAlbamPosition[1]]
-                .value
+              albamPositions[
+                `${selectedAlbamPosition[0]},${selectedAlbamPosition[1]}`
+              ].value
             )
           }}
         </p>
         <img
           :class="$style.detailsImage"
           :src="`/img/${
-            albamPositions[selectedAlbamPosition[0]][selectedAlbamPosition[1]]
-              .value
+            albamPositions[
+              `${selectedAlbamPosition[0]},${selectedAlbamPosition[1]}`
+            ].value
           }`"
           alt="選択した写真"
         />
