@@ -8,7 +8,7 @@
         @close="onCloseDetailsModal"
         @action="onDeleteImage(selectedAlbamPosition)"
       >
-        <template v-if="isOpenDetailsModal">
+        <template v-if="!!selectedAlbamPosition">
           <p :class="$style.comment">
             {{
               selectedPersonalityComment(
