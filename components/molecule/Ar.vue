@@ -68,7 +68,7 @@
             :animation__2="{
               property: 'position',
               to: !talkMode
-                ? `${item.position[0] - 2} ${item.position[1]} 3`
+                ? `${item.position[1] - 2} ${item.position[0]}  3`
                 : '0.0001 0.0001 0.0001',
               easing: 'easeOutElastic',
               dur: 3000,
