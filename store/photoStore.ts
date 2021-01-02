@@ -63,12 +63,12 @@ const getAlbamPositions: (
       }
     } else if (!('0,1' in calcedPositions)) {
       calcedPositions['0,1'] = {
-        position: [1, 0],
+        position: [0, 1],
         value: src,
       }
     } else if (!('0,3' in calcedPositions)) {
       calcedPositions['0,3'] = {
-        position: [3, 0],
+        position: [0, 3],
         value: src,
       }
     } else {
