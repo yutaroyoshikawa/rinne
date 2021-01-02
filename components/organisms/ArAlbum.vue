@@ -134,6 +134,7 @@ export default Vue.extend({
     onSelectImage(albamPosition: [number, number]) {
       this.selectedAlbamPosition = albamPosition
       this.isOpenDetailsModal = true
+      alert(JSON.stringify(albamPosition))
     },
     onRealityReady() {
       this.$store.commit(`ar/${LOADEDND_AFRAME}`)
