@@ -1,34 +1,33 @@
 <template>
   <div>
-    <ResponseTalk v-show="$props.in" id-name="response" />
-    <div :class="[$style.wrap, { [$style.pausedAr]: isPausedAr }]">
-      <ActionModal
-        :show-action-modal="isOpenDetailsModal"
-        modal-title="くわしく"
-        @close="onCloseDetailsModal"
-        @action="onDeleteImage(selectedAlbamPosition)"
-      >
-        <template v-if="!!selectedAlbamPosition">
-          <p :class="$style.comment">
-            {{
-              selectedPersonalityComment(
-                albamPositions[selectedAlbamPosition[0]][
-                  selectedAlbamPosition[1]
-                ].value
-              )
-            }}
-          </p>
-          <img
-            :class="$style.detailsImage"
-            :src="`/img/${
+    <ActionModal
+      :show-action-modal="isOpenDetailsModal"
+      modal-title="くわしく"
+      @close="onCloseDetailsModal"
+      @action="onDeleteImage(selectedAlbamPosition)"
+    >
+      <template v-if="!!selectedAlbamPosition">
+        <p :class="$style.comment">
+          {{
+            selectedPersonalityComment(
               albamPositions[selectedAlbamPosition[0]][selectedAlbamPosition[1]]
                 .value
-            }`"
-            alt="選択した写真"
-          />
-          <p>この写真を削除しますか？</p>
-        </template>
-      </ActionModal>
+            )
+          }}
+        </p>
+        <img
+          :class="$style.detailsImage"
+          :src="`/img/${
+            albamPositions[selectedAlbamPosition[0]][selectedAlbamPosition[1]]
+              .value
+          }`"
+          alt="選択した写真"
+        />
+        <p>この写真を削除しますか？</p>
+      </template>
+    </ActionModal>
+    <ResponseTalk v-show="$props.in" id-name="response" />
+    <div :class="[$style.wrap, { [$style.pausedAr]: isPausedAr }]">
       <OpacityTransition
         :in="$props.in && !!arMode"
         :enable-page-transition="false"
