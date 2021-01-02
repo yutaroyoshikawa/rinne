@@ -81,7 +81,7 @@ const getAlbamPositions: (
           `${columnPosition},${rowPosition}` !== `2,0` ||
           `${columnPosition},${rowPosition}` !== `2,1`
         ) {
-          calcedPositions[`${columnPosition}},${rowPosition}`] = {
+          calcedPositions[`${columnPosition},${rowPosition}`] = {
             position: [columnPosition, rowPosition],
             value: src,
           }
