@@ -6,17 +6,28 @@
         :show-action-modal="isOpenDetailsModal"
         modal-title="くわしく"
         @close="onCloseDetailsModal"
-        @action="onDeleteImage(selectedImageIndex)"
+        @action="onDeleteImage(selectedAlbamPosition)"
       >
-        <p :class="$style.comment">
-          {{ selectedPersonalityComment(imageSrcs[selectedImageIndex]) }}
-        </p>
-        <img
-          :class="$style.detailsImage"
-          :src="`/img/${imageSrcs[selectedImageIndex]}`"
-          alt="選択した写真"
-        />
-        <p>この写真を削除しますか？</p>
+        <template v-if="isOpenDetailsModal">
+          <p :class="$style.comment">
+            {{
+              selectedPersonalityComment(
+                albamPositions[selectedAlbamPosition[0]][
+                  selectedAlbamPosition[1]
+                ].value
+              )
+            }}
+          </p>
+          <img
+            :class="$style.detailsImage"
+            :src="`/img/${
+              albamPositions[selectedAlbamPosition[0]][selectedAlbamPosition[1]]
+                .value
+            }`"
+            alt="選択した写真"
+          />
+          <p>この写真を削除しますか？</p>
+        </template>
       </ActionModal>
       <OpacityTransition
         :in="$props.in && !!arMode"
@@ -57,7 +68,7 @@ import OpacityTransition from '@/components/atoms/transitions/OpacityTransition.
 
 type Data = {
   isOpenDetailsModal: boolean
-  selectedImageIndex?: number
+  selectedAlbamPosition?: [number, number]
 }
 
 export default Vue.extend({
@@ -78,12 +89,12 @@ export default Vue.extend({
   data(): Data {
     return {
       isOpenDetailsModal: false,
-      selectedImageIndex: undefined,
+      selectedAlbamPosition: undefined,
     }
   },
   computed: {
     ...mapState('ar', ['arMode', 'isPausedAr']),
-    ...mapState('photoStore', ['imageSrcs']),
+    ...mapState('photoStore', ['albamPositions']),
   },
   mounted() {
     document.addEventListener('visibilitychange', this.disableMediadevices)
@@ -116,12 +127,12 @@ export default Vue.extend({
     onCloseDetailsModal() {
       this.isOpenDetailsModal = false
     },
-    onDeleteImage(imageIndex: number) {
-      this.$store.commit(`photoStore/${REMOVE_IMAGE}`, imageIndex)
+    onDeleteImage(albamPosition: [number, number]) {
+      this.$store.commit(`photoStore/${REMOVE_IMAGE}`, albamPosition)
       this.isOpenDetailsModal = false
     },
-    onSelectImage(imageIndex: number) {
-      this.selectedImageIndex = imageIndex
+    onSelectImage(albamPosition: [number, number]) {
+      this.selectedAlbamPosition = albamPosition
       this.isOpenDetailsModal = true
     },
     onRealityReady() {

@@ -13,10 +13,10 @@
         <a-asset-item id="elephant-obj" src="/3dmodel/renny.obj" />
         <a-asset-item id="elephant-mtl" src="/3dmodel/materials.mtl" />
         <img
-          v-for="(imageSrc, index) in imageSrcs"
+          v-for="(item, index) in renderImages"
           :id="`renny${index}`"
           :key="`renny${index}`"
-          :src="`/img/${imageSrc}`"
+          :src="`/img/${item.value}`"
         />
       </a-assets>
       <a-camera
@@ -52,8 +52,8 @@
 
         <a-entity>
           <a-image
-            v-for="(imageSrc, index) in imageSrcs"
-            :key="imageSrc"
+            v-for="(item, index) in renderImages"
+            :key="`${item.value}${index}`"
             class="cantap"
             name="rennyImage"
             :src="`#renny${index}`"
@@ -67,12 +67,14 @@
             }"
             :animation__2="{
               property: 'position',
-              to: !talkMode ? `${index - 1} 0 3` : '0.0001 0.0001 0.0001',
+              to: !talkMode
+                ? `${item.position[0] - 2} ${item.position[1]} 3`
+                : '0.0001 0.0001 0.0001',
               easing: 'easeOutElastic',
               dur: 3000,
               delay: 300 * index,
             }"
-            @click="$emit('select-image', index)"
+            @click="$emit('select-image', item.position)"
           />
         </a-entity>
       </template>
@@ -83,6 +85,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
+import { PhotoStore } from '@/store/photoStore'
 
 Vue.config.ignoredElements = [
   'a-scene',
@@ -118,7 +121,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState('photoStore', ['imageSrcs']),
     ...mapState('ar', [
       'isLoadedPresentationAframe',
       'isLoadingTalkResponseText',
@@ -127,6 +129,22 @@ export default Vue.extend({
       'talkMode',
     ]),
     ...mapState(['closeSplash']),
+    ...mapState('photoStore', ['albamPositions']),
+    renderImages(): {
+      position: [number, number]
+      src: string
+    }[] {
+      const arraied = Object.values(
+        this.albamPositions as PhotoStore['albamPositions']
+      )
+
+      return (arraied.filter(
+        (item) => typeof item !== 'undefined'
+      ) as unknown) as {
+        position: [number, number]
+        src: string
+      }[]
+    },
   },
   watch: {
     in: {
@@ -166,8 +184,8 @@ export default Vue.extend({
     this.initAframe()
   },
   methods: {
-    onClickImage(imageIndex: number) {
-      this.$emit('select-image', imageIndex)
+    onClickImage(albamPosition: [number, number]) {
+      this.$emit('select-image', albamPosition)
     },
     initAframe() {
       const AFRAME = window.AFRAME

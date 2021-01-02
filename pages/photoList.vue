@@ -5,16 +5,13 @@
         localstorage clear
       </button>
       <div :class="$style.numberWrap">
-        <p>{{ $store.state.photoStore.count }}/５件</p>
+        <p>{{ albamImageCount }}/５件</p>
       </div>
     </template>
 
     <AlbumList />
     <div @click="openTab">
-      <AddButton
-        v-if="$store.state.photoStore.count < 5"
-        :class="$style.addButton"
-      />
+      <AddButton v-if="albamImageCount < 5" :class="$style.addButton" />
     </div>
 
     <portal to="tab">
@@ -27,6 +24,7 @@
 import Vue from 'vue'
 import { mapState } from 'vuex'
 import { CHANGE_HEADER_TITLE, OPEN_TAB } from '@/store/index'
+import { PhotoStore } from '@/store/photoStore'
 import CameraRool from '@/components/organisms/cameraRool.vue'
 import AddButton from '@/components/atoms/addButton.vue'
 import AlbumList from '@/components/molecule/AlbumList.vue'
@@ -40,6 +38,11 @@ export default Vue.extend({
   },
   computed: {
     ...mapState(['developMode']),
+    albamImageCount(): number {
+      return Object.keys(
+        (this.$store.state.photoStore as PhotoStore).albamPositions
+      ).length
+    },
   },
   beforeCreate() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, 'いちらん')

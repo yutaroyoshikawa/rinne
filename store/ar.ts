@@ -1,7 +1,8 @@
 import { MutationTree, ActionTree } from 'vuex'
 import talkSample from '@/assets/talkSample.json'
 import { PersonalityItem } from '@/extentions/personality'
-import { RootState } from './'
+import { GET_MAX_PERSONALITY } from '@/store/photoStore'
+import { RootState } from '@/store/index'
 
 type ArStore = {
   isLoadedAframe: boolean
@@ -28,14 +29,16 @@ export const DISABLE_TALK_MODE = 'DISABLE_TALK_MODE'
 
 export const REQUEST_TALK_TEXT = 'REQUEST_TALK_TEXT'
 
-export const state = (): ArStore => ({
-  isLoadedAframe: false,
-  isPausedAr: false,
-  talkResponseText: undefined,
-  isLoadingTalkResponseText: false,
-  arMode: undefined,
-  talkMode: false,
-})
+export const state = (): ArStore => {
+  return {
+    isLoadedAframe: false,
+    isPausedAr: false,
+    talkResponseText: undefined,
+    isLoadingTalkResponseText: false,
+    arMode: undefined,
+    talkMode: false,
+  }
+}
 
 export const mutations: MutationTree<ArStore> = {
   [LOADEDND_AFRAME](state) {
@@ -80,7 +83,7 @@ export const actions: ActionTree<ArStore, RootState> = {
           const store = this.app.store
           if (store) {
             const maxPerfonality = store.getters[
-              'photoStore/getMaxPersonality'
+              `photoStore/${GET_MAX_PERSONALITY}`
             ] as PersonalityItem
             const resTalkText = talk.response[maxPerfonality]
             commit(SET_TALK_RESPONSE, resTalkText)

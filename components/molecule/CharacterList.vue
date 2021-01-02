@@ -21,6 +21,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState, mapGetters } from 'vuex'
+import { GET_MAX_PERSONALITY } from '@/store/photoStore'
 import { Personality, PersonalityItem } from '@/extentions/personality'
 import { PageTransitionState } from '@/extentions/pageTransitionState'
 import ListTransition from '@/components/atoms/transitions/ListTransition.vue'
@@ -71,7 +72,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('photoStore', ['personality']),
-    ...mapGetters('photoStore', ['getMaxPersonality']),
+    ...mapGetters('photoStore', [GET_MAX_PERSONALITY]),
     renderList(): Data['characters'] {
       const pageTransitionState = this.$store.state.pageTransitionState
       if (
@@ -83,7 +84,7 @@ export default Vue.extend({
       return this.characters
     },
     characterScore(): Personality {
-      const maxItemKey = this.getMaxPersonality as PersonalityItem
+      const maxItemKey = this[GET_MAX_PERSONALITY] as PersonalityItem
       const maxItemPersonality = (this.personality as Personality)[maxItemKey]
       const personality = this.personality as Personality
 

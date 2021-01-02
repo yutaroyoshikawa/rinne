@@ -13,10 +13,10 @@
     >
       <a-assets ref="assets">
         <img
-          v-for="(imageSrc, index) in imageSrcs"
+          v-for="(item, index) in imageSrcs"
           :id="`renny${index}`"
           :key="`renny${index}`"
-          :src="`/img/${imageSrc}`"
+          :src="`/img/${item.value}`"
         />
       </a-assets>
       <a-camera
@@ -48,8 +48,8 @@
         <a-entity xrextras-named-image-target="name: rinne-device">
           <template v-if="isFoundXrimage">
             <a-image
-              v-for="(imageSrc, index) in imageSrcs"
-              :key="imageSrc"
+              v-for="(item, index) in renderImages"
+              :key="`${item.value}${index}`"
               class="cantap"
               name="rennyImage"
               :src="`#renny${index}`"
@@ -63,12 +63,14 @@
               }"
               :animation__2="{
                 property: 'position',
-                to: !talkMode ? `${index - 1} 0 0.3` : '0.0001 0.0001 0.0001',
+                to: !talkMode
+                  ? `${item.position[0] - 2} ${item.position[1]} 3`
+                  : '0.0001 0.0001 0.0001',
                 easing: 'easeOutElastic',
                 dur: 3000,
                 delay: 300 * index,
               }"
-              @click="$emit('select-image', index)"
+              @click="$emit('select-image', item.position)"
             />
           </template>
         </a-entity>
@@ -80,6 +82,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
+import { PhotoStore } from '@/store/photoStore'
 
 Vue.config.ignoredElements = [
   'a-scene',
@@ -117,7 +120,6 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState('photoStore', ['imageSrcs']),
     ...mapState('ar', [
       'isLoadedPresentationAframe',
       'isLoadingTalkResponseText',
@@ -126,6 +128,21 @@ export default Vue.extend({
       'talkMode',
     ]),
     ...mapState(['closeSplash']),
+    renderImages(): {
+      position: [number, number]
+      src: string
+    }[] {
+      const arraied = Object.values(
+        (this.$store.state.photoStore as PhotoStore).albamPositions
+      )
+
+      return (arraied.filter(
+        (item) => typeof item !== 'undefined'
+      ) as unknown) as {
+        position: [number, number]
+        src: string
+      }[]
+    },
   },
   watch: {
     in: {

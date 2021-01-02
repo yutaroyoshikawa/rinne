@@ -56,6 +56,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { CLOSE_TAB } from '@/store/index'
+import { PhotoStore } from '@/store/photoStore'
 import personalityData from '@/assets/personality.json'
 import PhotoListImage from '@/components/atoms/PhotoListImage.vue'
 
@@ -88,8 +89,11 @@ export default Vue.extend({
     }
   },
   computed: {
-    selectableNumber() {
-      return 5 - this.$store.state.photoStore.count
+    selectableNumber(): number {
+      const albamImageCount = Object.keys(
+        (this.$store.state.photoStore as PhotoStore).albamPositions
+      ).length
+      return 5 - albamImageCount
     },
   },
   methods: {
