@@ -77,11 +77,11 @@ const getAlbamPositions: (
         const rowPosition = Math.floor(Math.random() * 4)
 
         if (
-          !(`${rowPosition},${columnPosition}` in calcedPositions) ||
-          [columnPosition, rowPosition] !== [2, 0] ||
-          [columnPosition, rowPosition] !== [2, 1]
+          !(`${columnPosition},${rowPosition}` in calcedPositions) ||
+          `${columnPosition},${rowPosition}` !== `2,0` ||
+          `${columnPosition},${rowPosition}` !== `2,1`
         ) {
-          calcedPositions[`${rowPosition},${columnPosition}`] = {
+          calcedPositions[`${columnPosition}},${rowPosition}`] = {
             position: [columnPosition, rowPosition],
             value: src,
           }
