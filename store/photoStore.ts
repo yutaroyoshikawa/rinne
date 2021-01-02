@@ -63,22 +63,12 @@ const getAlbamPositions: (
       }
     } else if (!('0,1' in calcedPositions)) {
       calcedPositions['0,1'] = {
-        position: [0, 1],
+        position: [1, 0],
         value: src,
       }
     } else if (!('0,3' in calcedPositions)) {
       calcedPositions['0,3'] = {
-        position: [0, 3],
-        value: src,
-      }
-    } else if (!('1,1' in calcedPositions)) {
-      calcedPositions['1,1'] = {
-        position: [1, 1],
-        value: src,
-      }
-    } else if (!('1,3' in calcedPositions)) {
-      calcedPositions['1,3'] = {
-        position: [1, 3],
+        position: [3, 0],
         value: src,
       }
     } else {
@@ -86,9 +76,13 @@ const getAlbamPositions: (
         const columnPosition = Math.floor(Math.random() * 5)
         const rowPosition = Math.floor(Math.random() * 4)
 
-        if (!(`${rowPosition},${columnPosition}` in calcedPositions)) {
+        if (
+          !(`${rowPosition},${columnPosition}` in calcedPositions) ||
+          [columnPosition, rowPosition] !== [2, 0] ||
+          [columnPosition, rowPosition] !== [2, 1]
+        ) {
           calcedPositions[`${rowPosition},${columnPosition}`] = {
-            position: [rowPosition, columnPosition],
+            position: [columnPosition, rowPosition],
             value: src,
           }
           break
