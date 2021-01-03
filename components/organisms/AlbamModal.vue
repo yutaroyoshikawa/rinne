@@ -7,7 +7,7 @@
       @action="$emit('close')"
     >
       <p :class="$style.modalMessage">{{ selectedPersonalityComment }}</p>
-      <div :class="imageWrap">
+      <div :class="$style.imageWrap">
         <PhotoListImage :src="$props.src" />
       </div>
       <div :class="$style.removeButtonWrap">
@@ -22,7 +22,7 @@
       @close="onCloseNotifyModal"
       @action="onRemoveImage"
     >
-      <div :class="imageWrap">
+      <div :class="$style.imageWrap">
         <PhotoListImage :src="$props.src" />
       </div>
       <p :class="$style.modalMessage">こちらの写真を削除しますか？</p>
