@@ -83,11 +83,6 @@ export default Vue.extend({
       return undefined
     },
   },
-  beforeDestroy() {
-    if (this.isRemoveImage) {
-      this.$emit('remove-image')
-    }
-  },
   methods: {
     onCloseNotifyModal() {
       this.isShowRemoveModal = false
@@ -96,6 +91,7 @@ export default Vue.extend({
       this.isShowRemoveModal = false
       this.isRemoveImage = true
       this.$emit('close')
+      this.$emit('remove-image')
     },
     onOpenRemoveModal() {
       this.isShowRemoveModal = true
