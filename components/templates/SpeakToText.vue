@@ -7,9 +7,13 @@
     :duration="600"
   >
     <div v-if="$props.in" :class="$style.wrap">
-      <div :class="$style.cancelWrap">
-        <SpeakCancelButton @click="onCancel" />
-      </div>
+      <portal to="other">
+        <div :class="$style.cancelWrap">
+          <ScaleTransition :in="$props.in">
+            <SpeakCancelButton @click="onCancel" />
+          </ScaleTransition>
+        </div>
+      </portal>
       <div :class="$style.waveWrap">
         <SpeakWave :active="isLoading || isRecording" :in="true" />
       </div>
@@ -40,6 +44,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import ScaleTransition from '@/components/atoms/transitions/ScaleTransition.vue'
 import MicButton from '@/components/atoms/MicButton.vue'
 import { REQUEST_TALK_TEXT, PAUSE_AR, PLAY_AR } from '@/store/ar'
 import SpeakCancelButton from '@/components/atoms/SpeakCancelButton.vue'
@@ -66,6 +71,7 @@ export default Vue.extend({
     SpeakWave,
     LetterAnim,
     OpacityTransition,
+    ScaleTransition,
   },
   props: {
     in: {

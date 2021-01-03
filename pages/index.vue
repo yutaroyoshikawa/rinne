@@ -12,17 +12,19 @@
     <template>
       <Loading :in="closeSplash && !isLoadedAframe" />
       <template v-if="closeSplash && isLoadedAframe">
-        <div :class="$style.talkWrap">
-          <TalkButton :in="!talkMode && isEnter" @click="onToggleTalkMode" />
-        </div>
         <SpeakToText
           :in="talkMode && isEnter"
           @error="onError"
           @cancel="onCancelSpeak"
         />
-        <div :class="$style.menuWrap">
-          <IndexMenu :in="!talkMode && isEnter" />
-        </div>
+        <portal to="other">
+          <div :class="$style.talkWrap">
+            <TalkButton :in="!talkMode && isEnter" @click="onToggleTalkMode" />
+          </div>
+          <div :class="$style.menuWrap">
+            <IndexMenu :in="!talkMode && isEnter" />
+          </div>
+        </portal>
       </template>
     </template>
   </div>

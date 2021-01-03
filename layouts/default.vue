@@ -3,8 +3,9 @@
     <div :class="[$style.mainContainer, { [$style.openTab]: isOpenTab }]">
       <Splash />
 
-      <portal-target name="loader" :class="$style.loaderPortal">
-      </portal-target>
+      <portal-target name="other" />
+
+      <portal-target name="loader" :class="$style.loaderPortal" />
 
       <header :class="$style.header">
         <HeaderTitle />
