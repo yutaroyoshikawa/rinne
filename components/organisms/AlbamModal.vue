@@ -6,9 +6,11 @@
       @close="$emit('close')"
       @action="$emit('close')"
     >
-      <p :class="$style.albamDate">{{ selectedPersonality.date ?? '' }}</p>
+      <p :class="$style.albamDate">
+        {{ selectedPersonality ? selectedPersonality.date : '' }}
+      </p>
       <p :class="$style.modalMessage">
-        {{ selectedPersonality.comment ?? '' }}
+        {{ selectedPersonality ? selectedPersonality.comment : '' }}
       </p>
       <div :class="$style.imageWrap">
         <PhotoListImage :src="$props.src" />
