@@ -43,8 +43,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
-import { REMOVE_IMAGE } from '@/store/photoStore'
-import { LOADEDND_AFRAME, PAUSE_AR, PLAY_AR } from '@/store/ar'
+import {
+  LOADEDND_AFRAME,
+  PAUSE_AR,
+  PLAY_AR,
+  REQUEST_REMOVE_ALBAM_IMAGE,
+} from '@/store/ar'
 import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
 import OpacityTransition from '@/components/atoms/transitions/OpacityTransition.vue'
 
@@ -110,7 +114,7 @@ export default Vue.extend({
       this.isOpenDetailsModal = false
     },
     onDeleteImage(albamPosition: [number, number]) {
-      this.$store.commit(`photoStore/${REMOVE_IMAGE}`, albamPosition)
+      this.$store.dispatch(`ar/${REQUEST_REMOVE_ALBAM_IMAGE}`, albamPosition)
       this.isOpenDetailsModal = false
     },
     onSelectImage(albamPosition: [number, number]) {
