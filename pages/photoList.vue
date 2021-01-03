@@ -10,8 +10,8 @@
     </template>
 
     <AlbumList />
-    <div @click="openTab">
-      <AddButton v-if="albamImageCount < 9" :class="$style.addButton" />
+    <div :class="$style.addButton" @click="openTab">
+      <AddButton v-if="albamImageCount < 9" />
     </div>
 
     <portal to="tab">
@@ -62,7 +62,7 @@ export default Vue.extend({
 @import '@/assets/scss/variables.scss';
 
 .wrap {
-  padding: 40px 0;
+  padding: 40px 0 170px;
   height: 100%;
 }
 .numberWrap {
@@ -70,6 +70,7 @@ export default Vue.extend({
 }
 .addButton {
   position: fixed;
+  z-index: $add-button-zindex;
   bottom: 30px;
   right: 30px;
 }
