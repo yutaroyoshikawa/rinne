@@ -95,6 +95,7 @@ export default Vue.extend({
     onRemoveImage() {
       this.isShowRemoveModal = false
       this.isRemoveImage = true
+      this.$emit('close')
     },
     onOpenRemoveModal() {
       this.isShowRemoveModal = true
