@@ -1,7 +1,7 @@
 <template>
   <div>
     <NotifyModal
-      :show-notify-modal="!isShowRemoveModal && $props.in"
+      :show-notify-modal="$props.in && !isShowRemoveModal"
       modal-title="くわしく"
       @close="$emit('close')"
       @action="$emit('close')"
@@ -38,6 +38,7 @@ import personality from '@/assets/personality.json'
 
 type Data = {
   isShowRemoveModal: boolean
+  isRemoveImage: boolean
 }
 
 export default Vue.extend({
@@ -60,6 +61,7 @@ export default Vue.extend({
   data(): Data {
     return {
       isShowRemoveModal: false,
+      isRemoveImage: false,
     }
   },
   computed: {
@@ -73,13 +75,17 @@ export default Vue.extend({
       return ''
     },
   },
+  beforeDestroy() {
+    if (this.isRemoveImage) {
+      this.$emit('remove-image')
+    }
+  },
   methods: {
     onCloseNotifyModal() {
       this.isShowRemoveModal = false
     },
     onRemoveImage() {
       this.isShowRemoveModal = false
-      this.$emit('remove-image')
     },
     onOpenRemoveModal() {
       this.isShowRemoveModal = true
@@ -99,7 +105,6 @@ export default Vue.extend({
   width: 100%;
   display: flex;
   justify-content: center;
-  margin: 10px 0;
 }
 .removeButton {
   width: 100%;
@@ -108,10 +113,11 @@ export default Vue.extend({
   color: #fff;
   background-color: $error-color;
   border-radius: 5px;
+  text-align: center;
 }
 .imageWrap {
   width: 140px;
   height: 140px;
-  margin: 0 auto;
+  margin: 10px auto;
 }
 </style>
