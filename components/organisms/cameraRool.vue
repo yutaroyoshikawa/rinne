@@ -93,7 +93,7 @@ export default Vue.extend({
       const albamImageCount = Object.keys(
         (this.$store.state.photoStore as PhotoStore).albamPositions
       ).length
-      return 5 - albamImageCount
+      return 9 - albamImageCount
     },
   },
   methods: {

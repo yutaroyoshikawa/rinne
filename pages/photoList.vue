@@ -5,7 +5,7 @@
         localstorage clear
       </button>
       <div :class="$style.numberWrap">
-        <p>{{ albamImageCount }}/５件</p>
+        <p>{{ albamImageCount }}/9件</p>
       </div>
     </template>
 
