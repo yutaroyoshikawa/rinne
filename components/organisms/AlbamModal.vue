@@ -102,8 +102,8 @@ export default Vue.extend({
   margin: 10px 0;
 }
 .removeButton {
-  width: 80px;
-  height: 24px;
+  width: 100%;
+  height: 28px;
   font-size: 13px;
   color: #fff;
   background-color: $error-color;
