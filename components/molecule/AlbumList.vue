@@ -39,7 +39,7 @@ export default Vue.extend({
       }
       return (Object.values(
         (this.$store.state.photoStore as PhotoStore).albamPositions
-      ).filter((item) => !!item) as unknown) as {
+      ).filter((item) => typeof item !== 'undefined') as unknown) as {
         position: [number, number]
         value: string
       }[]

@@ -11,7 +11,7 @@
 
     <AlbumList />
     <div @click="openTab">
-      <AddButton v-if="albamImageCount < 5" :class="$style.addButton" />
+      <AddButton v-if="albamImageCount < 9" :class="$style.addButton" />
     </div>
 
     <portal to="tab">

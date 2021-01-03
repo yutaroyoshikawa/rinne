@@ -60,11 +60,7 @@
             scale="0.0001 0.0001 0.0001"
             :animation="{
               property: 'scale',
-              to:
-                !talkMode &&
-                removeImageKey !== `${item.position[0]},${item.position[1]}`
-                  ? '0.9 0.9 0.9'
-                  : '0.0001 0.0001 0.0001',
+              to: !talkMode ? '0.9 0.9 0.9' : '0.0001 0.0001 0.0001',
               easing: 'easeOutElastic',
               dur: 3000,
               delay: 300 * index - 1,
@@ -131,16 +127,9 @@ export default Vue.extend({
       'isPausedAr',
       'talkResponseText',
       'talkMode',
-      'removeImagePosition',
     ]),
     ...mapState(['closeSplash']),
     ...mapState('photoStore', ['albamPositions']),
-    removeImageKey(): string {
-      if (!this.removeImagePosition) {
-        return ''
-      }
-      return `${(this.removeImagePosition[0], this.removeImagePosition[1])}`
-    },
     renderImages(): {
       position: [number, number]
       src: string
