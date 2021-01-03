@@ -6,9 +6,11 @@
       @close="$emit('close')"
       @action="$emit('close')"
     >
-      <p :class="$style.albamDate">
-        {{ selectedPersonality ? selectedPersonality.date : '' }}
-      </p>
+      <div :class="$style.albamDateWrap">
+        <p :class="$style.albamDate">
+          {{ selectedPersonality ? selectedPersonality.date : '' }}
+        </p>
+      </div>
       <p :class="$style.modalMessage">
         {{ selectedPersonality ? selectedPersonality.comment : '' }}
       </p>
@@ -108,13 +110,16 @@ export default Vue.extend({
   font-size: 12px;
   text-align: center;
 }
+.albamDateWrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
 .albamDate {
   display: inline-block;
-  background-color: $primary-color;
-  color: #fff;
-  padding: 8px;
-  border-radius: 30px;
-  margin: 10px auto;
+  color: $primary-color;
+  font-size: 12px;
 }
 .removeButtonWrap {
   width: 100%;
