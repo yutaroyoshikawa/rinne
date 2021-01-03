@@ -6,7 +6,10 @@
       @close="$emit('close')"
       @action="$emit('close')"
     >
-      <p :class="$style.modalMessage">{{ selectedPersonalityComment }}</p>
+      <p :class="$style.albamDate">{{ selectedPersonality.date ?? '' }}</p>
+      <p :class="$style.modalMessage">
+        {{ selectedPersonality.comment ?? '' }}
+      </p>
       <div :class="$style.imageWrap">
         <PhotoListImage :src="$props.src" />
       </div>
@@ -35,6 +38,7 @@ import Vue from 'vue'
 import ActionModal from '@/components/molecule/actionModal.vue'
 import PhotoListImage from '@/components/atoms/PhotoListImage.vue'
 import personality from '@/assets/personality.json'
+import { ImageData } from '@/extentions/personality'
 
 type Data = {
   isShowRemoveModal: boolean
@@ -65,14 +69,14 @@ export default Vue.extend({
     }
   },
   computed: {
-    selectedPersonalityComment(): string {
+    selectedPersonality(): ImageData | undefined {
       const selected = personality.find(
         (item) => item.fileName === this.$props.src
       )
       if (selected) {
-        return selected.comment
+        return selected
       }
-      return ''
+      return undefined
     },
   },
   beforeDestroy() {
@@ -101,6 +105,14 @@ export default Vue.extend({
 .modalMessage {
   font-size: 12px;
   text-align: center;
+}
+.albamDate {
+  display: inline-block;
+  background-color: $primary-color;
+  color: #fff;
+  padding: 8px;
+  border-radius: 30px;
+  margin: 10px auto;
 }
 .removeButtonWrap {
   width: 100%;
