@@ -26,7 +26,7 @@ import { mapState } from 'vuex'
 import { ENABLE_DEVELOP_MODE } from '@/store/index'
 import HeaderTitle from '@/components/atoms/HeaderTitle.vue'
 import OverlayTab from '@/components/molecule/OverlayTab.vue'
-import ArAlbum from '@/components/organisms/ArAlbum.vue'
+import ArAlbum from '@/components/templates/ArAlbum.vue'
 import Splash from '@/components/templates/Splash.vue'
 
 export default Vue.extend({

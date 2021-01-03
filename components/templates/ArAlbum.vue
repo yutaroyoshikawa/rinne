@@ -1,33 +1,16 @@
 <template>
   <div>
-    <ActionModal
-      :show-action-modal="isOpenDetailsModal"
-      modal-title="くわしく"
+    <AlbamModal
+      v-if="selectedAlbamPosition"
+      :in="isOpenDetailsModal"
+      :src="
+        albamPositions[
+          `${selectedAlbamPosition[0]},${selectedAlbamPosition[1]}`
+        ].value
+      "
       @close="onCloseDetailsModal"
-      @action="onDeleteImage(selectedAlbamPosition)"
-    >
-      <template v-if="!!selectedAlbamPosition">
-        <p :class="$style.comment">
-          {{
-            selectedPersonalityComment(
-              albamPositions[
-                `${selectedAlbamPosition[0]},${selectedAlbamPosition[1]}`
-              ].value
-            )
-          }}
-        </p>
-        <img
-          :class="$style.detailsImage"
-          :src="`/img/${
-            albamPositions[
-              `${selectedAlbamPosition[0]},${selectedAlbamPosition[1]}`
-            ].value
-          }`"
-          alt="選択した写真"
-        />
-        <p>この写真を削除しますか？</p>
-      </template>
-    </ActionModal>
+      @remove-image="() => onDeleteImage(selectedAlbamPosition)"
+    />
     <ResponseTalk v-show="$props.in" id-name="response" />
     <div :class="[$style.wrap, { [$style.pausedAr]: isPausedAr }]">
       <OpacityTransition
@@ -62,9 +45,7 @@ import Vue from 'vue'
 import { mapState } from 'vuex'
 import { REMOVE_IMAGE } from '@/store/photoStore'
 import { LOADEDND_AFRAME, PAUSE_AR, PLAY_AR } from '@/store/ar'
-import ActionModal from '@/components/molecule/actionModal.vue'
 import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
-import personality from '@/assets/personality.json'
 import OpacityTransition from '@/components/atoms/transitions/OpacityTransition.vue'
 
 type Data = {
@@ -75,7 +56,7 @@ type Data = {
 export default Vue.extend({
   name: 'ArAlbum',
   components: {
-    ActionModal,
+    AlbamModal: () => import('@/components/organisms/AlbamModal.vue'),
     Ar: () => import('@/components/molecule/Ar.vue'),
     PresenAr: () => import('@/components/molecule/PresenAr.vue'),
     OpacityTransition,
@@ -141,13 +122,6 @@ export default Vue.extend({
     },
     onRealityError() {
       this.$store.commit(`ar/${LOADEDND_AFRAME}`)
-    },
-    selectedPersonalityComment(fileName: string): string {
-      const selected = personality.find((item) => item.fileName === fileName)
-      if (selected) {
-        return selected.comment
-      }
-      return ''
     },
   },
 })
