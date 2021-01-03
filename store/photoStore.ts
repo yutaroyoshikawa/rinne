@@ -50,6 +50,8 @@ const getPersonalitySum: (
   return calcedPersonality
 }
 
+const ignorePositions = ['2,0', '2,1']
+
 const getAlbamPositions: (
   imageSrcs: string[],
   currentPositions?: PhotoStore['albamPositions']
@@ -78,14 +80,25 @@ const getAlbamPositions: (
 
         if (
           !(`${columnPosition},${rowPosition}` in calcedPositions) ||
-          `${columnPosition},${rowPosition}` !== `2,0` ||
-          `${columnPosition},${rowPosition}` !== `2,1`
+          !ignorePositions.includes(`${columnPosition},${rowPosition}`)
         ) {
-          calcedPositions[`${columnPosition},${rowPosition}`] = {
-            position: [columnPosition, rowPosition],
-            value: src,
+          const isEvenColumn = columnPosition % 2 === 0
+          const isEvenRow = rowPosition % 2 === 0
+
+          if (isEvenColumn && !isEvenRow) {
+            calcedPositions[`${columnPosition},${rowPosition}`] = {
+              position: [columnPosition, rowPosition],
+              value: src,
+            }
+            break
           }
-          break
+          if (!isEvenColumn && isEvenRow) {
+            calcedPositions[`${columnPosition},${rowPosition}`] = {
+              position: [columnPosition, rowPosition],
+              value: src,
+            }
+            break
+          }
         }
       }
     }
