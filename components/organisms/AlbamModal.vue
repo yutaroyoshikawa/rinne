@@ -1,15 +1,19 @@
 <template>
   <div>
     <NotifyModal
-      :show-notify-modal="$props.in"
+      :show-notify-modal="!isShowRemoveModal && $props.in"
       modal-title="くわしく"
       @close="$emit('close')"
       @action="$emit('close')"
     >
       <p :class="$style.modalMessage">{{ selectedPersonalityComment }}</p>
-      <PhotoListImage :src="$props.src" />
+      <div :class="imageWrap">
+        <PhotoListImage :src="$props.src" />
+      </div>
       <div :class="$style.removeButtonWrap">
-        <button @click="onOpenRemoveModal">この写真を削除</button>
+        <button :class="$style.removeButton" @click="onOpenRemoveModal">
+          この写真を削除
+        </button>
       </div>
     </NotifyModal>
     <ActionModal
@@ -18,7 +22,9 @@
       @close="onCloseNotifyModal"
       @action="onRemoveImage"
     >
-      <PhotoListImage :src="$props.src" />
+      <div :class="imageWrap">
+        <PhotoListImage :src="$props.src" />
+      </div>
       <p :class="$style.modalMessage">こちらの写真を削除しますか？</p>
     </ActionModal>
   </div>
@@ -102,5 +108,9 @@ export default Vue.extend({
   color: #fff;
   background-color: $error-color;
   border-radius: 5px;
+}
+.imageWrap {
+  width: 140px;
+  height: 140px;
 }
 </style>
