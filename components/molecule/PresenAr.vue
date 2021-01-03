@@ -13,7 +13,7 @@
     >
       <a-assets ref="assets">
         <img
-          v-for="(item, index) in imageSrcs"
+          v-for="(item, index) in renderImages"
           :id="`renny${index}`"
           :key="`renny${index}`"
           :src="`/img/${item.value}`"
@@ -68,7 +68,7 @@
               :animation__2="{
                 property: 'position',
                 to: !talkMode
-                  ? `${item.position[0] - 2} ${item.position[1]} 3`
+                  ? `${item.position[0] - 2} ${item.position[1]} 0.4`
                   : '0.0001 0.0001 0.0001',
                 easing: 'easeOutElastic',
                 dur: 3000,
@@ -202,11 +202,10 @@ export default Vue.extend({
           if (talkMessageEl) {
             talkMessageEl.setAttribute(
               'position',
-              `${detail.position.x} ${detail.position.y + 3} ${
+              `${detail.position.x} ${detail.position.y + 6} ${
                 detail.position.z
               }`
             )
-            talkMessageEl.setAttribute('scale', detail.scale)
             talkMessageEl.setAttribute('rotate', detail.rotate)
           }
         }
@@ -215,11 +214,10 @@ export default Vue.extend({
           if (talkMessageEl) {
             talkMessageEl.setAttribute(
               'position',
-              `${detail.position.x} ${detail.position.y + 5.5} ${
+              `${detail.position.x} ${detail.position.y + 6} ${
                 detail.position.z
               }`
             )
-            talkMessageEl.setAttribute('scale', detail.scale)
             talkMessageEl.setAttribute('rotate', detail.rotate)
           }
         }
