@@ -112,5 +112,6 @@ export default Vue.extend({
 .imageWrap {
   width: 140px;
   height: 140px;
+  margin: 0 auto;
 }
 </style>
