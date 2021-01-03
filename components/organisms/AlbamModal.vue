@@ -86,6 +86,7 @@ export default Vue.extend({
     },
     onRemoveImage() {
       this.isShowRemoveModal = false
+      this.isRemoveImage = true
     },
     onOpenRemoveModal() {
       this.isShowRemoveModal = true
