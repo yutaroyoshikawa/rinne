@@ -83,6 +83,8 @@ export default Vue.extend({
 </script>
 
 <style module lang="scss">
+@import '@/assets/scss/variables.scss';
+
 .modalMessage {
   font-size: 12px;
   text-align: center;
@@ -92,5 +94,13 @@ export default Vue.extend({
   display: flex;
   justify-content: center;
   margin: 10px 0;
+}
+.removeButton {
+  width: 80px;
+  height: 24px;
+  font-size: 13px;
+  color: #fff;
+  background-color: $error-color;
+  border-radius: 5px;
 }
 </style>
