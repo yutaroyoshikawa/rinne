@@ -136,6 +136,9 @@ export default Vue.extend({
     ...mapState(['closeSplash']),
     ...mapState('photoStore', ['albamPositions']),
     removeImageKey(): string {
+      if (!this.removeImagePosition) {
+        return ''
+      }
       return `${(this.removeImagePosition[0], this.removeImagePosition[1])}`
     },
     renderImages(): {
