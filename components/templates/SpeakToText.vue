@@ -245,7 +245,7 @@ export default Vue.extend({
       return new Promise((resolve, reject) => {
         const requestData = {
           config: {
-            enableAutomaticPunctuation: true,
+            enableAutomaticPunctuation: false,
             encoding: 'LINEAR16',
             languageCode: 'ja-JP',
             model: 'default',
