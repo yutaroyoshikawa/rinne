@@ -63,7 +63,7 @@ export default Vue.extend({
 
 .wrap {
   padding: 40px 0 170px;
-  height: 100%;
+  min-height: 100%;
 }
 .numberWrap {
   text-align: center;
