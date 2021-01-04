@@ -1,63 +1,157 @@
 <template>
-  <div :class="$style.container">
-    <div :class="$style.links">
-      <p :class="$style.contentsTitle">page</p>
-      <ScaleTransition>
-        <NuxtLink to="presentation" :class="$style.pageLink">プレゼン</NuxtLink>
-      </ScaleTransition>
-      <NuxtLink to="cleanliness" :class="$style.pageLink">たいちょう</NuxtLink>
-      <NuxtLink to="photolist" :class="$style.pageLink">いちらん</NuxtLink>
-      <NuxtLink to="profile" :class="$style.pageLink">プロフィール</NuxtLink>
-      <NuxtLink to="locate" :class="$style.pageLink">いばしょ</NuxtLink>
-      <NuxtLink to="friend" :class="$style.pageLink">おともだち</NuxtLink>
-      <NuxtLink to="testpage" :class="$style.pageLink">テストページ</NuxtLink>
-    </div>
-    <div :class="$style.borderWrap">
-      <hr />
-    </div>
-    <p :class="$style.contentsTitle">component</p>
-    <div :class="$style.componentWrap">
-      <ListButton />
-      <CharacterCircle
-        :character-name="characterName"
-        :class="$style.characterCircle"
-      />
-    </div>
+  <div>
+    <NotifyModal
+      modal-title="エラー"
+      :show-notify-modal="isOpenErrorModal"
+      @close="onCloseErrorModal"
+      @action="onCloseErrorModal"
+    >
+      <p>{{ errorMessage }}</p>
+    </NotifyModal>
+
+    <template>
+      <Loading :in="closeSplash && !isLoadedAframe" />
+      <template v-if="closeSplash && isLoadedAframe">
+        <SpeakToText
+          :in="talkMode && isEnter"
+          @error="onError"
+          @cancel="onCancelSpeak"
+        />
+        <portal to="other">
+          <div :class="$style.talkWrap">
+            <TalkButton :in="!talkMode && isEnter" @click="onToggleTalkMode" />
+          </div>
+          <div :class="$style.menuWrap">
+            <IndexMenu :in="!talkMode && isEnter" />
+          </div>
+        </portal>
+      </template>
+    </template>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { PageTransitionState } from '@/extentions/pageTransitionState'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
-import ScaleTransition from '@/components/atoms/transitions/ScaleTransition.vue'
-import ListButton from '../components/atoms/listButton.vue'
-import CharacterCircle from '../components/atoms/characterCircle.vue'
+import {
+  ENABLE_PRESEN_MODE,
+  ENABLE_NOMAL_MODE,
+  ENABLE_TALK_MODE,
+  DISABLE_TALK_MODE,
+} from '@/store/ar'
+import { PageTransitionState } from '@/extentions/pageTransitionState'
+import Loading from '@/components/organisms/loading.vue'
+import IndexMenu from '@/components/molecule/IndexMenu.vue'
+import TalkButton from '@/components/atoms/TalkButton.vue'
+import NotifyModal from '@/components/molecule/notifyModal.vue'
+import { mapState } from 'vuex'
 
 type Data = {
-  characterName: string
+  isReadyReality: boolean
+  errorMessage?: any
+  isOpenErrorModal: boolean
+  isShowSpeakToText: boolean
 }
 
+let timer: ReturnType<typeof setTimeout>
+
 export default Vue.extend({
+  name: 'Top',
   components: {
-    ListButton,
-    CharacterCircle,
-    ScaleTransition,
+    Loading,
+    IndexMenu,
+    TalkButton,
+    SpeakToText: () => import('@/components/templates/SpeakToText.vue'),
+    NotifyModal,
   },
   data(): Data {
     return {
-      characterName: 'せいかく',
+      isReadyReality: false,
+      errorMessage: undefined,
+      isOpenErrorModal: false,
+      isShowSpeakToText: false,
     }
   },
   computed: {
-    isExiting() {
+    ...mapState('ar', ['isLoadedAframe', 'talkMode']),
+    ...mapState(['closeSplash']),
+    isEnter(): boolean {
       return (
-        this.$store.state.pageTransitionState === PageTransitionState.EXITING
+        this.$store.state.pageTransitionState === PageTransitionState.ENTERED ||
+        this.$store.state.pageTransitionState === PageTransitionState.ENTERING
       )
     },
   },
-  beforeCreate() {
+  watch: {
+    '$route.params'() {
+      const talkmodeQuery = this.$route.query.talkmode
+      if (!!talkmodeQuery && talkmodeQuery === '1') {
+        this.$store.commit(`ar/${ENABLE_TALK_MODE}`)
+      } else {
+        this.$store.commit(`ar/${DISABLE_TALK_MODE}`)
+      }
+    },
+  },
+  created() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, undefined)
+    const talkmodeQuery = this.$route.query.talkmode
+    if (talkmodeQuery && talkmodeQuery === '1') {
+      this.$store.commit(`ar/${ENABLE_TALK_MODE}`)
+      this.isShowSpeakToText = true
+    }
+  },
+  beforeCreate() {
+    if (typeof window !== 'undefined') {
+      const presenParam = this.$route.query.presen
+      if (presenParam || presenParam === '1') {
+        this.$store.commit(`ar/${ENABLE_PRESEN_MODE}`)
+      } else {
+        this.$store.commit(`ar/${ENABLE_NOMAL_MODE}`)
+      }
+    }
+  },
+  beforeDestroy() {
+    if (timer) {
+      clearTimeout(timer)
+    }
+  },
+  methods: {
+    onToggleTalkMode() {
+      timer = setTimeout(
+        () => (this.isShowSpeakToText = !this.isShowSpeakToText),
+        600
+      )
+    },
+    onRealityReady() {
+      this.isReadyReality = true
+    },
+    onRealityError(error: any) {
+      const message = this.getErrorMessage(error)
+      this.errorMessage = message
+      this.isOpenErrorModal = true
+    },
+    onCancelSpeak() {
+      this.$router.push('/')
+      this.onToggleTalkMode()
+    },
+    onError(error: Error) {
+      const message = this.getErrorMessage(error)
+      this.errorMessage = message
+      this.isOpenErrorModal = true
+    },
+    getErrorMessage(error: Error) {
+      switch (error.message) {
+        case 'no input audio data':
+          return '聞き取りに失敗しました。'
+        case 'No speech result':
+          return '聞き取りに失敗しました。'
+        default:
+          return '予期せぬエラーが発生しました。'
+      }
+    },
+    onCloseErrorModal() {
+      this.isOpenErrorModal = false
+    },
   },
 })
 </script>
@@ -65,50 +159,19 @@ export default Vue.extend({
 <style lang="scss" module>
 @import '@/assets/scss/variables.scss';
 
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  text-align: center;
-}
-.contentsTitle {
-  font-size: 1.5em;
-  color: $dark-base-color;
-  margin-bottom: 20px;
-}
-.links {
+.talkWrap {
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  top: 25px;
+  z-index: $top-menu-zindex;
 }
-.pageLink {
-  width: 200px;
-  padding: 10px 0;
-  border-radius: 30px;
-  display: inline-block;
-  margin: 0 auto 10px auto;
-  background-color: $secondary-color;
-  color: #fff;
-}
-.borderWrap {
-  margin: 50px 0;
-}
-.componentWrap {
-  display: flex;
-  flex-direction: column;
-}
-.characterCircle {
-  margin: 0 auto;
-}
-.scaleEnterActive {
-  transition: transform 0.6s cubic-bezier(0.89, -0.11, 0.07, 1.4);
-}
-.scaleLeaveActive {
-  transition: transform 0.6s cubic-bezier(0.77, -0.595, 0.6, 1.025);
-}
-.scaleEnter,
-.scaleLeaveTo {
-  transform: scale(0);
+
+.menuWrap {
+  width: 100%;
+  position: fixed;
+  bottom: 25px;
+  z-index: $top-menu-zindex;
 }
 </style>

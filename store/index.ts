@@ -6,6 +6,8 @@ export type RootState = {
   tabTitle: string
   pageTransitionState: PageTransitionState | null
   isOpenTab: boolean
+  developMode: boolean
+  closeSplash: boolean
 }
 
 // Mutations
@@ -13,6 +15,8 @@ const SET_HEADER_TITLE = 'SET_HEADER_TITLE'
 const SET_PAGE_TRANSITION_STATE = 'SET_PAGE_TRANSITION_STATE'
 export const OPEN_TAB = 'OPEN_TAB'
 export const CLOSE_TAB = 'CLOSE_TAB'
+export const ENABLE_DEVELOP_MODE = 'ENABLE_DEVELOP_MODE'
+export const CLOSE_SPLASH = 'CLOSE_SPLASH'
 
 // Actions
 export const CHANGE_HEADER_TITLE = 'CHANGE_HEADER_TITLE'
@@ -23,6 +27,8 @@ export const state = (): RootState => ({
   tabTitle: '',
   pageTransitionState: null,
   isOpenTab: false,
+  developMode: false,
+  closeSplash: false,
 })
 
 export const mutations: MutationTree<RootState> = {
@@ -41,6 +47,12 @@ export const mutations: MutationTree<RootState> = {
   },
   [CLOSE_TAB](state) {
     state.isOpenTab = false
+  },
+  [ENABLE_DEVELOP_MODE](state) {
+    state.developMode = true
+  },
+  [CLOSE_SPLASH](state) {
+    state.closeSplash = true
   },
 }
 

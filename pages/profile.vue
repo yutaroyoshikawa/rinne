@@ -13,11 +13,22 @@
     <div :class="$style.characterListWrap">
       <CharacterList />
     </div>
-    <ScaleTransition>
-      <div :class="$style.profileButtonWrap">
-        <ProfileButton :class="$style.profileButton" />
-      </div>
-    </ScaleTransition>
+    <div :class="$style.links">
+      <ScaleTransition>
+        <div :class="$style.profileButtonWrap">
+          <ProfileButton :class="$style.profileButton" src="/friend"
+            >おともだち</ProfileButton
+          >
+        </div>
+      </ScaleTransition>
+      <ScaleTransition>
+        <div :class="$style.profileButtonWrap">
+          <ProfileButton :class="$style.profileButton" src="/cleanliness"
+            >たいちょう</ProfileButton
+          >
+        </div>
+      </ScaleTransition>
+    </div>
   </div>
 </template>
 
@@ -25,6 +36,7 @@
 import Vue from 'vue'
 import { CHANGE_HEADER_TITLE } from '@/store/index'
 import ProfileText from '@/components/atoms/profileText.vue'
+import CharacterList from '@/components/molecule/CharacterList.vue'
 import CharacterImageCircle from '@/components/atoms/characterImageCircle.vue'
 import ScaleTransition from '@/components/atoms/transitions/ScaleTransition.vue'
 import ProfileButton from '../components/atoms/ProfileButton.vue'
@@ -33,6 +45,7 @@ export default Vue.extend({
   components: {
     ProfileButton,
     ProfileText,
+    CharacterList,
     CharacterImageCircle,
     ScaleTransition,
   },
@@ -58,6 +71,7 @@ export default Vue.extend({
   margin-bottom: 30px;
 }
 .profileButtonWrap {
+  width: 120px;
   margin-top: 20px;
   padding-bottom: 20px;
 }
@@ -65,5 +79,10 @@ export default Vue.extend({
   width: 340px;
   height: 180px;
   margin: 0 auto;
+}
+.links {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 }
 </style>

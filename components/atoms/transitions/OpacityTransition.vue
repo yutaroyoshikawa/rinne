@@ -9,10 +9,11 @@
     :appear="true"
   >
     <div
-      v-if="!isExiting && $props.in"
+      v-show="!isExiting && $props.in"
       :style="{
         '--delay': `${$props.delay}ms`,
         '--duration': `${$props.duration}ms`,
+        height: '100%',
       }"
     >
       <slot />
@@ -39,12 +40,19 @@ export default Vue.extend({
       type: Boolean,
       default: true,
     },
+    enablePageTransition: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
-    isExiting() {
+    isExiting(): boolean {
+      if (!this.$props.enablePageTransition) {
+        return false
+      }
+
       return (
-        (this.$store as any).state.pageTransitionState ===
-        PageTransitionState.EXITING
+        this.$store.state.pageTransitionState === PageTransitionState.EXITING
       )
     },
   },
