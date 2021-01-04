@@ -99,18 +99,7 @@
     }
   },
   {
-    "input": "てんき",
-    "response": {
-      "wise": "ほんとうにいい天気だね",
-      "easygoing": "いい天気だね〜〜",
-      "naughty": "すっごい天気がいいねっ",
-      "energetic": "空が青いねー！！",
-      "kindness": "いい天気だねー",
-      "affable": "いい天気だねー"
-    }
-  },
-  {
-    "input": "はれ",
+    "input": "晴れ",
     "response": {
       "wise": "晴れてるね",
       "easygoing": "晴れてるね〜〜",
@@ -121,7 +110,7 @@
     }
   },
   {
-    "input": "くもり",
+    "input": "曇り",
     "response": {
       "wise": "くもってるね",
       "easygoing": "くもりだね〜〜",
@@ -132,7 +121,7 @@
     }
   },
   {
-    "input": "あめ",
+    "input": "雨",
     "response": {
       "wise": "雨ふってるね",
       "easygoing": "雨だね〜〜",
@@ -143,7 +132,7 @@
     }
   },
   {
-    "input": "ゆき",
+    "input": "雪",
     "response": {
       "wise": "雪ふってるね",
       "easygoing": "雪だね〜〜",
@@ -154,7 +143,18 @@
     }
   },
   {
-    "input": "はる",
+    "input": "天気",
+    "response": {
+      "wise": "ほんとうにいい天気だね",
+      "easygoing": "いい天気だね〜〜",
+      "naughty": "すっごい天気がいいねっ",
+      "energetic": "空が青いねー！！",
+      "kindness": "いい天気だねー",
+      "affable": "いい天気だねー"
+    }
+  },
+  {
+    "input": "春",
     "response": {
       "wise": "桜の季節だね",
       "easygoing": "春だね〜〜",
@@ -165,7 +165,7 @@
     }
   },
   {
-    "input": "なつ",
+    "input": "夏",
     "response": {
       "wise": "暑い季節だね",
       "easygoing": "夏だね〜〜",
@@ -176,7 +176,7 @@
     }
   },
   {
-    "input": "あき",
+    "input": "秋",
     "response": {
       "wise": "過ごしやすい季節だよね",
       "easygoing": "秋だね〜〜",
@@ -187,7 +187,7 @@
     }
   },
   {
-    "input": "ふゆ",
+    "input": "冬",
     "response": {
       "wise": "寒い季節だね",
       "easygoing": "冬だね〜〜",
@@ -198,7 +198,7 @@
     }
   },
   {
-    "input": "あつい",
+    "input": "暑い",
     "response": {
       "wise": "今日は暑いね",
       "easygoing": "暑いね〜〜",
@@ -209,7 +209,7 @@
     }
   },
   {
-    "input": "さむい",
+    "input": "寒い",
     "response": {
       "wise": "今日は寒いね",
       "easygoing": "寒いね〜〜",
@@ -253,7 +253,7 @@
     }
   },
   {
-    "input": "えいが",
+    "input": "映画",
     "response": {
       "wise": "なんの映画みる？",
       "easygoing": "今日の映画はなにかな〜〜",
@@ -264,7 +264,7 @@
     }
   },
   {
-    "input": "ひるね",
+    "input": "昼寝",
     "response": {
       "wise": "おひるねしようか",
       "easygoing": "ねむいね〜〜",
@@ -286,7 +286,7 @@
     }
   },
   {
-    "input": "すき",
+    "input": "好き",
     "response": {
       "wise": "だいすきだよ",
       "easygoing": "だいすき〜〜",
@@ -297,7 +297,7 @@
     }
   },
   {
-    "input": "きらい",
+    "input": "嫌い",
     "response": {
       "wise": "そうなの？かなしいな",
       "easygoing": "だいすきなのに〜〜",
