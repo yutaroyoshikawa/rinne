@@ -5,6 +5,7 @@
     :enter-active-class="$style.enterActive"
     :leave-active-class="$style.leaveActive"
     :duration="600"
+    appear
   >
     <div v-if="$props.in" :class="$style.wrap">
       <portal to="other">

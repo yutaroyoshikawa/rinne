@@ -4,6 +4,7 @@
     :leave-to-class="$style.modalLeaveTo"
     :enter-active-class="$style.modalEnterActive"
     :leave-active-class="$style.modalLeaveActive"
+    appear
   >
     <div v-if="showNotifyModal" :class="$style.modalMask">
       <div :class="$style.modalWrapper" @click.self="$emit('close')">
