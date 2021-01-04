@@ -13,7 +13,9 @@
 
       <ArAlbum :in="isIndexPage" />
 
-      <div :class="$style.pageWrap">
+      <div
+        :class="[$style.pageWrap, { [$style.notIndexPageWrap]: !isIndexPage }]"
+      >
         <Nuxt />
       </div>
     </div>
@@ -121,11 +123,13 @@ export default Vue.extend({
 .pageWrap {
   position: absolute;
   z-index: 99;
-  width: 100%;
-  height: 100%;
   max-height: calc(100% - #{$header-height});
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+}
+
+.notIndexPageWrap {
+  height: 100%;
 }
 
 .loaderPortal {
