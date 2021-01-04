@@ -36,18 +36,6 @@ export default Vue.extend({
   computed: {
     ...mapState(['closeSplash']),
   },
-  watch: {
-    isLoadingMap() {
-      if (!this.isLoadingMap) {
-        setTimeout(() => {
-          const map = this.map
-          if (map) {
-            map.resize()
-          }
-        }, 50)
-      }
-    },
-  },
   mounted() {
     this.isAllowedToGeolocation()
   },
@@ -97,6 +85,9 @@ export default Vue.extend({
             if (event.tile.state === 'loaded') {
               this.isLoadingMap = false
               this.$store.commit(`map/${LOADEDND_MAP}`)
+              setTimeout(() => {
+                map.resize()
+              }, 50)
             }
           }
         })
