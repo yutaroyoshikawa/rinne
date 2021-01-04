@@ -123,6 +123,7 @@ export default Vue.extend({
 .pageWrap {
   position: absolute;
   z-index: 99;
+  width: 100%;
   max-height: calc(100% - #{$header-height});
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
