@@ -1,7 +1,8 @@
 import { MutationTree, ActionTree } from 'vuex'
 import talkSample from '@/assets/talkSample.json'
 import { PersonalityItem } from '@/extentions/personality'
-import { RootState } from './'
+import { GET_MAX_PERSONALITY, REMOVE_IMAGE } from '@/store/photoStore'
+import { RootState } from '@/store/index'
 
 type ArStore = {
   isLoadedAframe: boolean
@@ -10,6 +11,7 @@ type ArStore = {
   talkResponseText?: String
   isLoadingTalkResponseText: boolean
   talkMode: boolean
+  removeImagePosition?: [number, number]
 }
 
 export const LOADEDND_AFRAME = 'LOADEDND_AFRAME'
@@ -28,14 +30,21 @@ export const DISABLE_TALK_MODE = 'DISABLE_TALK_MODE'
 
 export const REQUEST_TALK_TEXT = 'REQUEST_TALK_TEXT'
 
-export const state = (): ArStore => ({
-  isLoadedAframe: false,
-  isPausedAr: false,
-  talkResponseText: undefined,
-  isLoadingTalkResponseText: false,
-  arMode: undefined,
-  talkMode: false,
-})
+export const SET_REMOVE_IMAGE_POSITION = 'SET_REMOVE_IMAGE_POSITION'
+
+export const REQUEST_REMOVE_ALBAM_IMAGE = 'REQUEST_REMOVE_ALBAM_IMAGE'
+
+export const state = (): ArStore => {
+  return {
+    isLoadedAframe: false,
+    isPausedAr: false,
+    talkResponseText: undefined,
+    isLoadingTalkResponseText: false,
+    arMode: undefined,
+    talkMode: false,
+    removeImagePosition: undefined,
+  }
+}
 
 export const mutations: MutationTree<ArStore> = {
   [LOADEDND_AFRAME](state) {
@@ -68,6 +77,12 @@ export const mutations: MutationTree<ArStore> = {
   [DISABLE_TALK_MODE](state) {
     state.talkMode = false
   },
+  [SET_REMOVE_IMAGE_POSITION](
+    state,
+    imagePosition: ArStore['removeImagePosition']
+  ) {
+    state.removeImagePosition = imagePosition
+  },
 }
 
 export const actions: ActionTree<ArStore, RootState> = {
@@ -80,7 +95,7 @@ export const actions: ActionTree<ArStore, RootState> = {
           const store = this.app.store
           if (store) {
             const maxPerfonality = store.getters[
-              'photoStore/getMaxPersonality'
+              `photoStore/${GET_MAX_PERSONALITY}`
             ] as PersonalityItem
             const resTalkText = talk.response[maxPerfonality]
             commit(SET_TALK_RESPONSE, resTalkText)
@@ -91,5 +106,15 @@ export const actions: ActionTree<ArStore, RootState> = {
         commit(SET_IS_LOADING_TALK_RESPONSE_TEXT, false)
       }, 3000)
     }
+  },
+  [REQUEST_REMOVE_ALBAM_IMAGE](
+    { commit },
+    albamImagePosition: NonNullable<ArStore['removeImagePosition']>
+  ) {
+    commit(SET_REMOVE_IMAGE_POSITION, albamImagePosition)
+    setTimeout(() => {
+      this.commit(`photoStore/${REMOVE_IMAGE}`, albamImagePosition)
+      commit(SET_REMOVE_IMAGE_POSITION, undefined)
+    }, 1200)
   },
 }

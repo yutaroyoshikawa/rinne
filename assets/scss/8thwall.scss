@@ -1,20 +1,34 @@
-#requestingCameraPermissions {
-  color: black;
-  background-color: white;
-}
-#requestingCameraIcon {
-  /* This changes the image from white to black */
-  filter: invert(1);
-}
+@import '@/assets/scss/variables.scss';
 
 .prompt-box-8w {
-  background-color: white;
-  color: #0f0;
+  background-color: $dark-base-color !important;
+  font-family: 'Kosugi Maru', 'Source Sans Pro', -apple-system,
+  BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  animation-name: scaleIn;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.89, -0.11, 0.07, 1.4);
+  animation-fill-mode: forwards;
+  top: 58% !important;
+  left: 14% !important;
 }
+
 .prompt-button-8w {
-  background-color: #00f;
+  border-radius: 30px !important;
+  width: 98px !important;
+  border: solid 1px $dark-base-color !important;
+  background-color: #fff !important;
+  color: $dark-base-color !important;
 }
 
 .button-primary-8w {
-  background-color: #7611b7;
+  background-color: $secondary-color !important;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
 }

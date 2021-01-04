@@ -1,6 +1,12 @@
 <template>
   <div :class="$style.app">
     <div :class="[$style.mainContainer, { [$style.openTab]: isOpenTab }]">
+      <Splash />
+
+      <portal-target name="other" />
+
+      <portal-target name="loader" :class="$style.loaderPortal" />
+
       <header :class="$style.header">
         <HeaderTitle />
       </header>
@@ -21,7 +27,8 @@ import { mapState } from 'vuex'
 import { ENABLE_DEVELOP_MODE } from '@/store/index'
 import HeaderTitle from '@/components/atoms/HeaderTitle.vue'
 import OverlayTab from '@/components/molecule/OverlayTab.vue'
-import ArAlbum from '@/components/organisms/ArAlbum.vue'
+import ArAlbum from '@/components/templates/ArAlbum.vue'
+import Splash from '@/components/templates/Splash.vue'
 
 export default Vue.extend({
   name: 'App',
@@ -29,6 +36,7 @@ export default Vue.extend({
     HeaderTitle,
     OverlayTab,
     ArAlbum,
+    Splash,
   },
   computed: {
     ...mapState(['isOpenTab']),
@@ -41,6 +49,36 @@ export default Vue.extend({
     if (developModeQuery && developModeQuery === '1') {
       this.$store.commit(ENABLE_DEVELOP_MODE)
     }
+  },
+  mounted() {
+    let inDom = false
+    const observer = new MutationObserver(() => {
+      const arPromptRef = document.querySelector('.prompt-box-8w')
+      if (arPromptRef instanceof Element) {
+        if (!inDom) {
+          const arPromptPRef = document.querySelector('.prompt-box-8w p')
+          const arPromptButtonRef = document.querySelector('.prompt-button-8w')
+          const arPromptPrimaryRef = document.querySelector(
+            '.button-primary-8w'
+          )
+          if (arPromptPRef) {
+            arPromptPRef.innerHTML =
+              'サービスの利用にはモーションセンサーのアクセス許可が必要です'
+          }
+          if (arPromptButtonRef) {
+            arPromptButtonRef.innerHTML = 'NG'
+          }
+          if (arPromptPrimaryRef) {
+            arPromptPrimaryRef.innerHTML = 'OK'
+          }
+        }
+        inDom = true
+      } else if (inDom) {
+        inDom = false
+        observer.disconnect()
+      }
+    })
+    observer.observe(document.body, { childList: true })
   },
 })
 </script>
@@ -87,5 +125,10 @@ export default Vue.extend({
   max-height: calc(100% - #{$header-height});
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+}
+
+.loaderPortal {
+  height: 100%;
+  width: 100%;
 }
 </style>

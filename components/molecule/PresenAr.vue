@@ -1,59 +1,55 @@
 <template>
-  <div>
-    <ResponseTalk id-name="response" />
-    <client-only>
-      <a-scene
-        ref="scene"
-        presenar
-        update-html
-        xrextras-gesture-detector
-        xrextras-almost-there
-        xrextras-runtime-error
-        xrextras-tap-recenter
-        renderer="colorManagement: true"
-        xrweb="disableWorldTracking: true"
-      >
-        <a-assets ref="assets">
-          <img
-            v-for="(imageSrc, index) in imageSrcs"
-            :id="`renny${index}`"
-            :key="`renny${index}`"
-            :src="`/img/${imageSrc}`"
-          />
-        </a-assets>
-        <a-camera
-          position="0 4 10"
-          raycaster="objects: .cantap"
-          cursor="fuse: false; rayOrigin: mouse;"
-        >
-        </a-camera>
+  <client-only>
+    <a-scene
+      ref="scene"
+      presenar
+      update-html
+      xrextras-gesture-detector
+      xrextras-almost-there
+      xrextras-runtime-error
+      xrextras-tap-recenter
+      renderer="colorManagement: true"
+      xrweb="disableWorldTracking: true"
+    >
+      <a-assets ref="assets">
+        <img
+          v-for="(item, index) in renderImages"
+          :id="`renny${index}`"
+          :key="`renny${index}`"
+          :src="`/img/${item.value}`"
+        />
+      </a-assets>
+      <a-camera
+        position="0 4 10"
+        raycaster="objects: .cantap"
+        cursor="fuse: false; rayOrigin: mouse;"
+      />
 
-        <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
+      <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
 
-        <a-light type="ambient" intensity="0.7"></a-light>
+      <a-light type="ambient" intensity="0.7"></a-light>
 
-        <a-entity xrextras-named-image-target="name: renny">
+      <template v-if="closeSplash">
+        <a-entity
+          ref="talkMessage"
+          geometry="primitive: plane; width: 2; height: 0.4"
+          scale="1 1 1"
+          :animation="{
+            property: 'scale',
+            to: talkMode ? '1 1 1' : '0.0001 0.0001 0.0001',
+            easing: 'easeOutElastic',
+            dur: 3000,
+            delay: 300 * index - 1,
+          }"
+          material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.0"
+          position="0 5 0"
+        />
+
+        <a-entity xrextras-named-image-target="name: rinne-device">
           <template v-if="isFoundXrimage">
-            <a-entity
-              geometry="primitive: plane; width: 2; height: 0.4"
-              scale="0.0001 0.0001 0.0001"
-              material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.5"
-              position="0 3.5 0"
-              :animation="{
-                property: 'scale',
-                to:
-                  (isLoadingTalkResponseText || talkResponseText) && talkMode
-                    ? '1 1 1'
-                    : '0.0001 0.0001 0.0001',
-                easing: 'easeOutElastic',
-                dur: 5000,
-              }"
-            />
-
-            <!-- <a-plane width="1" height="1" material="src:#talkElement"></a-plane> -->
             <a-image
-              v-for="(imageSrc, index) in imageSrcs"
-              :key="imageSrc"
+              v-for="(item, index) in renderImages"
+              :key="`${item.value}${index}`"
               class="cantap"
               name="rennyImage"
               :src="`#renny${index}`"
@@ -67,24 +63,26 @@
               }"
               :animation__2="{
                 property: 'position',
-                to: !talkMode ? `${index - 1} 0 0.3` : '0.0001 0.0001 0.0001',
+                to: !talkMode
+                  ? `${item.position[0] - 2} ${item.position[1]} 0.4`
+                  : '0.0001 0.0001 0.0001',
                 easing: 'easeOutElastic',
                 dur: 3000,
                 delay: 300 * index,
               }"
-              @click="$emit('select-image', index)"
+              @click="$emit('select-image', item.position)"
             />
           </template>
         </a-entity>
-      </a-scene>
-    </client-only>
-  </div>
+      </template>
+    </a-scene>
+  </client-only>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
-import ResponseTalk from '@/components/atoms/ResponseTalk.vue'
+import { PhotoStore } from '@/store/photoStore'
 
 Vue.config.ignoredElements = [
   'a-scene',
@@ -99,20 +97,16 @@ Vue.config.ignoredElements = [
   'a-light',
   'a-image',
   'a-plane',
-  'a-gltf-model',
+  'a-obj-model',
 ]
 
 type Data = {
   isFoundXrimage: boolean
   isTapImage: boolean
-  images: string[]
 }
 
 export default Vue.extend({
   name: 'PresenAr',
-  components: {
-    ResponseTalk,
-  },
   props: {
     in: {
       type: Boolean,
@@ -123,11 +117,9 @@ export default Vue.extend({
     return {
       isFoundXrimage: false,
       isTapImage: false,
-      images: ['renny', 'renny2', 'renny3'],
     }
   },
   computed: {
-    ...mapState('photoStore', ['imageSrcs']),
     ...mapState('ar', [
       'isLoadedPresentationAframe',
       'isLoadingTalkResponseText',
@@ -135,6 +127,22 @@ export default Vue.extend({
       'talkResponseText',
       'talkMode',
     ]),
+    ...mapState(['closeSplash']),
+    renderImages(): {
+      position: [number, number]
+      src: string
+    }[] {
+      const arraied = Object.values(
+        (this.$store.state.photoStore as PhotoStore).albamPositions
+      )
+
+      return (arraied.filter(
+        (item) => typeof item !== 'undefined'
+      ) as unknown) as {
+        position: [number, number]
+        src: string
+      }[]
+    },
   },
   watch: {
     in: {
@@ -164,7 +172,7 @@ export default Vue.extend({
         }
         if (value) {
           sceneRef.pause()
-        } else {
+        } else if (XR8.isPaused()) {
           sceneRef.play()
         }
       },
@@ -172,18 +180,35 @@ export default Vue.extend({
   },
   mounted() {
     this.initAframe()
-    // const talkEl = this.$refs.responseTalk as HTMLDivElement
-    // const canvas = await html2canvas(talkEl)
-    // canvas.id = 'talkElement'
-    // const assetsEl = this.$refs.assets as HTMLElement
-    // assetsEl.appendChild(canvas)
   },
   methods: {
     initAframe() {
       const AFRAME = window.AFRAME
       if (AFRAME) {
-        const onXrimagefound: (ctx: any) => void = () => {
+        const onXrimagefound: (ctx: any) => void = ({ detail }) => {
           this.isFoundXrimage = true
+          const talkMessageEl = this.$refs.talkMessage as Element | undefined
+          if (talkMessageEl) {
+            talkMessageEl.setAttribute(
+              'position',
+              `${detail.position.x} ${detail.position.y + 6} ${
+                detail.position.z
+              }`
+            )
+            talkMessageEl.setAttribute('rotate', detail.rotate)
+          }
+        }
+        const onXrimageupdated: (ctx: any) => void = ({ detail }) => {
+          const talkMessageEl = this.$refs.talkMessage as Element | undefined
+          if (talkMessageEl) {
+            talkMessageEl.setAttribute(
+              'position',
+              `${detail.position.x} ${detail.position.y + 6} ${
+                detail.position.z
+              }`
+            )
+            talkMessageEl.setAttribute('rotate', detail.rotate)
+          }
         }
         const onXrimagelost: (ctx: any) => void = () => {
           this.isFoundXrimage = false
@@ -197,6 +222,7 @@ export default Vue.extend({
         AFRAME.registerComponent('presenar', {
           init() {
             this.el.sceneEl.addEventListener('xrimagefound', onXrimagefound)
+            this.el.sceneEl.addEventListener('xrimageupdated', onXrimageupdated)
             this.el.sceneEl.addEventListener('xrimagelost', onXrimagelost)
             this.el.sceneEl.addEventListener('realityready', onRealityReady)
             this.el.sceneEl.addEventListener('realityerror', onRealityError)

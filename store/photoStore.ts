@@ -3,10 +3,16 @@ import personality from '@/assets/personality.json'
 import { Personality, PersonalityItem } from '@/extentions/personality'
 import { RootState } from '.'
 
-type PhotoStore = {
-  imageSrcs: string[]
-  count: number
+export type PhotoStore = {
   personality: Personality
+  albamPositions: {
+    [key: string]:
+      | {
+          position: [number, number]
+          value: string
+        }
+      | undefined
+  }
 }
 
 // Mutations
@@ -44,33 +50,92 @@ const getPersonalitySum: (
   return calcedPersonality
 }
 
+const ignorePositions = ['2,0', '2,1']
+
+const getAlbamPositions: (
+  imageSrcs: string[],
+  currentPositions?: PhotoStore['albamPositions']
+) => PhotoStore['albamPositions'] = (imageSrcs, currentPositions = {}) => {
+  const calcedPositions = Object.assign({}, currentPositions)
+  imageSrcs.forEach((src) => {
+    if (!('2,2' in calcedPositions)) {
+      calcedPositions['2,2'] = {
+        position: [2, 2],
+        value: src,
+      }
+    } else if (!('1,0' in calcedPositions)) {
+      calcedPositions['1,0'] = {
+        position: [1, 0],
+        value: src,
+      }
+    } else if (!('3,0' in calcedPositions)) {
+      calcedPositions['3,0'] = {
+        position: [3, 0],
+        value: src,
+      }
+    } else {
+      while (true) {
+        const columnPosition = Math.floor(Math.random() * 5)
+        const rowPosition = Math.floor(Math.random() * 4)
+
+        if (
+          !(`${columnPosition},${rowPosition}` in calcedPositions) ||
+          !ignorePositions.includes(`${columnPosition},${rowPosition}`)
+        ) {
+          const isEvenColumn = columnPosition % 2 === 0
+          const isEvenRow = rowPosition % 2 === 0
+
+          if (isEvenColumn && !isEvenRow) {
+            calcedPositions[`${columnPosition},${rowPosition}`] = {
+              position: [columnPosition, rowPosition],
+              value: src,
+            }
+            break
+          }
+          if (!isEvenColumn && isEvenRow) {
+            calcedPositions[`${columnPosition},${rowPosition}`] = {
+              position: [columnPosition, rowPosition],
+              value: src,
+            }
+            break
+          }
+        }
+      }
+    }
+  })
+  return calcedPositions
+}
+
 export const state = (): PhotoStore => {
   const imageSrcs = ['3.jpg', '4.jpg', '10.jpg']
   const personalitySum = getPersonalitySum(imageSrcs)
+  const albamPositions = getAlbamPositions(imageSrcs)
 
   return {
-    imageSrcs,
-    count: 3,
     personality: personalitySum,
+    albamPositions,
   }
 }
 
 export const mutations: MutationTree<PhotoStore> = {
   [ADD_IMAGES](state, imageSrcs: string[]) {
-    state.imageSrcs = state.imageSrcs.concat(imageSrcs)
-    state.count = state.imageSrcs.length
     const personalitySum = getPersonalitySum(imageSrcs, state.personality)
+    const calcedPositions = getAlbamPositions(imageSrcs, state.albamPositions)
     state.personality = personalitySum
+    state.albamPositions = calcedPositions
   },
-  [REMOVE_IMAGE](state, imageIndex: number) {
-    state.imageSrcs = state.imageSrcs.filter(
-      (_imageSrc, index) => index !== imageIndex
-    )
-    state.count = state.imageSrcs.length
-
+  [REMOVE_IMAGE](state, albamPosition: [number, number]) {
     const currentPersonality = Object.assign({}, state.personality)
+    const selectedAlbamImage =
+      state.albamPositions[`${albamPosition[0]},${albamPosition[1]}`]
+    if (!selectedAlbamImage) {
+      return
+    }
+    if (!selectedAlbamImage) {
+      return
+    }
     const selectedPersonality = personality.find(
-      (item) => item.fileName === state.imageSrcs[imageIndex]
+      (item) => item.fileName === selectedAlbamImage.value
     )
     if (selectedPersonality) {
       currentPersonality.wise -= selectedPersonality.personality.wise
@@ -81,14 +146,14 @@ export const mutations: MutationTree<PhotoStore> = {
       currentPersonality.affable -= selectedPersonality.personality.affable
     }
     state.personality = currentPersonality
+    state.albamPositions[`${albamPosition[0]},${albamPosition[1]}`] = undefined
   },
 }
+
+export const GET_MAX_PERSONALITY = 'GET_MAX_PERSONALITY'
+
 export const getters: GetterTree<PhotoStore, RootState> = {
-  GetImageCount(state) {
-    mutations.IMAGES_COUNT(state)
-    return state.count
-  },
-  getMaxPersonality(state): PersonalityItem {
+  [GET_MAX_PERSONALITY](state): PersonalityItem {
     let maxItem: PersonalityItem = 'wise'
     const personality = state.personality
 

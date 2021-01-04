@@ -10,21 +10,21 @@
     </NotifyModal>
 
     <template>
-      <template v-if="!isLoadedAframe">
-        <Loading />
-      </template>
-      <template v-else>
-        <div :class="$style.talkWrap">
-          <TalkButton :in="!talkMode && isEnter" />
-        </div>
+      <Loading :in="closeSplash && !isLoadedAframe" />
+      <template v-if="closeSplash && isLoadedAframe">
         <SpeakToText
           :in="talkMode && isEnter"
           @error="onError"
           @cancel="onCancelSpeak"
         />
-        <div :class="$style.menuWrap">
-          <IndexMenu :in="!talkMode && isEnter" />
-        </div>
+        <portal to="other">
+          <div :class="$style.talkWrap">
+            <TalkButton :in="!talkMode && isEnter" @click="onToggleTalkMode" />
+          </div>
+          <div :class="$style.menuWrap">
+            <IndexMenu :in="!talkMode && isEnter" />
+          </div>
+        </portal>
       </template>
     </template>
   </div>
@@ -43,7 +43,6 @@ import { PageTransitionState } from '@/extentions/pageTransitionState'
 import Loading from '@/components/organisms/loading.vue'
 import IndexMenu from '@/components/molecule/IndexMenu.vue'
 import TalkButton from '@/components/atoms/TalkButton.vue'
-import SpeakToText from '@/components/templates/SpeakToText.vue'
 import NotifyModal from '@/components/molecule/notifyModal.vue'
 import { mapState } from 'vuex'
 
@@ -51,7 +50,10 @@ type Data = {
   isReadyReality: boolean
   errorMessage?: any
   isOpenErrorModal: boolean
+  isShowSpeakToText: boolean
 }
+
+let timer: ReturnType<typeof setTimeout>
 
 export default Vue.extend({
   name: 'Top',
@@ -59,7 +61,7 @@ export default Vue.extend({
     Loading,
     IndexMenu,
     TalkButton,
-    SpeakToText,
+    SpeakToText: () => import('@/components/templates/SpeakToText.vue'),
     NotifyModal,
   },
   data(): Data {
@@ -67,10 +69,12 @@ export default Vue.extend({
       isReadyReality: false,
       errorMessage: undefined,
       isOpenErrorModal: false,
+      isShowSpeakToText: false,
     }
   },
   computed: {
     ...mapState('ar', ['isLoadedAframe', 'talkMode']),
+    ...mapState(['closeSplash']),
     isEnter(): boolean {
       return (
         this.$store.state.pageTransitionState === PageTransitionState.ENTERED ||
@@ -93,6 +97,7 @@ export default Vue.extend({
     const talkmodeQuery = this.$route.query.talkmode
     if (talkmodeQuery && talkmodeQuery === '1') {
       this.$store.commit(`ar/${ENABLE_TALK_MODE}`)
+      this.isShowSpeakToText = true
     }
   },
   beforeCreate() {
@@ -105,7 +110,18 @@ export default Vue.extend({
       }
     }
   },
+  beforeDestroy() {
+    if (timer) {
+      clearTimeout(timer)
+    }
+  },
   methods: {
+    onToggleTalkMode() {
+      timer = setTimeout(
+        () => (this.isShowSpeakToText = !this.isShowSpeakToText),
+        600
+      )
+    },
     onRealityReady() {
       this.isReadyReality = true
     },
@@ -116,6 +132,7 @@ export default Vue.extend({
     },
     onCancelSpeak() {
       this.$router.push('/')
+      this.onToggleTalkMode()
     },
     onError(error: Error) {
       const message = this.getErrorMessage(error)
@@ -140,19 +157,21 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" module>
+@import '@/assets/scss/variables.scss';
+
 .talkWrap {
   width: 100%;
   display: flex;
   justify-content: center;
   position: fixed;
-  top: 80px;
-  z-index: 10;
+  top: 25px;
+  z-index: $top-menu-zindex;
 }
 
 .menuWrap {
   width: 100%;
   position: fixed;
-  bottom: 50px;
-  z-index: 10;
+  bottom: 25px;
+  z-index: $top-menu-zindex;
 }
 </style>

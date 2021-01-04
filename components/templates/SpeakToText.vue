@@ -7,9 +7,13 @@
     :duration="600"
   >
     <div v-if="$props.in" :class="$style.wrap">
-      <div :class="$style.cancelWrap">
-        <SpeakCancelButton @click="onCancel" />
-      </div>
+      <portal to="other">
+        <div :class="$style.cancelWrap">
+          <ScaleTransition :in="$props.in">
+            <SpeakCancelButton @click="onCancel" />
+          </ScaleTransition>
+        </div>
+      </portal>
       <div :class="$style.waveWrap">
         <SpeakWave :active="isLoading || isRecording" :in="true" />
       </div>
@@ -40,6 +44,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import ScaleTransition from '@/components/atoms/transitions/ScaleTransition.vue'
 import MicButton from '@/components/atoms/MicButton.vue'
 import { REQUEST_TALK_TEXT, PAUSE_AR, PLAY_AR } from '@/store/ar'
 import SpeakCancelButton from '@/components/atoms/SpeakCancelButton.vue'
@@ -52,6 +57,7 @@ type Data = {
   speechTextResult?: string
   isLoading: boolean
   isRecording: boolean
+  mediaStream?: MediaStream
 }
 
 let chunks: any[] | undefined = []
@@ -65,6 +71,7 @@ export default Vue.extend({
     SpeakWave,
     LetterAnim,
     OpacityTransition,
+    ScaleTransition,
   },
   props: {
     in: {
@@ -78,6 +85,7 @@ export default Vue.extend({
       speechTextResult: undefined,
       isLoading: false,
       isRecording: false,
+      mediaStream: undefined,
     }
   },
   computed: {
@@ -115,53 +123,94 @@ export default Vue.extend({
       this.initRecorder()
     }
   },
+  mounted() {
+    document.addEventListener('visibilitychange', this.onChangeVisibilityState)
+  },
   beforeDestroy() {
     chunks = undefined
     this.$store.dispatch(`ar/${REQUEST_TALK_TEXT}`, '')
+    document.removeEventListener(
+      'visibilitychange',
+      this.onChangeVisibilityState
+    )
+    this.disableMediadevice()
   },
   methods: {
+    onChangeVisibilityState(): void {
+      const visibility = document.visibilityState
+      if (visibility === 'hidden') {
+        this.disableMediadevice()
+      } else {
+        this.initRecorder()
+      }
+    },
+    disableMediadevice() {
+      const stream = this.mediaStream
+      if (stream) {
+        stream.getAudioTracks().forEach((track) => track.stop())
+        if (this.recorder) {
+          this.recorder.removeEventListener(
+            'dataavailable',
+            this.onDataAvailable
+          )
+          this.recorder.removeEventListener('stop', this.onStopRecorder)
+          this.recorder = undefined
+          this.mediaStream = undefined
+          chunks = []
+          this.isLoading = false
+        }
+      }
+    },
     onCancel() {
       const params = new URLSearchParams(location.search.slice(1))
       params.delete('talkmode')
       this.$router.replace(`${location.pathname}?${params}`)
     },
     initRecorder() {
-      import('audio-recorder-polyfill').then((module) => {
-        navigator.mediaDevices
-          .getUserMedia({
-            audio: true,
-          })
-          .then((stream) => {
-            const AudioRecorder = module.default
-            const recorder = new AudioRecorder(stream, {
-              audioBitsPerSecond: AUDIO_SAMPLE_RATE,
-              mimeType: 'audio/wav',
+      if (
+        typeof this.recorder === 'undefined' &&
+        typeof this.mediaStream === 'undefined'
+      ) {
+        import('audio-recorder-polyfill').then((module) => {
+          navigator.mediaDevices
+            .getUserMedia({
+              audio: true,
             })
-            recorder.addEventListener('dataavailable', (event: any) => {
-              if (event.data.size > 0 && chunks) {
-                chunks.push(event.data)
-              }
+            .then((stream) => {
+              this.mediaStream = stream
+              const AudioRecorder = module.default
+              const recorder = new AudioRecorder(stream, {
+                audioBitsPerSecond: AUDIO_SAMPLE_RATE,
+                mimeType: 'audio/wav',
+              })
+              recorder.addEventListener('dataavailable', this.onDataAvailable)
+              recorder.addEventListener('stop', this.onStopRecorder)
+              this.recorder = recorder
             })
-            recorder.addEventListener('stop', async () => {
-              // 集音したものから音声データを作成する
-              try {
-                const base64 = await this.encodeBase64(new Blob(chunks))
-                const speechText = await this.getSpeechText(base64)
-                this.speechTextResult = speechText
-              } catch (error) {
-                this.$emit('error', error)
-              } finally {
-                chunks = []
-                this.isLoading = false
-                this.$store.commit(`ar/${PLAY_AR}`)
-              }
+            .catch((error) => {
+              this.$emit('error', error)
             })
-            this.recorder = recorder
-          })
-          .catch((error) => {
-            this.$emit('error', error)
-          })
-      })
+        })
+      }
+    },
+    onDataAvailable(event: any) {
+      if (event.data.size > 0 && chunks) {
+        chunks.push(event.data)
+      }
+    },
+    async onStopRecorder() {
+      // 集音したものから音声データを作成する
+      try {
+        const base64 = await this.encodeBase64(new Blob(chunks))
+        const speechText = await this.getSpeechText(base64)
+        this.speechTextResult = speechText
+      } catch (error) {
+        this.$emit('error', error)
+      } finally {
+        chunks = []
+        this.isLoading = false
+        this.$store.commit(`ar/${PLAY_AR}`)
+      }
     },
     encodeBase64(blobData: Blob): Promise<string> {
       return new Promise((resolve, reject) => {
@@ -254,13 +303,13 @@ export default Vue.extend({
 
 .cancelWrap {
   position: absolute;
-  top: 80px;
+  top: 25px;
   width: 100%;
   height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 110;
+  z-index: $top-menu-zindex;
 }
 
 .micWrap {
