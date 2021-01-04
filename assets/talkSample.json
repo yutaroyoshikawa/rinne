@@ -108,5 +108,27 @@
       "kindness": "いい天気だねー",
       "affable": "いい天気だねー"
     }
+  },
+  {
+    "input": "名前",
+    "response": {
+      "wise": "レニーと申します。",
+      "easygoing": "レニーだよぉー",
+      "naughty": "レニー",
+      "energetic": "レニーだよっ！！！",
+      "kindness": "レニーっていうよ！",
+      "affable": "レニー！！！！"
+    }
+  },
+  {
+    "input": "ヤッホー",
+    "response": {
+      "wise": "こんにちは！",
+      "easygoing": "やっほぉ",
+      "naughty": "やっほー！",
+      "energetic": "ヤッホイ！！！",
+      "kindness": "やぁ！",
+      "affable": "やっほーーーー！！！！"
+    }
   }
 ]
