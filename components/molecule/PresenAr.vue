@@ -34,7 +34,6 @@
           ref="talkMessage"
           geometry="primitive: plane; width: 2; height: 0.4"
           scale="1 1 1"
-          rotation="0 0 90"
           :animation="{
             property: 'scale',
             to: talkMode ? '1 1 1' : '0.0001 0.0001 0.0001',
@@ -195,7 +194,7 @@ export default Vue.extend({
                 detail.position.z
               }`
             )
-            // talkMessageEl.setAttribute('rotate', detail.rotate)
+            talkMessageEl.setAttribute('rotation', detail.rotation)
           }
         }
         const onXrimageupdated: (ctx: any) => void = ({ detail }) => {
@@ -207,7 +206,7 @@ export default Vue.extend({
                 detail.position.z
               }`
             )
-            // talkMessageEl.setAttribute('rotate', detail.rotate)
+            talkMessageEl.setAttribute('rotation', detail.rotation)
           }
         }
         const onXrimagelost: (ctx: any) => void = () => {
