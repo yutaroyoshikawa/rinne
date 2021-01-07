@@ -194,7 +194,7 @@ export default Vue.extend({
                 detail.position.z
               }`
             )
-            talkMessageEl.setAttribute('rotate', detail.rotate)
+            // talkMessageEl.setAttribute('rotate', detail.rotate)
           }
         }
         const onXrimageupdated: (ctx: any) => void = ({ detail }) => {
@@ -206,7 +206,7 @@ export default Vue.extend({
                 detail.position.z
               }`
             )
-            talkMessageEl.setAttribute('rotate', detail.rotate)
+            // talkMessageEl.setAttribute('rotate', detail.rotate)
           }
         }
         const onXrimagelost: (ctx: any) => void = () => {
