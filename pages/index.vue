@@ -111,7 +111,7 @@ export default Vue.extend({
   },
   beforeCreate() {
     if (typeof window !== 'undefined') {
-      const presenParam = this.$route.query.presen
+      const presenParam = this.$route.query.presentation
       if (presenParam || presenParam === '1') {
         this.$store.commit(`ar/${ENABLE_PRESEN_MODE}`)
       } else {
