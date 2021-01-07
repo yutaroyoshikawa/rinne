@@ -39,7 +39,6 @@
             to: talkMode ? '1 1 1' : '0.0001 0.0001 0.0001',
             easing: 'easeOutElastic',
             dur: 3000,
-            delay: 300 * index - 1,
           }"
           material="shader: html; target: #response; transparent: true; ratio: width; fps: 1.0"
           position="0 5 0"
