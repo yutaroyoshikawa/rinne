@@ -34,6 +34,7 @@
           ref="talkMessage"
           geometry="primitive: plane; width: 2; height: 0.4"
           scale="1 1 1"
+          rotate="0 0 90"
           :animation="{
             property: 'scale',
             to: talkMode ? '1 1 1' : '0.0001 0.0001 0.0001',
