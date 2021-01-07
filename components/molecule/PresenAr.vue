@@ -196,9 +196,7 @@ export default Vue.extend({
             )
             talkMessageEl.setAttribute(
               'rotation',
-              `${detail.rotation.x} ${detail.rotation.y} ${
-                detail.rotation.z + 90
-              }`
+              `${detail.rotation.x} ${detail.rotation.y} ${detail.rotation.z}`
             )
           }
         }
@@ -213,9 +211,7 @@ export default Vue.extend({
             )
             talkMessageEl.setAttribute(
               'rotation',
-              `${detail.rotation.x} ${detail.rotation.y} ${
-                detail.rotation.z + 90
-              }`
+              `${detail.rotation.x} ${detail.rotation.y} ${detail.rotation.z}`
             )
           }
         }
