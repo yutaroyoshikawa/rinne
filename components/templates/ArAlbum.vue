@@ -3,11 +3,7 @@
     <AlbamModal
       v-if="selectedAlbamPosition"
       :in="isOpenDetailsModal"
-      :src="
-        albamPositions[
-          `${selectedAlbamPosition[0]},${selectedAlbamPosition[1]}`
-        ].value
-      "
+      :src="removeAlbamSrc"
       @close="onCloseDetailsModal"
       @remove-image="() => onDeleteImage(selectedAlbamPosition)"
     />
@@ -81,6 +77,21 @@ export default Vue.extend({
   computed: {
     ...mapState('ar', ['arMode', 'isPausedAr']),
     ...mapState('photoStore', ['albamPositions']),
+    removeAlbamSrc(): string {
+      if (typeof this.selectedAlbamPosition === 'undefined') {
+        return ''
+      }
+      if (
+        `${this.selectedAlbamPosition[0]},${this.selectedAlbamPosition[1]}` in
+        this.albamPositions
+      ) {
+        return this.albamPositions[
+          `${this.selectedAlbamPosition[0]},${this.selectedAlbamPosition[1]}`
+        ].value
+      } else {
+        return ''
+      }
+    },
   },
   mounted() {
     document.addEventListener('visibilitychange', this.disableMediadevices)
@@ -112,6 +123,7 @@ export default Vue.extend({
     },
     onCloseDetailsModal() {
       this.isOpenDetailsModal = false
+      setTimeout(() => (this.selectedAlbamPosition = undefined), 600)
     },
     onDeleteImage(albamPosition: [number, number]) {
       this.$store.dispatch(`ar/${REQUEST_REMOVE_ALBAM_IMAGE}`, albamPosition)

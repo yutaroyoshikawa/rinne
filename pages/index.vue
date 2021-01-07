@@ -13,13 +13,14 @@
       <Loading :in="closeSplash && !isLoadedAframe" />
       <template v-if="closeSplash && isLoadedAframe">
         <SpeakToText
+          v-if="isMountSpeakToText"
           :in="talkMode && isEnter"
           @error="onError"
           @cancel="onCancelSpeak"
         />
         <portal to="other">
           <div :class="$style.talkWrap">
-            <TalkButton :in="!talkMode && isEnter" @click="onToggleTalkMode" />
+            <TalkButton :in="!talkMode && isEnter" />
           </div>
           <div :class="$style.menuWrap">
             <IndexMenu :in="!talkMode && isEnter" />
@@ -48,9 +49,9 @@ import { mapState } from 'vuex'
 
 type Data = {
   isReadyReality: boolean
+  isMountSpeakToText: boolean
   errorMessage?: any
   isOpenErrorModal: boolean
-  isShowSpeakToText: boolean
 }
 
 let timer: ReturnType<typeof setTimeout>
@@ -67,9 +68,9 @@ export default Vue.extend({
   data(): Data {
     return {
       isReadyReality: false,
+      isMountSpeakToText: false,
       errorMessage: undefined,
       isOpenErrorModal: false,
-      isShowSpeakToText: false,
     }
   },
   computed: {
@@ -91,13 +92,21 @@ export default Vue.extend({
         this.$store.commit(`ar/${DISABLE_TALK_MODE}`)
       }
     },
+    talkMode(value) {
+      if (value) {
+        this.isMountSpeakToText = true
+      } else {
+        timer = setTimeout(() => {
+          this.isMountSpeakToText = false
+        }, 600)
+      }
+    },
   },
   created() {
     this.$store.dispatch(CHANGE_HEADER_TITLE, undefined)
     const talkmodeQuery = this.$route.query.talkmode
     if (talkmodeQuery && talkmodeQuery === '1') {
       this.$store.commit(`ar/${ENABLE_TALK_MODE}`)
-      this.isShowSpeakToText = true
     }
   },
   beforeCreate() {
@@ -116,12 +125,6 @@ export default Vue.extend({
     }
   },
   methods: {
-    onToggleTalkMode() {
-      timer = setTimeout(
-        () => (this.isShowSpeakToText = !this.isShowSpeakToText),
-        600
-      )
-    },
     onRealityReady() {
       this.isReadyReality = true
     },
@@ -132,7 +135,6 @@ export default Vue.extend({
     },
     onCancelSpeak() {
       this.$router.push('/')
-      this.onToggleTalkMode()
     },
     onError(error: Error) {
       const message = this.getErrorMessage(error)

@@ -328,5 +328,60 @@
       "kindness": "いっしょにがんばってたべよー",
       "affable": "いっしょにがんばろー"
     }
+  },
+  {
+    "input": "名前",
+    "response": {
+      "wise": "レニーと申します。",
+      "easygoing": "レニーだよぉー",
+      "naughty": "レニー",
+      "energetic": "レニーだよっ！！！",
+      "kindness": "レニーっていうよ！",
+      "affable": "レニー！！！！"
+    }
+  },
+  {
+    "input": "ヤッホー",
+    "response": {
+      "wise": "こんにちは！",
+      "easygoing": "やっほぉ",
+      "naughty": "やっほー！",
+      "energetic": "ヤッホイ！！！",
+      "kindness": "やぁ！",
+      "affable": "やっほーーーー！！！！"
+    }
+  },
+  {
+    "input": "気分",
+    "response": {
+      "wise": "良好です。",
+      "easygoing": "いい感じだよー",
+      "naughty": "すっごいいい感じ！",
+      "energetic": "めっちゃいい感じ！！！",
+      "kindness": "すごくいいよ！",
+      "affable": "すごくいい気分！"
+    }
+  },
+  {
+    "input": "どう",
+    "response": {
+      "wise": "それはとても興味深いですね",
+      "easygoing": "まぁなんとかなるよー",
+      "naughty": "うんとね！いいと思う！！",
+      "energetic": "めっちゃいいね！！！",
+      "kindness": "きっと大丈夫だよ！",
+      "affable": "そういうこともあるよね"
+    }
+  },
+  {
+    "input": "鬼滅",
+    "response": {
+      "wise": "全集中！",
+      "easygoing": "雷の呼吸！",
+      "naughty": "炎の呼吸！",
+      "energetic": "水の呼吸！",
+      "kindness": "花の呼吸！",
+      "affable": "岩の呼吸！"
+    }
   }
 ]

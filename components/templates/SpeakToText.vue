@@ -5,6 +5,7 @@
     :enter-active-class="$style.enterActive"
     :leave-active-class="$style.leaveActive"
     :duration="600"
+    appear
   >
     <div v-if="$props.in" :class="$style.wrap">
       <portal to="other">
@@ -245,7 +246,7 @@ export default Vue.extend({
       return new Promise((resolve, reject) => {
         const requestData = {
           config: {
-            enableAutomaticPunctuation: true,
+            enableAutomaticPunctuation: false,
             encoding: 'LINEAR16',
             languageCode: 'ja-JP',
             model: 'default',
