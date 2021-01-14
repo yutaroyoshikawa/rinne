@@ -2,7 +2,10 @@
   <div :class="$style.wrap">
     <img :class="$style.img" src="/img/logo.svg" />
     <h1 :class="$style.text">{{ error.statusCode }}</h1>
-    <h2 :class="$style.sentence">ページが見つからないよ！</h2>
+    <h2 v-if="error.statusCode === 404" :class="$style.sentence">
+      ページが見つからないよ！
+    </h2>
+    <h2 v-else :class="$style.sentence">問題が起きました！</h2>
   </div>
 </template>
 <script lang="ts">
